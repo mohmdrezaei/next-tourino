@@ -3,11 +3,11 @@
     "baseUrl": ".",
     "paths": {
       "@/public/*": ["public/*"],
-      "@/pages/*": ["components/pages/*"],
-      "@/templates/*": ["components/templates/*"],
-      "@/modules/*": ["components/ui/modules/*"],
-      "@/elements/*": ["components/ui/elements/*"],
-      "@/widgets/*": ["components/ui/widgets/*"]
+      "@/pages/*": ["src/components/pages/*"],
+      "@/templates/*": ["src/components/templates/*"],
+      "@/modules/*": ["src/components/ui/modules/*"],
+      "@/elements/*": ["src/components/ui/elements/*"],
+      "@/widgets/*": ["src/components/ui/widgets/*"]
     }
   }
 }
