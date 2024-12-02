@@ -4,10 +4,10 @@ import React from "react";
 
 function Header() {
   return (
-    <header className="flex   mt-4 items-center justify-between">
-        <div className="flex items-center gap-20">
-         <Image width="146" height="44" src="/images/Torino.svg" />
-    
+    <header className="flex mt-5 items-center justify-between">
+      <div className="flex items-center gap-20">
+        <Image width="146" height="44" src="/images/Torino.svg" />
+
         <ul className="flex gap-16">
           <li>
             <Link href="/">صفحه اصلی</Link>
@@ -22,8 +22,10 @@ function Header() {
             <Link href="/"> تماس با ما</Link>
           </li>
         </ul>
-        </div>
-      <button className="border-[#28A745]  text-[#28A745] border-2 py-1 px-4 pb-2 rounded text-center"> ورود | ثبت نام</button>
+      </div>
+      <button className=" border-2 border-[#28A745] text-[#28A745] py-1 px-4 pb-2 rounded text-center">
+        ورود | ثبت نام
+      </button>
     </header>
   );
 }

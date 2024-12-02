@@ -1,5 +1,10 @@
 import Layout from "src/components/layouts/Layout";
 import "./globals.css";
+import { yekan } from "@/utils/fonts";
+
+
+
+
 
 export const metadata = {
   title: "Next Tourino",
@@ -9,7 +14,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="fa" dir="rtl">
-      <body className=""><Layout>{children}</Layout></body>
+      <body className={yekan.className}>
+        <Layout>{children}</Layout>
+      </body>
     </html>
   );
 }

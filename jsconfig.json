@@ -3,11 +3,13 @@
     "baseUrl": ".",
     "paths": {
       "@/public/*": ["public/*"],
+      "@/app/*": ["src/app/*"],
       "@/pages/*": ["src/components/pages/*"],
       "@/templates/*": ["src/components/templates/*"],
       "@/modules/*": ["src/components/ui/modules/*"],
       "@/elements/*": ["src/components/ui/elements/*"],
-      "@/widgets/*": ["src/components/ui/widgets/*"]
+      "@/widgets/*": ["src/components/ui/widgets/*"],
+      "@/utils/*": ["src/utils/*"],
     }
   }
 }
