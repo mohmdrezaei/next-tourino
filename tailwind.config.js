@@ -1,3 +1,4 @@
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -7,10 +8,14 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        yekan: ['Yekan', 'sans-serif'],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+     
     },
   },
   plugins: [],
