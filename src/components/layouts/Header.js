@@ -1,6 +1,8 @@
-"use client"
+"use client";
 
+import CheckOtpForm from "@/widgets/CheckOtpForm";
 import Modal from "@/widgets/Modal";
+import SendOtpForm from "@/widgets/sendOtpForm";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -9,6 +11,9 @@ import { TbUserFilled } from "react-icons/tb";
 
 function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [step, setStep] = useState(1);
+  const [mobile , setMobile] = useState("")
+  const [code , setCode] = useState("")
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -46,14 +51,8 @@ function Header() {
         ورود | ثبت نام
       </button>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-       <div className="px-7">
-       <h2 className="text-[28px] font-[500] leading-10 text-center"  > ورود به تورنیو</h2>
-        <div className="mt-12">
-        <label for="large-input" class="block mb-2 text-base font-light text-gray-900 dark:text-white">شماره موبایل خود را وارد کنید </label>
-        <input type="text" placeholder="4253***0912" id="large-input" class="block w-full p-4 text-gray-900 border h-[54px] border-[#00000040] rounded-md"/>
-        <button className="block w-full bg-[#28A745] rounded-md mt-10 py-4 text-white">ارسال کد تایید</button>
-        </div>
-       </div>
+        {step === 1 && <SendOtpForm />  }
+        {step === 2 && <CheckOtpForm /> }
       </Modal>
     </header>
   );
