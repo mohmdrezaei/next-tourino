@@ -2,7 +2,7 @@
 
 import CheckOtpForm from "@/widgets/CheckOtpForm";
 import Modal from "@/widgets/Modal";
-import SendOtpForm from "@/widgets/sendOtpForm";
+import SendOtpForm from "@/widgets/SendOtpForm";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -12,8 +12,8 @@ import { TbUserFilled } from "react-icons/tb";
 function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [step, setStep] = useState(1);
-  const [mobile , setMobile] = useState("")
-  const [code , setCode] = useState("")
+  const [mobile, setMobile] = useState("");
+  const [code, setCode] = useState("");
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -51,8 +51,14 @@ function Header() {
         ورود | ثبت نام
       </button>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        {step === 1 && <SendOtpForm />  }
-        {step === 2 && <CheckOtpForm /> }
+        {step === 1 && (
+          <SendOtpForm
+            setStep={setStep}
+            mobile={mobile}
+            setMobile={setMobile}
+          />
+        )}
+        {step === 2 && <CheckOtpForm />}
       </Modal>
     </header>
   );
