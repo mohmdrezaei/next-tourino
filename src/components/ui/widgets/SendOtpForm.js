@@ -4,8 +4,10 @@ function SendOtpForm({ mobile, setMobile, setStep }) {
   const submitHandler = async(event) => {
     event.preventDefault();
     if(mobile.length !== 11) return
-
-    
+    const {res ,  error} = await sendOtp(mobile)
+    if(res) setStep(2)
+    if(error) console.log(error.message)
+    console.log({res,  error})
   };
   return (
     <form onSubmit={submitHandler}>
