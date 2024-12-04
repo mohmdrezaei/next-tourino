@@ -50,7 +50,7 @@ function Header() {
         <TbUserFilled />
         ورود | ثبت نام
       </button>
-      <Modal isOpen={isModalOpen} >
+      <Modal isOpen={isModalOpen}>
         {step === 1 && (
           <SendOtpForm
             setStep={setStep}
@@ -59,7 +59,15 @@ function Header() {
             onClose={closeModal}
           />
         )}
-        {step === 2 && <CheckOtpForm code={code} setCode={setCode} mobile={mobile} setStep={setStep}/>}
+        {step === 2 && (
+          <CheckOtpForm
+            code={code}
+            setCode={setCode}
+            mobile={mobile}
+            setStep={setStep}
+            closeModal={closeModal}
+          />
+        )}
       </Modal>
     </header>
   );

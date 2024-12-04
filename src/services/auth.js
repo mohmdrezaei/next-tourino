@@ -11,7 +11,7 @@ const sendOtp =async(mobile)=>{
 
 const checkOtp =async (mobile , code)=>{
    try {
-      const res = await api.post("/auth/cheyhuck-otp", {mobile , code})
+      const res = await api.post("/auth/check-otp", {mobile , code})
       return {res}
    } catch (error) {
       return {error}

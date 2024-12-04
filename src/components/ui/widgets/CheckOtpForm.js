@@ -2,7 +2,8 @@ import OtpInput from "react18-input-otp";
 import { checkOtp } from "@/services/auth";
 
 import { GoArrowLeft } from "react-icons/go";
-function CheckOtpForm({ code, setCode, mobile, setStep }) {
+import { setCookie } from "@/utils/cookie";
+function CheckOtpForm({ code, setCode, mobile, setStep, closeModal }) {
   const changeHandler = (otp) => {
     setCode(otp);
   };
@@ -11,12 +12,13 @@ function CheckOtpForm({ code, setCode, mobile, setStep }) {
 
     if (code.length !== 6) return;
 
-    const { res, error } = await checkOtp(mobile , code);
+    const { res, error } = await checkOtp(mobile, code);
     if (res) {
-      console.log(res);
+      setCookie(res.data);
+      closeModal();
     }
     if (error) console.log(error.message);
-  }
+  };
   return (
     <>
       <div className="flex justify-end">
