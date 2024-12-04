@@ -9,4 +9,13 @@ const sendOtp =async(mobile)=>{
  }
 }
 
-export {sendOtp}
+const checkOtp =async (mobile , code)=>{
+   try {
+      const res = await api.post("/auth/cheyhuck-otp", {mobile , code})
+      return {res}
+   } catch (error) {
+      return {error}
+   }
+}
+
+export {sendOtp , checkOtp}

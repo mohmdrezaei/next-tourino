@@ -1,18 +1,29 @@
 import OtpInput from "react18-input-otp";
+import { checkOtp } from "@/services/auth";
 
 import { GoArrowLeft } from "react-icons/go";
 function CheckOtpForm({ code, setCode, mobile, setStep }) {
   const changeHandler = (otp) => {
     setCode(otp);
   };
-  const submitHandler = (e)=>{
-    e.preventDefault()
-    console.log({code , mobile})
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    if (code.length !== 6) return;
+
+    const { res, error } = await checkOtp(mobile , code);
+    if (res) {
+      console.log(res);
+    }
+    if (error) console.log(error.message);
   }
   return (
     <>
       <div className="flex justify-end">
-        <button className="inline-block text-[#171717] text-xl " onClick={()=>setStep(1)}>
+        <button
+          className="inline-block text-[#171717] text-xl "
+          onClick={() => setStep(1)}
+        >
           <GoArrowLeft />
         </button>
       </div>
@@ -29,29 +40,28 @@ function CheckOtpForm({ code, setCode, mobile, setStep }) {
               کد تایید به شماره {mobile} ارسال شد
             </label>
             <div className="flex justify-center mt-4" dir="ltr">
-            <OtpInput
-              value={code}
-              onChange={changeHandler}
-              numInputs={6}
-              
-              inputStyle={{
-                border: "1px solid #00000040",
-                borderRadius: "4px",
-                width: "40px",
-                height: "40px",
-                margin: "0 5px",
-                textAlign: "center",
-                fontSize: "16px",
-                direction: "ltr",
-                justifyContent: "center",
-              }}
-              focusStyle={{
-                border: '1px solid #009eca', 
-                outline: 'none', 
-              }}
-            />
+              <OtpInput
+                value={code}
+                onChange={changeHandler}
+                numInputs={6}
+                inputStyle={{
+                  border: "1px solid #00000040",
+                  borderRadius: "4px",
+                  width: "40px",
+                  height: "40px",
+                  margin: "0 5px",
+                  textAlign: "center",
+                  fontSize: "16px",
+                }}
+                focusStyle={{
+                  border: "1px solid #009eca",
+                  outline: "none",
+                }}
+              />
             </div>
-            <p className="mt-6 text-xs font-light">1:25 ثانبه تا ارسال مجدد کد</p>
+            <p className="mt-6 text-xs font-light">
+              1:25 ثانبه تا ارسال مجدد کد
+            </p>
             <button
               type="submit"
               className="block w-full bg-[#28A745] rounded-md mt-5 py-4 text-white"
