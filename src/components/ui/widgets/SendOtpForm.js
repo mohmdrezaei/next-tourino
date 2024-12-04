@@ -1,6 +1,6 @@
 import { sendOtp } from "@/services/auth";
 
-function SendOtpForm({ mobile, setMobile, setStep }) {
+function SendOtpForm({ mobile, setMobile, setStep ,onClose }) {
   const submitHandler = async(event) => {
     event.preventDefault();
     if(mobile.length !== 11) return
@@ -10,11 +10,17 @@ function SendOtpForm({ mobile, setMobile, setStep }) {
     console.log({res,  error})
   };
   return (
-    <form onSubmit={submitHandler}>
+    <>
+      <div className="flex justify-end">
+        <button onClick={onClose} className="inline-block text-[#171717] text-xl ">
+          &times;
+        </button>
+        </div>
       <div className="px-7">
         <h2 className="text-[28px] font-[500] leading-10 text-center">
           ورود به تورنیو
         </h2>
+          <form onSubmit={submitHandler}>
         <div className="mt-12">
           <label
             for="large-input"
@@ -37,8 +43,10 @@ function SendOtpForm({ mobile, setMobile, setStep }) {
             ارسال کد تایید
           </button>
         </div>
+        </form>
       </div>
-    </form>
+      </>
+   
   );
 }
 
