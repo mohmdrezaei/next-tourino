@@ -1,11 +1,12 @@
 "use client";
 
+import { getCookie } from "@/utils/cookie";
 import CheckOtpForm from "@/widgets/CheckOtpForm";
 import Modal from "@/widgets/Modal";
 import SendOtpForm from "@/widgets/SendOtpForm";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { TbUserFilled } from "react-icons/tb";
 
@@ -14,9 +15,20 @@ function Header() {
   const [step, setStep] = useState(1);
   const [mobile, setMobile] = useState("");
   const [code, setCode] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const token = getCookie("accessToken");
+
+  useEffect(() => {
+      if (token) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+  }, [token]);
 
   const openModal = () => {
     setIsModalOpen(true);
+    setMobile("");
   };
 
   const closeModal = () => {
@@ -43,13 +55,17 @@ function Header() {
           </li>
         </ul>
       </div>
-      <button
-        onClick={openModal}
-        className=" border-2 border-[#28A745] text-[#28A745] py-1 px-4  rounded-lg text-center flex items-center gap-2"
-      >
-        <TbUserFilled />
-        ورود | ثبت نام
-      </button>
+      {isLoggedIn ? (
+        <button>اطلاعات کاربری</button>
+      ) : (
+        <button
+          onClick={openModal}
+          className=" border-2 border-[#28A745] text-[#28A745] py-1 px-4  rounded-lg text-center flex items-center gap-2"
+        >
+          <TbUserFilled />
+          ورود | ثبت نام
+        </button>
+      )}
       <Modal isOpen={isModalOpen}>
         {step === 1 && (
           <SendOtpForm
@@ -66,6 +82,7 @@ function Header() {
             mobile={mobile}
             setStep={setStep}
             closeModal={closeModal}
+            setIsLoggedIn={setIsLoggedIn}
           />
         )}
       </Modal>

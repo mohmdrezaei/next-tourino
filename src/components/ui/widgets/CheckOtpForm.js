@@ -3,7 +3,7 @@ import { checkOtp } from "@/services/auth";
 
 import { GoArrowLeft } from "react-icons/go";
 import { setCookie } from "@/utils/cookie";
-function CheckOtpForm({ code, setCode, mobile, setStep, closeModal }) {
+function CheckOtpForm({ code, setCode, mobile, setStep, closeModal, setIsLoggedIn }) {
   const changeHandler = (otp) => {
     setCode(otp);
   };
@@ -16,6 +16,7 @@ function CheckOtpForm({ code, setCode, mobile, setStep, closeModal }) {
     if (res) {
       setCookie(res.data);
       closeModal();
+      setIsLoggedIn(true)
     }
     if (error) console.log(error.message);
   };

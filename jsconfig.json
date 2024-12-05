@@ -11,6 +11,7 @@
       "@/widgets/*": ["src/components/ui/widgets/*"],
       "@/utils/*": ["src/utils/*"],
       "@/services/*": ["src/services/*"],
+      "@/configs/*": ["src/configs/*"],
     }
   }
 }
