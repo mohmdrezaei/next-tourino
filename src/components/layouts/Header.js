@@ -16,7 +16,7 @@ function Header() {
   const [mobile, setMobile] = useState("");
   const [code, setCode] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const token = getCookie("accessToken");
+  const token = getCookie("accessToken"); 
 
   useEffect(() => {
       if (token) {
