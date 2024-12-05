@@ -1,12 +1,13 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import api from "@/configs/api";
 import { getCookie } from "@/utils/cookie";
 import CheckOtpForm from "@/widgets/CheckOtpForm";
 import Modal from "@/widgets/Modal";
 import SendOtpForm from "@/widgets/SendOtpForm";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 import { TbUserFilled } from "react-icons/tb";
 
@@ -16,6 +17,7 @@ function Header() {
   const [mobile, setMobile] = useState("");
   const [code, setCode] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user , setUser] =useState({})
   const token = getCookie("accessToken"); 
 
   useEffect(() => {
@@ -25,6 +27,18 @@ function Header() {
         setIsLoggedIn(false);
       }
   }, [token]);
+
+  useEffect(()=> {
+    const userInfo = async()=>{
+      try {
+        const res = await api.get("/user/profile") 
+        setUser(res.data)
+    } catch (error) {
+        console.log(error)
+    }
+    }
+    userInfo()
+   },[user])
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -56,7 +70,10 @@ function Header() {
         </ul>
       </div>
       {isLoggedIn ? (
-        <button>اطلاعات کاربری</button>
+        <button className="flex  gap-2 text-[#28A745] ">
+          <TbUserFilled />
+          {user.mobile}
+         </button>
       ) : (
         <button
           onClick={openModal}
