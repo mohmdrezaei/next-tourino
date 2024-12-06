@@ -3,7 +3,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="mt-96">
+    <footer className="mt-96 w-[1200px] mx-auto">
       <div className="flex items-center mt-96 border-b-[1px] border-gray-300 pb-5">
         <div className="flex items-center ">
           <Image src="/images/Group16.svg" width="121" height="109" />
