@@ -1,7 +1,7 @@
 import Layout from "src/components/layouts/Layout";
 import "./globals.css";
 import { yekan } from "@/utils/fonts";
-
+import { Toaster } from "react-hot-toast";
 import TanstackQueryProvider from "src/components/partials/provider/TanstackQueryProvider";
 
 
@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
         <TanstackQueryProvider >
           <Layout>{children}</Layout>
           </TanstackQueryProvider>
-       
+        <Toaster />
       </body>
     </html>
   );

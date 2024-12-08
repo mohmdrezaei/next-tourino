@@ -35,6 +35,7 @@ api.interceptors.response.use(
       
       console.log(res.response.data )
       Cookies.set("accessToken",res.response.data.accessToken ,{ expires: 1, path: '/', secure: true })
+      
     }
   }
 );

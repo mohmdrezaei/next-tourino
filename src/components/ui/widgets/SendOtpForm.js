@@ -1,13 +1,25 @@
-import { sendOtp } from "@/services/auth";
+
+import { useSendOtp } from "@/services/mutations";
+import toast from "react-hot-toast";
 
 function SendOtpForm({ mobile, setMobile, setStep ,onClose }) {
+
+  const { isPending, mutate } = useSendOtp();
   const submitHandler = async(event) => {
     event.preventDefault();
     if(mobile.length !== 11) return
-    const {res ,  error} = await sendOtp(mobile)
-    if(res) setStep(2)
-    if(error) console.log(error.message)
-    console.log({res,  error})
+    if (isPending) return;
+    
+    mutate({mobile},{
+      onSuccess :(data) =>{
+        toast.success(data?.data?.message)
+        toast(data?.data?.code)
+        setStep(2);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    })
   };
   return (
     <>

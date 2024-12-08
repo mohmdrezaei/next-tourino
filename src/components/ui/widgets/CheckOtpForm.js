@@ -1,9 +1,17 @@
 import OtpInput from "react18-input-otp";
-import { checkOtp } from "@/services/auth";
 
 import { GoArrowLeft } from "react-icons/go";
 import { setCookie } from "@/utils/cookie";
-function CheckOtpForm({ code, setCode, mobile, setStep, closeModal, setIsLoggedIn }) {
+import { useCheckOtp } from "@/services/mutations";
+function CheckOtpForm({
+  code,
+  setCode,
+  mobile,
+  setStep,
+  closeModal,
+  setIsLoggedIn,
+}) {
+  const { isPending, mutate } = useCheckOtp();
   const changeHandler = (otp) => {
     setCode(otp);
   };
@@ -11,14 +19,21 @@ function CheckOtpForm({ code, setCode, mobile, setStep, closeModal, setIsLoggedI
     e.preventDefault();
 
     if (code.length !== 6) return;
+    if (isPending) return;
 
-    const { res, error } = await checkOtp(mobile, code);
-    if (res) {
-      setCookie(res.data);
-      closeModal();
-      setIsLoggedIn(true)
-    }
-    if (error) console.log(error.message);
+    mutate(
+      { mobile, code },
+      {
+        onSuccess: (data) => {
+          setCookie(data?.data)
+          closeModal();
+          setIsLoggedIn(true);
+        },
+        onError: (error) => {
+          console.log(error);
+        },
+      }
+    );
   };
   return (
     <>
