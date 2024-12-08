@@ -1,9 +1,12 @@
+
+
 import Image from "next/image";
 
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaQuestion } from "react-icons/fa";
+
 async function Home() {
- const data =  await fetch("https://travel-agency-api.liara.run/tour",{ cache: 'no-store' })
+ const data =  await fetch("http://localhost:6500/tour",{ cache: 'no-store' })
     .then((res) => res.json())
     .then((data) => data);
   return (
@@ -118,6 +121,9 @@ async function Home() {
               گردشگری و آثار تاریخی یک مقصد خاص بازدید کنید، می‌توانید تورهای
               فرهنگی و تاریخی را خریداری کنید.
             </p>
+          </div>
+
+          <div>
           </div>
         </div>
       </div>
