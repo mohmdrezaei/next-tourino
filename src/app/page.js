@@ -6,9 +6,10 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { FaQuestion } from "react-icons/fa";
 
 async function Home() {
- const data =  await fetch("http://localhost:6500/tour",{ cache: 'no-store' })
+ const data =  await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/tour`,{ cache: 'no-store' })
     .then((res) => res.json())
     .then((data) => data);
+    
   return (
     <div className=" ">
       <Image

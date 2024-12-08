@@ -15,7 +15,7 @@ function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [mobile, setMobile] = useState("");
-  const [code, setCode] = useState("");
+  
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user , setUser] =useState({})
   const token = getCookie("accessToken"); 
@@ -94,8 +94,6 @@ function Header() {
         )}
         {step === 2 && (
           <CheckOtpForm
-            code={code}
-            setCode={setCode}
             mobile={mobile}
             setStep={setStep}
             closeModal={closeModal}

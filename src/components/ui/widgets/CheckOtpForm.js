@@ -3,14 +3,9 @@ import OtpInput from "react18-input-otp";
 import { GoArrowLeft } from "react-icons/go";
 import { setCookie } from "@/utils/cookie";
 import { useCheckOtp } from "@/services/mutations";
-function CheckOtpForm({
-  code,
-  setCode,
-  mobile,
-  setStep,
-  closeModal,
-  setIsLoggedIn,
-}) {
+import { useState } from "react";
+function CheckOtpForm({ mobile, setStep, closeModal, setIsLoggedIn }) {
+  const [code, setCode] = useState("");
   const { isPending, mutate } = useCheckOtp();
   const changeHandler = (otp) => {
     setCode(otp);
@@ -25,7 +20,7 @@ function CheckOtpForm({
       { mobile, code },
       {
         onSuccess: (data) => {
-          setCookie(data?.data)
+          setCookie(data?.data);
           closeModal();
           setIsLoggedIn(true);
         },
