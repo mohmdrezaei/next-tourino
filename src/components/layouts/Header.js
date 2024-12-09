@@ -56,7 +56,7 @@ function Header() {
   };
 
   return (
-    <header className="flex mt-5 items-center justify-between w-[1200px] mx-auto">
+    <header className="flex mt-5 items-center justify-between w-[1200px] mx-auto ">
       <div className="flex items-center gap-20">
         <Image width="146" height="44" src="/images/Torino.svg" />
 
