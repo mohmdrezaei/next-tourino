@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import api from "@/configs/api";
-import { getCookie } from "@/utils/cookie";
+import api from "src/core/configs/api";
+import { getCookie } from "src/core/utils/cookie";
 import CheckOtpForm from "@/widgets/CheckOtpForm";
-import Modal from "@/widgets/Modal";
+import Modal from "src/components/partials/container/Modal";
 import SendOtpForm from "@/widgets/SendOtpForm";
 import Image from "next/image";
 import Link from "next/link";

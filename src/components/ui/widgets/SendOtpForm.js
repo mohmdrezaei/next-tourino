@@ -1,4 +1,4 @@
-import { useSendOtp } from "@/services/mutations";
+import { useSendOtp } from "src/core/services/mutations";
 import toast from "react-hot-toast";
 
 function SendOtpForm({ mobile, setMobile, setStep, onClose }) {

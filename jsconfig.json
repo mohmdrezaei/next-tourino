@@ -4,14 +4,14 @@
     "paths": {
       "@/public/*": ["public/*"],
       "@/app/*": ["src/app/*"],
-      "@/pages/*": ["src/components/pages/*"],
-      "@/layouts/*": ["src/components/layouts/*"],
+      "@/pages/*": ["src/components/ui/templates/*"],
+      "@/layouts/*": ["src/components/ui/layout/*"],
       "@/modules/*": ["src/components/ui/modules/*"],
       "@/elements/*": ["src/components/ui/elements/*"],
       "@/widgets/*": ["src/components/ui/widgets/*"],
-      "@/utils/*": ["src/utils/*"],
-      "@/services/*": ["src/services/*"],
-      "@/configs/*": ["src/configs/*"],
+      "@/utils/*": ["src/core/utils/*"],
+      "@/services/*": ["src/core/services/*"],
+      "@/configs/*": ["src/core/configs/*"]
     }
   }
 }

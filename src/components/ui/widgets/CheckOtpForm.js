@@ -1,8 +1,8 @@
 import OtpInput from "react18-input-otp";
 
 import { GoArrowLeft } from "react-icons/go";
-import { setCookie } from "@/utils/cookie";
-import { useCheckOtp } from "@/services/mutations";
+import { setCookie } from "src/core/utils/cookie";
+import { useCheckOtp } from "src/core/services/mutations";
 import { useState } from "react";
 function CheckOtpForm({ mobile, setStep, closeModal, setIsLoggedIn }) {
   const [code, setCode] = useState("");

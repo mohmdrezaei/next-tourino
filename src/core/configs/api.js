@@ -1,5 +1,5 @@
-import { getNewTokens } from "@/services/token";
-import { getCookie, setCookie } from "@/utils/cookie";
+import { getNewTokens } from "src/core/services/token";
+import { getCookie, setCookie } from "src/core/utils/cookie";
 import axios from "axios";
 import Cookies from "js-cookie";
 
