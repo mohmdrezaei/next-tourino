@@ -7,26 +7,27 @@ import { PiBusFill } from "react-icons/pi";
 import { HiMiniUsers } from "react-icons/hi2";
 import { AiFillSafetyCertificate } from "react-icons/ai";
 
-function TourDetailsPage() {
+function TourDetailsPage({data}) {
   return (
     <div className="bg-[#F3F3F3] h-[650px] z-10 pt-16 ">
       <div className="w-[1200px] h-[427px] bg-white rounded-[10px] border p-7  border-[#00000033]  mx-auto">
         <div className="flex gap-7 ">
           <img
-            src="/images/arbil.svg"
-            className="rounded-xl    h-[265px]"
+            src={data.image}
+            alt={data.title}
+            className="rounded-xl  h-[265px]"
           />
           <div className=" w-full">
-            <h1 className="font-semibold text-[32px]">تور هولیر</h1>
+            <h1 className="font-semibold text-[32px]">{data.title}</h1>
             <p className="text-xl font-normal mt-5">5 روز و 4 شب</p>
-            <div className="flex gap-16 mt-10 text-xl text-[#7D7D7Dلف]">
+            <div className="flex gap-16 mt-10 text-xl text-[#7D7D7D]">
               <p>تورلیدر از مبدا</p>
               <p>برنامه سقر</p>
               <p>تضمین کیفیت</p>
             </div>
             <div className="flex items-center justify-between mt-10">
               <p className="text-[16px] px-1">
-                <span className="text-[#009eca] text-[28px] font-normal px-1">17500000</span> تومان
+                <span className="text-[#009eca] text-[28px] font-normal px-1">{data.price}</span> تومان
               </p>
               <button className="bg-[#28A745] text-white text-2xl rounded-[10px] py-3 px-12">رزرو و خرید</button>
             </div>
@@ -39,7 +40,7 @@ function TourDetailsPage() {
                   <TbRoute/>
                   <p className="">مبدا</p>
                 </div>
-                <p className="text-base font-normal mt-3">سنندج</p>
+                <p className="text-base font-normal mt-3">{data.origin.name}</p>
             </div>
             <div className="flex-col">
                 <div className="flex gap-2  text-lg text-[#444444]">
@@ -60,14 +61,14 @@ function TourDetailsPage() {
                   <PiBusFill/>
                   <p className="">حمل ونقل</p>
                 </div>
-                <p className="text-base font-normal mt-3">اتوبوس</p>
+                <p className="text-base font-normal mt-3">{data.fleetVehicle}</p>
             </div>
             <div className="flex-col">
                 <div className="flex gap-2  text-lg text-[#444444]">
                   <HiMiniUsers/>
                   <p className="">ظرفیت </p>
                 </div>
-                <p className="text-base font-normal mt-3">حداکثر 30 نفر</p>
+                <p className="text-base font-normal mt-3">حداکثر {data.availableSeats} نفر</p>
             </div>
             <div className="flex-col">
                 <div className="flex gap-2  text-lg text-[#444444]">
