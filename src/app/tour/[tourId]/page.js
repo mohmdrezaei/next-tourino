@@ -1,7 +1,8 @@
-import TourDetailsPage from '@/pages/TourDetailsPage'
-import React from 'react'
 
-function TourDetails() {
+import TourDetailsPage from '@/pages/TourDetailsPage'
+
+async function TourDetails() {
+      
   return (
     <TourDetailsPage />
   )
