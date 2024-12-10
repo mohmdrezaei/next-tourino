@@ -1,4 +1,5 @@
 
+import Card from "@/widgets/Card";
 import Image from "next/image";
 
 import { FaPhoneAlt } from "react-icons/fa";
@@ -19,7 +20,7 @@ function HomePage({data}) {
       <h4 className="text-[28px] font-medium text-[#595959]  tracking-wider">
         <sapn className="text-[#35ac50] font-medium tracking-wider">
           تورینو
-        </sapn>{" "}
+        </sapn>
         برگزار کننده بهترین تور های داخلی و خارجی
       </h4>
     </div>
@@ -28,36 +29,7 @@ function HomePage({data}) {
       <h3 className="font-normal text-[32px] tracking-wide">همه تور ها</h3>
       <div className="grid grid-cols-4 mt-3 gap-8">
        {data.map(tour =>(
-         <div key={tour.id} class="w-[278px] bg-white border border-[#0000001F] drop-shadow-sm rounded-[10px] ">
-         <a href="#">
-           <img
-             class="rounded-t-lg"
-             src={tour.image}
-             alt={tour.title}
-             width="278"
-             height="159"
-            
-           />
-         </a>
-         <div class="px-5 pt-3 border border-b-[#D9D9D9]">
-           <a href="#">
-             <h5 class="mb-2 text-[27px] font-normal tracking-tight text-gray-900 dark:text-white">
-             {tour.title}
-             </h5>
-           </a>
-           <p class="mb-3 font-normal text-[#282828B2] dark:text-gray-400">
-           {tour.options}.
-           </p>
-         </div>
-         <div className="flex justify-between px-3 py-2 text-base ">
-           <button className="bg-[#28A745] text-white rounded px-5">
-             رزرو
-           </button>
-           <p className="text-[16px] px-1">
-             <span className="text-[#009eca] px-1">{tour.price}</span> تومان
-           </p>
-         </div>
-       </div>
+        <Card key={tour.id} tour={tour} />
        ))}
       </div>
 
@@ -122,7 +94,40 @@ function HomePage({data}) {
         <div>
         </div>
       </div>
+   
+
     </div>
+
+    <div className="border border-gray-300 h-[2px]  mt-32 flex justify-center"></div>
+      <div className="flex gap-20 items-center w-[1200px] mx-auto mt-7  pb-5 justify-center">
+        <div className="flex items-center ">
+          <Image src="/images/Group16.svg" width="121" height="109" />
+          <div>
+            <h3 className="font-medium text-[26px]">بصرفه ترین قیمت</h3>
+            <p className="text-base font-light w-[202px]">
+              بصرفه ترین و ارزان ترین قیمت تور را از ما بخواهید.
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center ">
+          <Image src="/images/Group17.svg" width="121" height="109" />
+          <div>
+            <h3 className="font-medium text-[26px]">پشتیبانی </h3>
+            <p className="text-base font-light w-[202px]">
+              پشتیبانی وهمراهی 24 ساعته در تمامب مراحل سفر شما
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center">
+          <Image src="/images/Group 18.svg" width="121" height="109" />
+          <div>
+            <h3 className="font-medium text-[26px]"> رضایت کاربران</h3>
+            <p className="text-base font-light w-[202px]">
+              رضایت بیش از 10 هزار کاربر از تور های ما.
+            </p>
+          </div>
+        </div>
+      </div>
   </div>
   )
 }
