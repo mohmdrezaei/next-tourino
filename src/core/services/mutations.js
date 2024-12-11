@@ -12,5 +12,10 @@ const useCheckOtp = () => {
 
   return useMutation({ mutationFn });
 };
+const useAddToBasket = () => {
+  const mutationFn = ({tourId ,...data}) => api.put(`/basket/${tourId}`, data);
 
-export { useSendOtp, useCheckOtp };
+  return useMutation({ mutationFn });
+};
+
+export { useSendOtp, useCheckOtp,useAddToBasket };

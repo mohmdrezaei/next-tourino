@@ -6,6 +6,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { FaQuestion } from "react-icons/fa";
 
 function HomePage({data}) {
+ 
   return (
     <div className=" ">
     <Image
