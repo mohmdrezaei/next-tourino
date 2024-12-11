@@ -1,6 +1,6 @@
 import { TbUserFilled } from "react-icons/tb";
 
-function BasketPage() {
+function BasketPage({data}) {
   return (
     <div className="  bg-[#F3F3F3] h-[650px] z-10 pt-16 ">
         <div className="flex gap-3 h-[228px] justify-center">
@@ -19,13 +19,13 @@ function BasketPage() {
 
       <div className=" bg-white py-5 px-3 rounded-[10px]"> 
         <div className="flex justify-between border-dashed border-b-2 boreder-[#00000080] pb-4">
-            <h3 className="text-2xl font-medium">تور هولیر</h3>
+            <h3 className="text-2xl font-medium">{data?.title}</h3>
             <p className="text-[#282828] text-base">5 روز و 4 شب</p>
         </div>
         <div className="flex mt-6 justify-between items-center">
             <p>قیمت نهایی</p>
             <p className="text-[16px] px-1">
-                <span className="text-[#009eca] text-[28px] font-normal px-1">17500000</span> تومان
+                <span className="text-[#009eca] text-[28px] font-normal px-1">{data?.price}</span> تومان
               </p>
         </div>
         <button className="bg-[#28A745] text-white text-2xl rounded-[10px] py-3 px-12 w-full mt-6"> ثبت و خرید نهایی </button>

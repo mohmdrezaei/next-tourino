@@ -3,9 +3,21 @@ import { useAddToBasket } from "@/services/mutations";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
+import toast from "react-hot-toast";
 
 function Card({ tour }) {
- 
+  const { isPending, mutate } = useAddToBasket();
+  const router = useRouter()
+  const addHandler = (e, tourId) => {
+    e.stopPropagation();
+    if(isPending) return
+    mutate({ tourId }, { onSuccess: (data) => {
+      router.push("/basket")
+      toast.success(data?.data?.message)
+    },onError:()=>{
+      toast.error("مشکلی پیش آمده است!")
+    } });
+  };
   return (
     <div
       key={tour.id}
@@ -30,6 +42,7 @@ function Card({ tour }) {
       </div>
       <div className="flex justify-between px-3 py-2 text-base ">
         <button
+          onClick={(e) => addHandler(e, tour.id)}
           className="bg-[#28A745] text-white rounded px-5"
         >
           رزرو
