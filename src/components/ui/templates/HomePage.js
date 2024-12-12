@@ -1,4 +1,5 @@
 
+import { e2p } from "@/utils/numbers";
 import Card from "@/widgets/Card";
 import Image from "next/image";
 
@@ -76,7 +77,7 @@ function HomePage({data}) {
 
         <div className=" m-auto flex flex-col items-center">
           <p className="flex gap-2 font-semibold text-[28px] ">
-            021-1840
+            {e2p("021-1840")}
             <FaPhoneAlt />
           </p>
           <button className="bg-[#10411B] text-white text-[16px] font-normal py-2 px-12 mt-3 rounded-[9px]">

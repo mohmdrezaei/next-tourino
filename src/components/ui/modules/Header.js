@@ -13,6 +13,7 @@ import { TbUserFilled } from "react-icons/tb";
 import { FaRegUser } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import { RxExit } from "react-icons/rx";
+import { e2p } from "@/utils/numbers";
 
 function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -86,7 +87,7 @@ function Header() {
                   className="flex  gap-2 text-[#28A745]"
                 >
                   <TbUserFilled />
-                  {user.mobile}
+                  {e2p(user.mobile)}
                   <IoIosArrowDown />
                 </button>
               </div>
@@ -101,7 +102,7 @@ function Header() {
                       <span className="bg-[#D9D9D9] rounded-full w-7 h-7 flex justify-center items-center ">
                         <TbUserFilled color="#696969" />
                       </span>
-                      {user.mobile}
+                      {e2p(user.mobile)}
                     </p>
                     <Link
                       href="/profile"

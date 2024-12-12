@@ -6,6 +6,7 @@ import { BsFillCalendarDateFill, BsUbuntu } from "react-icons/bs";
 import { PiBusFill } from "react-icons/pi";
 import { HiMiniUsers } from "react-icons/hi2";
 import { AiFillSafetyCertificate } from "react-icons/ai";
+import { e2p, sp } from "@/utils/numbers";
 
 function TourDetailsPage({data}) {
   return (
@@ -27,7 +28,7 @@ function TourDetailsPage({data}) {
             </div>
             <div className="flex items-center justify-between mt-10">
               <p className="text-[16px] px-1">
-                <span className="text-[#009eca] text-[28px] font-normal px-1">{data.price}</span> تومان
+                <span className="text-[#009eca] text-[28px] font-normal px-1">{sp(data.price)}</span> تومان
               </p>
               <button className="bg-[#28A745] text-white text-2xl rounded-[10px] py-3 px-12">رزرو و خرید</button>
             </div>
@@ -47,14 +48,14 @@ function TourDetailsPage({data}) {
                   <BsFillCalendarDateFill/>
                   <p className="">تاریخ رفت</p>
                 </div>
-                <p className="text-base font-normal mt-3">23 مهر 1403</p>
+                <p className="text-base font-normal mt-3">{new Date(data.startDate).toLocaleDateString("fa-IR")}</p>
             </div>
             <div className="flex-col">
                 <div className="flex gap-2  text-lg text-[#444444]">
                   <BsFillCalendarDateFill/>
                   <p className="">تاریخ برگشت</p>
                 </div>
-                <p className="text-base font-normal mt-3">28 مهر 1403</p>
+                <p className="text-base font-normal mt-3">{new Date(data.endDate).toLocaleDateString("fa-IR")}</p>
             </div>
             <div className="flex-col">
                 <div className="flex gap-2  text-lg text-[#444444]">
@@ -68,14 +69,14 @@ function TourDetailsPage({data}) {
                   <HiMiniUsers/>
                   <p className="">ظرفیت </p>
                 </div>
-                <p className="text-base font-normal mt-3">حداکثر {data.availableSeats} نفر</p>
+                <p className="text-base font-normal mt-3">حداکثر {e2p(data.availableSeats)} نفر</p>
             </div>
             <div className="flex-col">
                 <div className="flex gap-2  text-lg text-[#444444]">
                   <AiFillSafetyCertificate/>
                   <p className="">بیمه</p>
                 </div>
-                <p className="text-base font-normal mt-3">بیمه 50 هزار دیناری</p>
+                <p className="text-base font-normal mt-3">بیمه {e2p("50")} هزار دیناری</p>
             </div>
             
         </div>

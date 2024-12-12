@@ -1,3 +1,4 @@
+import { e2p } from "@/utils/numbers";
 import Image from "next/image";
 import React from "react";
 
@@ -24,7 +25,7 @@ function Footer() {
         </div>
         <div className="justify-items-end">
         <Image  src="/images/Torino.svg" width="146" height="44"/>
-        <p className="mt-6 text-[15px] font-normal">تلفن پشتیبانی : 8574-021</p>
+        <p className="mt-6 text-[15px] font-normal">تلفن پشتیبانی :  {e2p("021-8574")} </p>
         <div className="flex mt-12 gap-9">
         <Image  src="/images/state-airline-f45c55b2 1.svg" width="70" height="74"/>
         <Image  src="/images/passenger-rights-48368f81 1.svg" width="70" height="74"/>

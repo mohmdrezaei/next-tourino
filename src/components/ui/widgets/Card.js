@@ -1,5 +1,6 @@
 "use client"
 import { useAddToBasket } from "@/services/mutations";
+import { sp } from "@/utils/numbers";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -54,7 +55,7 @@ function Card({ tour }) {
           رزرو
         </button>
         <p className="text-[16px] px-1">
-          <span className="text-[#009eca] px-1">{tour.price}</span> تومان
+          <span className="text-[#009eca] px-1">{sp(tour.price)}</span> تومان
         </p>
       </div>
     </div>
