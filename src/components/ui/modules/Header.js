@@ -103,13 +103,13 @@ function Header() {
                       </span>
                       {user.mobile}
                     </p>
-                    <a
-                      href="#"
+                    <Link
+                      href="/profile"
                       className="flex gap-2 px-4 py-3  text-sm hover:bg-gray-100 font-light "
                     >
                       <FaRegUser />
                       اطلاعات حساب کاربری
-                    </a>
+                    </Link>
                     <div className="border border-gray-100 block h-[1px] mx-4"></div>
                     <a
                       href="#"

@@ -1,8 +1,9 @@
+import ProfilePage from '@/pages/ProfilePage'
 import React from 'react'
 
 function Profile() {
   return (
-    <div>Profile</div>
+   <ProfilePage />
   )
 }
 
