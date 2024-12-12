@@ -17,5 +17,10 @@ const useAddToBasket = () => {
 
   return useMutation({ mutationFn });
 };
+const useFinalizeOrder = () => {
+  const mutationFn = (data) =>  api.post("/order", data);
 
-export { useSendOtp, useCheckOtp,useAddToBasket };
+  return useMutation({ mutationFn });
+};
+
+export { useSendOtp, useCheckOtp,useAddToBasket ,useFinalizeOrder};
