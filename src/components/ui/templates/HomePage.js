@@ -24,6 +24,24 @@ function HomePage({data}) {
         </sapn>
         برگزار کننده بهترین تور های داخلی و خارجی
       </h4>
+
+      <div className="w-[874px] grid grid-cols-4 p-3 gap-5 border h-[71px] mx-auto mt-7 rounded-[20px]">
+      <select class="appearance-none  w-full border-0 bg-0 focus:outline-none ">
+    <option>مبدا</option>
+    <option>سنندج </option>
+    <option>تبریز</option>
+    <option>شیراز</option>
+  </select>
+      <select class="appearance-none  w-full border-0 focus:outline-none ">
+    <option>مقصد</option>
+    <option>تهران</option>
+    <option>سنندج </option>
+    <option>تبریز</option>
+    <option>شیراز</option>
+  </select>
+  <input className="focus:outline-none" type="date" placeholder="value"/>
+ <button className=" bg-[#28A745] font-normal text-2xl rounded-2xl text-white w-[190px]" >جستجو</button>
+      </div> 
     </div>
 
     <div className="w-[1200px] mx-auto">

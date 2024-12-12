@@ -18,10 +18,16 @@ function Card({ tour }) {
       toast.error("مشکلی پیش آمده است!")
     } });
   };
+
+  const viewDetails = (e, tourId) => {
+    e.stopPropagation();
+    router.push(`/tour/${tourId}`);
+  };
   return (
     <div
       key={tour.id}
       class="w-[278px] bg-white border border-[#0000001F] drop-shadow-sm rounded-[10px] "
+      onClick={(e) => viewDetails(e, tour.id)}
     >
       <img
         class="rounded-t-lg"
@@ -31,11 +37,11 @@ function Card({ tour }) {
         height="159"
       />
       <div class="px-5 pt-3 border border-b-[#D9D9D9]">
-        <a href="#">
+        <Link href={`/tour/${tour.id}`}>
           <h5 class="mb-2 text-[27px] font-normal tracking-tight text-gray-900 dark:text-white">
             {tour.title}
           </h5>
-        </a>
+        </Link>
         <p class="mb-3 font-normal text-[#282828B2] dark:text-gray-400">
           {tour.options}.
         </p>
