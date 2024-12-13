@@ -8,12 +8,14 @@ import Modal from "src/components/partials/container/Modal";
 import SendOtpForm from "@/widgets/SendOtpForm";
 import Image from "next/image";
 import Link from "next/link";
+import { e2p } from "@/utils/numbers";
 
 import { TbUserFilled } from "react-icons/tb";
 import { FaRegUser } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import { RxExit } from "react-icons/rx";
-import { e2p } from "@/utils/numbers";
+import { LuMenu } from "react-icons/lu";
+
 
 function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,12 +59,15 @@ function Header() {
   };
 
   return (
-    <div className=" py-5 shadow-md z-20  ">
-      <header className="flex  items-center justify-between w-[1200px] mx-auto ">
-        <div className="flex items-center gap-20">
-          <Image width="146" height="44" src="/images/Torino.svg" />
+    <div className=" pt-5 md:py-5 md:shadow-md z-20  ">
+      <header className="flex  items-center justify-between px-5 md:w-auto lg:mx-10  xl:w-[1200px] mx-auto ">
+        <div className="flex items-center gap-20 ">
+          <Image width="146" height="44" src="/images/Torino.svg" className="hidden md:block" />
+       <button className=" md:hidden text-[30px]">
+       <LuMenu   />
+       </button>
 
-          <ul className="flex gap-16 font-normal">
+          <ul className=" gap-16 font-normal hidden md:flex">
             <li>
               <Link href="/">صفحه اصلی</Link>
             </li>
@@ -79,16 +84,19 @@ function Header() {
         </div>
         {isLoggedIn ? (
           <>
-            <button className="flex  gap-2 text-[#28A745] "></button>
+            <button className="  gap-2 text-[#28A745] "></button>
             <div className="relative inline-block ">
-              <div className="mx-16">
+              <div className=" md:mx-16">
                 <button
                   onClick={toggleDropdown}
-                  className="flex  gap-2 text-[#28A745]"
+                  className="gap-2 text-[#28A745] hidden md:flex"
                 >
                   <TbUserFilled />
                   {e2p(user.mobile)}
                   <IoIosArrowDown />
+                </button>
+                <button className="text-[#28A745] text-[30px] block md:hidden">
+                <RxExit />
                 </button>
               </div>
 
