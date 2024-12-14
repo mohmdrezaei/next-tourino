@@ -7,7 +7,7 @@ function Footer() {
     <footer className=" w-auto xl:w-[1200px] mx-auto border-t-2  border-gray-300">
 
       <div className="lg:flex mb-10  justify-between items-start sm:mx-5 lg:mx-0 my-7">
-        <div className="flex gap-28">
+        <div className="flex justify-center gap-28">
         <div className="font-normal text-[18px]">
           <h3 className="font-medium text-2xl mb-7">تورینو</h3>
           <p className="mb-2">درباره ما</p>

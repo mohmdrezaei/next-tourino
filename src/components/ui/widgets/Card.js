@@ -27,14 +27,14 @@ function Card({ tour }) {
   return (
     <div
       key={tour.id}
-      class="w-[278px] bg-white border border-[#0000001F] drop-shadow-sm rounded-[10px] "
+      class="w-auto md:w-[278px] bg-white border border-[#0000001F] drop-shadow-sm rounded-[10px] "
       onClick={(e) => viewDetails(e, tour.id)}
     >
       <img
-        class="rounded-t-lg"
+        class="rounded-t-lg w-full h-auto"
         src={tour.image}
         alt={tour.title}
-        width="278"
+        
         height="159"
       />
       <div class="px-5 pt-3 border border-b-[#D9D9D9]">
