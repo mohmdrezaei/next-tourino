@@ -23,4 +23,12 @@ const useFinalizeOrder = () => {
   return useMutation({ mutationFn });
 };
 
-export { useSendOtp, useCheckOtp,useAddToBasket ,useFinalizeOrder};
+const useUpdateEmail = () => {
+  const mutationFn = (email) =>  api.put("/user/profile", email);
+
+  return useMutation({ mutationFn });
+};
+
+
+
+export { useSendOtp, useCheckOtp,useAddToBasket ,useFinalizeOrder ,useUpdateEmail};
