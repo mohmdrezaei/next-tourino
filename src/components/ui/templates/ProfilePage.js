@@ -1,7 +1,5 @@
 "use client";
-import { TbUserFilled } from "react-icons/tb";
-import { PiSunHorizonFill } from "react-icons/pi";
-import { AiOutlineTransaction } from "react-icons/ai";
+
 import { PiPencilSimpleLine } from "react-icons/pi";
 import { useEffect, useState } from "react";
 import api from "@/configs/api";
@@ -9,10 +7,13 @@ import { useGetUser } from "@/services/queries";
 import Loader from "@/elements/Loader";
 import { useUpdateEmail } from "@/services/mutations";
 import toast from "react-hot-toast";
+import { QueryClient } from "@tanstack/react-query";
 
 function ProfilePage() {
+  const queryClient = new QueryClient()
   const [email, setEmail] = useState("");
   const [editEmail, setEditEmail] = useState(false);
+  const { isPending, data, error } = useGetUser();
   
  console.log(email)
  
@@ -34,27 +35,13 @@ function ProfilePage() {
     }
   );
   };
-  const { isPending, data, error } = useGetUser();
 
   if (isPending) return <Loader />;
   console.log(data);
   return (
-    <div className="   h-[650px] z-10 pt-16">
-      <div className="flex gap-7 m-auto w-[1200px]">
-        <div className=" w-[284px] h-[170px] border border-[#00000033]  rounded-[10px]">
-          <p className="flex  gap-2 items-center border-b p-4 bg-[#28A74540] text-[#28A745]">
-            <TbUserFilled />
-            پروفایل
-          </p>
-          <p className="flex  gap-2 items-center border-b p-4">
-            <PiSunHorizonFill />
-            تور های من
-          </p>
-          <p className="flex  gap-2 items-center  p-4">
-            <AiOutlineTransaction />
-            تراکنش ها
-          </p>
-        </div>
+ 
+    
+        
         <div className="w-full">
           <div className=" border border-[#00000033] h-[115px] rounded-[10px] p-3 ">
             <h4 className="font-normal text-base">اطلاعات حساب کاربری</h4>
@@ -87,7 +74,16 @@ function ProfilePage() {
                   {data?.data?.email ? data?.data?.email : "--"}
                 </span>
               </p>
-              <button
+              {data?.data?.email  ? (<button
+                className={`flex gap-3 mx-8 text-[#009ECA] ${
+                  editEmail ? "hidden" : "block"
+                }`}
+                onClick={() => setEditEmail(true)}
+              >
+                <PiPencilSimpleLine />
+                ویرایش
+              </button>) : (
+                <button
                 className={`flex gap-3 mx-8 text-[#009ECA] ${
                   editEmail ? "hidden" : "block"
                 }`}
@@ -96,6 +92,7 @@ function ProfilePage() {
                 <PiPencilSimpleLine />
                 افزودن
               </button>
+              )}
             </div>
           </div>
 
@@ -151,7 +148,7 @@ function ProfilePage() {
                 <p> شماره کارت </p>
                 <span className="font-normal">
                   {" "}
-                  {data?.data?.peyment?.debitCard_code}{" "}
+                  {data?.data?.peyment?.debitCard_code}
                 </span>
               </div>
 
@@ -164,8 +161,7 @@ function ProfilePage() {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+  
   );
 }
 
