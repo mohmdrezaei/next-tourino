@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@material-tailwind/react": "^2.1.10",
     "@tanstack/react-query": "^5.62.3",
     "axios": "^1.7.8",
     "js-cookie": "^3.0.5",
@@ -19,7 +20,10 @@
     "react-icons": "^5.3.0",
     "react-loader-spinner": "^6.1.6",
     "react18-input-otp": "^1.1.4",
-    "swiper": "^11.1.15"
+    "stylis": "^4.3.4",
+    "stylis-plugin-rtl": "^2.1.1",
+    "swiper": "^11.1.15",
+    "zaman": "^2.1.1"
   },
   "devDependencies": {
     "eslint": "^8",

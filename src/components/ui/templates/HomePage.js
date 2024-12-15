@@ -4,6 +4,7 @@ import Card from "@/widgets/Card";
 import Image from "next/image";
 import {  useRouter } from "next/navigation";
 import { useState } from "react";
+import { DatePicker } from "zaman";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -34,7 +35,9 @@ function HomePage({ data }) {
       pathname : "/tour",
       query,
     });
+    
   };
+  console.log(date)
   return (
     <div className=" ">
       <Image
@@ -77,13 +80,9 @@ function HomePage({ data }) {
             <option value="tabriz">تبریز</option>
             <option value="shiraz">شیراز</option>
           </select>
-          <input
-            className="focus:outline-none"
-            type="date"
-            placeholder="تاریخ رفت"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
+         
+           <DatePicker   value={date}
+            onChange={(e) => setDate(e.value)} inputClass="focus:outline-none  placeholder-[#2C2C2C]" inputAttributes={{ placeholder: "تاریخ" }}  />
           <button type="submit" className=" bg-[#28A745] font-normal text-2xl rounded-2xl text-white w-[190px]">
             جستجو
           </button>
