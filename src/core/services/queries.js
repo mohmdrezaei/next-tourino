@@ -13,4 +13,15 @@ const useGetUser = () => {
     return { data, error, isPending };
   };
 
-  export {useGetUser}
+  const useGetUserTours = () => {
+    const queryFn = () => api.get("/user/tours");
+    const queryKey = ["myTours"];
+    const { data, error, isPending } = useQuery({
+      queryKey,
+      queryFn,
+    });
+  
+    return { data, error, isPending };
+  };
+
+  export {useGetUser , useGetUserTours}

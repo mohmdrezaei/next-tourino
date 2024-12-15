@@ -10,12 +10,11 @@ import toast from "react-hot-toast";
 import { QueryClient } from "@tanstack/react-query";
 
 function ProfilePage() {
-  const queryClient = new QueryClient()
+  
   const [email, setEmail] = useState("");
   const [editEmail, setEditEmail] = useState(false);
   const { isPending, data, error } = useGetUser();
   
- console.log(email)
  
  const {mutate} = useUpdateEmail() ;
   const updateEmailHandler = (e) => {
@@ -37,7 +36,6 @@ function ProfilePage() {
   };
 
   if (isPending) return <Loader />;
-  console.log(data);
   return (
  
     
@@ -104,12 +102,12 @@ function ProfilePage() {
                 ویرایش اطلاعات
               </button>
             </div>
-
+           
             <div className="grid grid-cols-2 gap-y-9 mt-5 text-sm">
               <div className="flex gap-5">
                 <p>نام و نام خانوادگی</p>
                 <span className=" font-medium ">
-                  {data?.data?.firstName} {data.data.lastName}
+                  {data?.data?.firstName} {data?.data?.lastName}
                 </span>
               </div>
               <div className="flex gap-5">
@@ -126,6 +124,18 @@ function ProfilePage() {
                 <span className="font-normal">{data?.data?.birthDate} </span>
               </div>
             </div>
+
+            {/* <form className="grid grid-cols-3">
+            
+                <input
+                  className="border border-[#00000080] h-12 w-64 mx-3 rounded-[5px] px-2 focus:outline-none"
+                  type="text"
+                  placeholder="آدرس ایمیل"
+                  value={email}
+                  onChange={e=> setEmail(e.target.value)}
+                />
+                </form> */}
+            
           </div>
 
           <div className=" border border-[#00000033] h-[171px] rounded-[10px] p-3 mt-8 ">
