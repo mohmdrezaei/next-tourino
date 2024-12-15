@@ -2,7 +2,7 @@ import Image from "next/image";
 
 
 import { TbRoute } from "react-icons/tb";
-import { BsFillCalendarDateFill, BsUbuntu } from "react-icons/bs";
+import { BsFillCalendarDateFill } from "react-icons/bs";
 import { PiBusFill } from "react-icons/pi";
 import { HiMiniUsers } from "react-icons/hi2";
 import { AiFillSafetyCertificate } from "react-icons/ai";

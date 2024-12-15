@@ -147,7 +147,6 @@ function ProfilePage() {
               <div className="flex gap-5">
                 <p> شماره کارت </p>
                 <span className="font-normal">
-                  {" "}
                   {data?.data?.peyment?.debitCard_code}
                 </span>
               </div>
