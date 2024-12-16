@@ -10,23 +10,25 @@ import { e2p, sp } from "@/utils/numbers";
 
 function TourDetailsPage({data}) {
   return (
-    <div className="bg-[#F3F3F3] h-[650px] z-10 pt-16 ">
-      <div className="w-[1200px] h-[427px] bg-white rounded-[10px] border p-7  border-[#00000033]  mx-auto">
-        <div className="flex gap-7 ">
+    <div className="lg:bg-[#F3F3F3] h-auto lg:h-[650px] z-10 py-16 ">
+      <div className="w-auto xl:w-[1200px] lg:h-[427px] bg-white rounded-[10px] lg:border p-7  border-[#00000033]  mx-auto">
+        <div className="lg:flex gap-7 ">
           <img
             src={data.image}
             alt={data.title}
             className="rounded-xl  h-[265px]"
           />
-          <div className=" w-full">
+          <div className=" w-full mt-5 lg:mt-0">
+            <div className="flex lg:block justify-between">
             <h1 className="font-semibold text-[32px]">{data.title}</h1>
             <p className="text-xl font-normal mt-5">5 روز و 4 شب</p>
-            <div className="flex gap-16 mt-10 text-xl text-[#7D7D7D]">
+             </div>
+            <div className="flex gap-16 mt-10 text-lg lg:text-xl text-[#7D7D7D]">
               <p>تورلیدر از مبدا</p>
               <p>برنامه سقر</p>
               <p>تضمین کیفیت</p>
             </div>
-            <div className="flex items-center justify-between mt-10">
+            <div className="hidden lg:flex items-center justify-between mt-10">
               <p className="text-[16px] px-1">
                 <span className="text-[#009eca] text-[28px] font-normal px-1">{sp(data.price)}</span> تومان
               </p>
@@ -36,21 +38,21 @@ function TourDetailsPage({data}) {
         </div>
 
         <div className="flex gap-10 mt-10 justify-between  ">
-            <div className="flex-col">
+            <div className=" hidden lg:flex flex-col">
                 <div className="flex gap-2  text-lg text-[#444444]">
                   <TbRoute/>
                   <p className="">مبدا</p>
                 </div>
                 <p className="text-base font-normal mt-3">{data.origin.name}</p>
             </div>
-            <div className="flex-col">
+            <div className="hidden lg:flex flex-col">
                 <div className="flex gap-2  text-lg text-[#444444]">
                   <BsFillCalendarDateFill/>
                   <p className="">تاریخ رفت</p>
                 </div>
                 <p className="text-base font-normal mt-3">{new Date(data.startDate).toLocaleDateString("fa-IR")}</p>
             </div>
-            <div className="flex-col">
+            <div className="hidden lg:flex flex-col">
                 <div className="flex gap-2  text-lg text-[#444444]">
                   <BsFillCalendarDateFill/>
                   <p className="">تاریخ برگشت</p>
@@ -80,6 +82,12 @@ function TourDetailsPage({data}) {
             </div>
             
         </div>
+        <div className="flex lg:hidden flex-row-reverse items-center justify-between mt-10">
+              <p className="text-[16px] px-1">
+                <span className="text-[#009eca] text-[28px] font-normal px-1">{sp(data.price)}</span> تومان
+              </p>
+              <button className="bg-[#28A745] text-white text-2xl rounded-[10px] py-3 px-12">رزرو و خرید</button>
+            </div>
       </div>
     </div>
   );
