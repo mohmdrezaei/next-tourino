@@ -38,18 +38,18 @@ const router = useRouter()
     );
   };
   return (
-    <div className="  bg-[#F3F3F3] h-[650px] z-10 pt-16 ">
+    <div className="   lg:bg-[#F3F3F3] h-[750px] md:h-[650px] z-10 py-16 px-7 ">
       <form
-        className="flex gap-3 h-[228px] justify-center"
+        className="lg:flex gap-3  h-[228px] justify-center"
         onSubmit={submitHandler}
         onChange={changeHandler}
       >
-        <div className=" bg-white  py-7 px-5 rounded-[10px]">
+        <div className=" bg-white  py-7 px-5 border rounded-[10px] border-[#00000033] lg:border-none  mb-10 lg:mb-0">
           <h1 className="flex gap-3">
             <TbUserFilled />
             مشخصات مسافر
           </h1>
-          <div className="grid grid-cols-3 gap-7 mt-5">
+          <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-7 mt-5 justify-center">
             <input
               className="border border-[#00000080] w-[262px] h-[50px] rounded-[5px] px-2"
               type="text"
@@ -77,7 +77,7 @@ const router = useRouter()
           </div>
         </div>
 
-        <div className=" bg-white py-5 px-3 rounded-[10px]">
+        <div className=" bg-white py-5 px-3  border rounded-[10px] border-[#00000033] lg:border-none">
           <div className="flex justify-between border-dashed border-b-2 boreder-[#00000080] pb-4">
             <h3 className="text-2xl font-medium">{data?.title}</h3>
             <p className="text-[#282828] text-base">5 روز و 4 شب</p>

@@ -15,6 +15,8 @@ import { FaRegUser } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import { RxExit } from "react-icons/rx";
 import { LuMenu } from "react-icons/lu";
+import { useGetUser } from "@/services/queries";
+import Loader from "@/elements/Loader";
 
 
 function Header() {
@@ -22,10 +24,10 @@ function Header() {
   const [step, setStep] = useState(1);
   const [mobile, setMobile] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   const token = getCookie("accessToken");
-
+  const{data ,  isPending} = useGetUser()
+console.log(data)
   useEffect(() => {
     if (token) {
       setIsLoggedIn(true);
@@ -34,17 +36,7 @@ function Header() {
     }
   }, [token]);
 
-  useEffect(() => {
-    const userInfo = async () => {
-      try {
-        const res = await api.get("/user/profile");
-        setUser(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    userInfo();
-  }, [user]);
+ 
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -57,6 +49,7 @@ function Header() {
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+  
 
   return (
     <div className=" pt-5 md:py-5 md:shadow-md z-20  ">
@@ -92,7 +85,7 @@ function Header() {
                   className="gap-2 text-[#28A745] hidden md:flex"
                 >
                   <TbUserFilled />
-                  {e2p(user.mobile)}
+                  {e2p(data?.data?.mobile)}
                   <IoIosArrowDown />
                 </button>
                 <button className="text-[#28A745] text-[30px] block md:hidden">
@@ -110,7 +103,7 @@ function Header() {
                       <span className="bg-[#D9D9D9] rounded-full w-7 h-7 flex justify-center items-center ">
                         <TbUserFilled color="#696969" />
                       </span>
-                      {e2p(user.mobile)}
+                      {e2p(data?.data?.mobile)}
                     </p>
                     <Link
                       href="/profile"

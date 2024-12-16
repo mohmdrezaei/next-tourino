@@ -8,9 +8,15 @@ const useSendOtp = () => {
 };
 
 const useCheckOtp = () => {
+  const queryClient = useQueryClient();
   const mutationFn = (data) => api.post("auth/check-otp", data);
 
-  return useMutation({ mutationFn });
+  return useMutation({
+    mutationFn,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+    },
+  });
 };
 const useAddToBasket = () => {
   const mutationFn = ({ tourId, ...data }) =>

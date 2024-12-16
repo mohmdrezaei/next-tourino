@@ -23,19 +23,16 @@ function HomePage({ data }) {
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
   const [date, setDate] = useState("");
-
   const submitHandler = (e) => {
     e.preventDefault();
-    const query = {};
-    if (origin) query.origin = origin;
-    if (destination) query.destination = destination;
-    if (date) query.date = date;
-
-    router.push({
-      pathname : "/tour",
-      query,
-    });
-    
+  
+    const params = new URLSearchParams();
+  
+    if (origin) params.append("origin", origin);
+    if (destination) params.append("destination", destination);
+    if (date) params.append("date", date);
+  
+    router.push(`?${params.toString()}`);
   };
   console.log(date)
   return (
@@ -63,7 +60,7 @@ function HomePage({ data }) {
             class="appearance-none  w-full border-0 bg-0 focus:outline-none "
           >
             <option value="">مبدا</option>
-            <option value={"sanandaj"}>سنندج </option>
+            <option value="sanandaj">سنندج </option>
             <option value="tabriz">تبریز</option>
             <option value="tehran">تهران</option>
             <option value="shiraz">شیراز</option>
