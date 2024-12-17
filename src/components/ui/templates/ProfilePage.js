@@ -34,10 +34,10 @@ function ProfilePage() {
 
   if (isPending) return <Loader />;
   return (
-    <div className="w-full">
+    <div className="w-full mt-7 md:mt-0">
       <div className=" border border-[#00000033] h-[115px] rounded-[10px] p-3 ">
         <h4 className="font-normal text-base">اطلاعات حساب کاربری</h4>
-        <div className="flex items-center justify-between mt-4">
+        <div className="md:flex items-center justify-between mt-4">
           <p className="mx-4 text-sm">
             شماره موبایل
             <span className="font-normal mx-5">{data?.data?.mobile}</span>

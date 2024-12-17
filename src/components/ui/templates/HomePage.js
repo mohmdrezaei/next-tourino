@@ -2,8 +2,8 @@
 import { e2p } from "@/utils/numbers";
 import Card from "@/widgets/Card";
 import Image from "next/image";
-import {  useRouter } from "next/navigation";
-import { useState } from "react";
+import {  useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { DatePicker } from "zaman";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -19,22 +19,57 @@ import { FaQuestion } from "react-icons/fa";
 
 function HomePage({ data }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
   const [date, setDate] = useState("");
+  const [filteredData, setFilteredData] = useState(data);
+
+  useEffect(() => {
+    const originParam = searchParams.get('origin');
+    const destinationParam = searchParams.get('destination');
+    const dateParam = searchParams.get('date');
+
+    if (originParam) setOrigin(originParam);
+    if (destinationParam) setDestination(destinationParam);
+    if (dateParam) setDate(dateParam);
+
+    // Filter data based on search parameters
+    let filtered = data;
+    if (originParam) {
+      filtered = filtered.filter(item => item.origin.name.toLowerCase() === originParam.toLowerCase());
+    }
+    if (destinationParam) {
+      filtered = filtered.filter(item => item.destination.name.toLowerCase() === destinationParam.toLowerCase());
+    }
+    if (dateParam) {
+      filtered = filtered.filter(item => item.startDate.slice(0,10)=== dateParam);
+    }
+   
+    setFilteredData(filtered);
+  }, [searchParams, data]);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toISOString().slice(0, 10)
+  };
+
+  
+  
+
   const submitHandler = (e) => {
     e.preventDefault();
-  
+
     const params = new URLSearchParams();
-  
+
     if (origin) params.append("origin", origin);
     if (destination) params.append("destination", destination);
-    if (date) params.append("date", date);
-  
+    if (date) params.append("date", formatDate(date));
+
     router.push(`?${params.toString()}`);
   };
-  console.log(date)
+ 
   return (
     <div className=" ">
       <Image
@@ -62,6 +97,7 @@ function HomePage({ data }) {
             <option value="">مبدا</option>
             <option value="sanandaj">سنندج </option>
             <option value="tabriz">تبریز</option>
+            <option value="isfahan">اصفهان</option>
             <option value="tehran">تهران</option>
             <option value="shiraz">شیراز</option>
           </select>
@@ -73,9 +109,10 @@ function HomePage({ data }) {
           >
             <option value="">مقصد</option>
             <option value="tehran">تهران</option>
-            <option value="sanandaj">سنندج </option>
+            <option value="sananndaj">سنندج </option>
             <option value="tabriz">تبریز</option>
             <option value="shiraz">شیراز</option>
+            <option value="mazandaran">مازندران</option>
           </select>
          
            <DatePicker   value={date}
@@ -89,7 +126,7 @@ function HomePage({ data }) {
       <div className="md:w-[1200px] mx-5 lg:mx-auto mt-10">
         <h3 className="font-normal text-[20px] md:text-[32px] tracking-wide">همه تور ها</h3>
         <div className="grid justify-center sm:grid-cols-2 lg:grid-cols-4 mt-3 gap-8">
-          {data.map((tour) => (
+          {filteredData.map((tour) => (
             <Card key={tour.id} tour={tour} />
           ))}
         </div>

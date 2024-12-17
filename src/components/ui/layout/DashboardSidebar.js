@@ -5,9 +5,9 @@ import Link from "next/link";
 function DashboardSidebar({children}) {
   return (
     <div className="   h-auto p z-10 py-16">
-    <div className="flex gap-7 m-auto w-[1200px]">
-        <div className=" w-[284px] h-[170px] border border-[#00000033]  rounded-[10px]">
-          <Link href="/profile" className="flex  gap-2 items-center border-b p-4 bg-[#28A74540] text-[#28A745]">
+    <div className="md:flex gap-7 m-auto w-auto xl:w-[1200px] mx-5 xl:mx-0">
+        <div className=" flex md:block justify-center md:justify-start md:w-[284px] md:h-[170px] border-b  md:border border-[#00000033]  md:rounded-[10px]">
+          <Link href="/profile" className="flex  gap-2 items-center border-b p-4  text-[#28A745]">
             <TbUserFilled />
             پروفایل
           </Link>

@@ -26,7 +26,7 @@ async function Home({searchParams}) {
         item.startDate === searchParams.date
       );
     }
-  return <HomePage data={filteredData} />;
+  return <HomePage data={data} />;
 }
 
 export default Home;
