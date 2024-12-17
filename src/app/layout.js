@@ -4,7 +4,7 @@ import { yekan } from "src/core/utils/fonts";
 import { Toaster } from "react-hot-toast";
 import TanstackQueryProvider from "src/components/partials/provider/TanstackQueryProvider";
 
-import MaterialProvider from "src/components/partials/provider/MaterialProvider";
+import MuiProvider from "src/components/partials/provider/MuiProvider"
 
 
 export const metadata = {
@@ -18,9 +18,9 @@ export default function RootLayout({ children }) {
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <body className={yekan.className}>
         <TanstackQueryProvider>
-        <MaterialProvider>
+        <MuiProvider>
           <Layout>{children}</Layout>
-         </MaterialProvider>
+         </MuiProvider>
         </TanstackQueryProvider>
         <Toaster />
       </body>
