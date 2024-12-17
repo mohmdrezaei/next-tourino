@@ -1,21 +1,24 @@
+"use client";
 import { TbUserFilled } from "react-icons/tb";
 import { PiSunHorizonFill } from "react-icons/pi";
 import { AiOutlineTransaction } from "react-icons/ai";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 function DashboardSidebar({children}) {
+const currentPath = usePathname()
   return (
     <div className="   h-auto p z-10 py-16">
     <div className="md:flex gap-7 m-auto w-auto xl:w-[1200px] mx-5 xl:mx-0">
         <div className=" flex md:block justify-center md:justify-start md:w-[284px] md:h-[170px] border-b  md:border border-[#00000033]  md:rounded-[10px]">
-          <Link href="/profile" className="flex  gap-2 items-center border-b p-4  text-[#28A745]">
+          <Link href="/profile" className={`flex  gap-2 items-center border-b p-4 ${currentPath === "/profile" ? "text-[#28A745]": ""}`}>
             <TbUserFilled />
             پروفایل
           </Link>
-          <Link href="/profile/tours" className="flex  gap-2 items-center border-b p-4">
+          <Link href="/profile/tours" className={`flex  gap-2 items-center border-b p-4 ${currentPath === "/profile/tours" ? "text-[#28A745]": ""}`}>
             <PiSunHorizonFill />
             تور های من
           </Link>
-          <Link href="/profile/transactions" className="flex  gap-2 items-center  p-4">
+          <Link href="/profile/transactions" className={`flex  gap-2 items-center  p-4 ${currentPath === "/profile/transactions" ? "text-[#28A745]": ""}`}>
             <AiOutlineTransaction />
             تراکنش ها
           </Link>
