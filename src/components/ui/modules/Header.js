@@ -53,7 +53,7 @@ console.log(data)
 
   return (
     <div className=" pt-5 md:py-5 md:shadow-md z-20  ">
-      <header className="flex  items-center justify-between px-5 md:w-auto lg:mx-10  xl:w-[1200px] mx-auto ">
+      <header className="flex  items-center justify-between px-5 md:w-auto m-auto  xl:w-[1200px] ">
         <div className="flex items-center gap-20 ">
           <Image width="146" height="44" src="/images/Torino.svg" className="hidden md:block" />
        <button className=" md:hidden text-[30px]">

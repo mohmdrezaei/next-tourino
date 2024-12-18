@@ -24,4 +24,14 @@ const useGetUser = () => {
     return { data, error, isPending };
   };
 
-  export {useGetUser , useGetUserTours}
+  const useGetTransactions = () => {
+    const queryFn = () => api.get("/user/transactions");
+    const queryKey = ["transactions"];
+    const { data, error, isPending } = useQuery({
+      queryKey,
+      queryFn,
+    });
+  
+    return { data, error, isPending };
+  };
+  export {useGetUser , useGetUserTours , useGetTransactions}

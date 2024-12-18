@@ -1,4 +1,12 @@
+"use client"
+import Loader from "@/elements/Loader";
+import { useGetTransactions } from "@/services/queries";
+
 function TransactionsPage() {
+    const {data , isPending} = useGetTransactions()
+    console.log(data)
+
+    if(isPending) return <Loader />
   return (
     <div className="overflow-hidden rounded-[10px] border border-[#00000033]">
     <table className="w-full ">
@@ -11,36 +19,16 @@ function TransactionsPage() {
         </tr>
       </thead>
       <tbody className="text-center h-auto">
-        <tr className="h-14">
-          <td>1402/10/12</td>
-          <td>12000000</td>
-          <td>ثبت نام در تور گردشگری</td>
+        {data?.data?.map(item=>(
+            <tr className="h-14">
+          <td>{item.createdAt}</td>
+          <td>{item.amount}</td>
+          <td>{item.type} </td>
           <td>سفارش 12054902</td>
         </tr>
-        <tr className="h-14">
-          <td>1402/10/12</td>
-          <td>12000000</td>
-          <td>ثبت نام در تور گردشگری</td>
-          <td>سفارش 12054902</td>
-        </tr>
-        <tr className="h-14">
-          <td>1402/10/12</td>
-          <td>12000000</td>
-          <td>ثبت نام در تور گردشگری</td>
-          <td>سفارش 12054902</td>
-        </tr>
-        <tr className="h-14">
-          <td>1402/10/12</td>
-          <td>12000000</td>
-          <td>ثبت نام در تور گردشگری</td>
-          <td>سفارش 12054902</td>
-        </tr>
-        <tr className="h-14">
-          <td>1402/10/12</td>
-          <td>12000000</td>
-          <td>ثبت نام در تور گردشگری</td>
-          <td>سفارش 12054902</td>
-        </tr>
+        ))}
+        
+        
       </tbody>
     </table>
     </div>
