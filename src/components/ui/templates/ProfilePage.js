@@ -7,6 +7,7 @@ import Loader from "@/elements/Loader";
 import { useUpdateEmail } from "@/services/mutations";
 import toast from "react-hot-toast";
 import EditProfileForm from "@/widgets/EditProfileForm";
+import { conversionToPersian } from "@/utils/convertPersian";
 
 function ProfilePage() {
   const [email, setEmail] = useState("");
@@ -194,7 +195,7 @@ function ProfilePage() {
 
             <div className="flex gap-5">
               <p>جنسیت</p>
-              <span className="font-medium">{data?.data?.gender === "male" ? "مرد" : null}</span>
+              <span className="font-medium">{conversionToPersian(data?.data?.gender) }</span>
             </div>
             <div className="flex gap-5">
               <p>تاریخ تولد</p>
