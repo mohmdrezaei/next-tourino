@@ -6,18 +6,12 @@ import { useGetUser } from "@/services/queries";
 import Loader from "@/elements/Loader";
 import { useUpdateEmail } from "@/services/mutations";
 import toast from "react-hot-toast";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from "@mui/material";
+import EditProfileForm from "@/widgets/EditProfileForm";
 
 function ProfilePage() {
   const [email, setEmail] = useState("");
   const [editEmail, setEditEmail] = useState(false);
-  const [editPersonal, setEditPersonal] = useState(false);
+  const [editSection, setEditSection] = useState(null);
   const [personalInfo, setPersonalInfo] = useState({
     name: "",
     gender: "",
@@ -48,14 +42,27 @@ function ProfilePage() {
     }
   }, [data]);
 
-  const personalChageHandler = (e) => {
-    const { name, value } = e.target;
-    setPersonalInfo((perv)=>({
-      ...perv,
-      [name]: value,
-    }))
-  }
+  const personalChageHandler = (event) => {
+  const { name, value } = event.target;
 
+
+  if (name.includes(".")) {
+    const [parent, child] = name.split(".");
+    setPersonalInfo((prevState) => ({
+      ...prevState,
+      [parent]: {
+        ...prevState[parent],
+        [child]: value,
+      },
+    }));
+  } else {
+  
+    setPersonalInfo((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  }
+};
   const { mutate } = useUpdateEmail();
   const updateEmailHandler = (e) => {
     e.preventDefault();
@@ -81,7 +88,7 @@ function ProfilePage() {
       { name , nationalCode , birthDate , gender },
       {
         onSuccess: (data) => {
-          setEditPersonal(false);
+          setEditSection(null);
           toast.success("اطلاعات با موفقیت ویرایش شد");
         },
         onError: (error) => {
@@ -154,74 +161,27 @@ function ProfilePage() {
           <h4 className="font-normal text-base">اطلاعات شخصی</h4>
           <button
             className="flex gap-3 mx-8 text-[#009ECA]"
-            onClick={() => setEditPersonal(true)}
+            onClick={() => setEditSection("personal")}
           >
             <PiPencilSimpleLine />
             ویرایش اطلاعات
           </button>
         </div>
 
-        {editPersonal ? (
-          <form onSubmit={updatePersonalHandler}>
-            <div
-              className="grid grid-cols-3 gap-7 gap-y-5 mt-4 border-b pb-5"
-              dir="rtl"
-            >
-              <TextField
-                id="outlined-basic"
-                label="نام و نام خانوادگی"
-                variant="outlined"
-                name="name"
-                value={personalInfo.name}
-                onChange={personalChageHandler}
-              />
-              <TextField
-                id="outlined-basic"
-                label="کد ملی"
-                variant="outlined"
-                name="nationalCode"
-                value={personalInfo.nationalCode}
-                onChange={personalChageHandler}
-              />
-
-              <TextField
-                id="outlined-basic"
-                label="تاریخ تولد"
-                variant="outlined"
-                name="birthDate"
-                value={personalInfo.birthDate}
-                onChange={personalChageHandler}
-              />
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">جنسیت</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  label="جنسیت"
-                  name="gender"
-                value={personalInfo.gender}
-                onChange={personalChageHandler}
-                >
-                  <MenuItem value="male">مرد</MenuItem>
-                  <MenuItem value="female">زن</MenuItem>
-                </Select>
-              </FormControl>
-            </div>
-            <div className="flex justify-end mt-2">
-              <button
-                className=" mx-2 bg-[#28A745] rounded-[5px] w-36 h-10 text-white text-base font-normal"
-                type="submit"
-              >
-                تایید
-              </button>
-              <button
-                onClick={() => setEditPersonal(false)}
-                className="mx-2 border-2 border-[#28A745] text-[#28A745] rounded-[5px] w-36 h-10 text-base font-normal"
-              >
-                انصراف
-              </button>
-            </div>
-          </form>
+        {editSection === "personal" ? (
+          <EditProfileForm
+          fields={[
+            { label: "نام و نام خانوادگی", name: "name" },
+            { label: "کد ملی", name: "nationalCode" },
+            { label: "تاریخ تولد", name: "birthDate", type: "date" },
+            { label: "جنسیت", name: "gender" },
+          ]}
+          onSubmit={updatePersonalHandler}
+          onCancel={() => setEditSection(null)}
+          state={personalInfo}
+          onChange={personalChageHandler}
+        />
+        
         ) : (
           <div className="grid grid-cols-2 gap-y-9 mt-5 text-sm">
             <div className="flex gap-5">
@@ -235,7 +195,7 @@ function ProfilePage() {
 
             <div className="flex gap-5">
               <p>جنسیت</p>
-              <span className="font-medium">{data?.data?.gender === "male" ? "مرد" : "زن"}</span>
+              <span className="font-medium">{data?.data?.gender === "male" ? "مرد" : null}</span>
             </div>
             <div className="flex gap-5">
               <p>تاریخ تولد</p>
@@ -245,16 +205,34 @@ function ProfilePage() {
         )}
       </div>
 
-      <div className=" border border-[#00000033] h-[171px] rounded-[10px] p-3 mt-8 ">
+      <div className=" border border-[#00000033]  h-auto rounded-[10px] p-3 mt-8 ">
+        
         <div className="flex justify-between">
           <h4 className="font-normal text-base">اطلاعات حساب بانکی</h4>
-          <button className="flex gap-3 mx-8 text-[#009ECA]">
+          <button className="flex gap-3 mx-8 text-[#009ECA]" onClick={()=>setEditSection("account")}>
             <PiPencilSimpleLine />
             ویرایش اطلاعات
           </button>
         </div>
 
-        <div className="grid grid-cols-2 gap-y-9 mt-5 text-sm">
+
+        
+        {editSection === "account" ? (
+          <EditProfileForm
+          fields={[
+            { label: "شماره شبا", name: "shaba_code" },
+            { label: "شماره کارت", name: "debitCard_code" },
+            { label: "شماره حساب ", name: "accountIdentifier" },
+          ]}
+          onSubmit={updatePersonalHandler}
+          onCancel={() => setEditSection(null)}
+          state={personalInfo}
+          onChange={personalChageHandler}
+        />
+         
+        ) : (
+
+          <div className="grid grid-cols-2 gap-y-9 mt-5 text-sm">
           <div className="flex gap-5">
             <p>شماره شبا</p>
             <span className=" font-medium ">
@@ -275,6 +253,9 @@ function ProfilePage() {
             </span>
           </div>
         </div>
+        )}
+
+        
       </div>
     </div>
   );
