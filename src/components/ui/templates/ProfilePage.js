@@ -45,7 +45,6 @@ function ProfilePage() {
   const personalChageHandler = (event) => {
   const { name, value } = event.target;
 
-
   if (name.includes(".")) {
     const [parent, child] = name.split(".");
     setPersonalInfo((prevState) => ({
@@ -82,10 +81,10 @@ function ProfilePage() {
   };
   const updatePersonalHandler =(e)=>{
     e.preventDefault();
-    const {name , nationalCode , birthDate , gender} = personalInfo
+    const {name , nationalCode , birthDate , gender , peyment} = personalInfo
   
     mutate(
-      { name , nationalCode , birthDate , gender },
+      { name , nationalCode , birthDate , gender ,peyment},
       {
         onSuccess: (data) => {
           setEditSection(null);
@@ -220,9 +219,9 @@ function ProfilePage() {
         {editSection === "account" ? (
           <EditProfileForm
           fields={[
-            { label: "شماره شبا", name: "shaba_code" },
-            { label: "شماره کارت", name: "debitCard_code" },
-            { label: "شماره حساب ", name: "accountIdentifier" },
+            { label: "شماره شبا", name: "peyment.shaba_code" },
+            { label: "شماره کارت", name: "peyment.debitCard_code" },
+            { label: "شماره حساب ", name: "peyment.accountIdentifier" }, 
           ]}
           onSubmit={updatePersonalHandler}
           onCancel={() => setEditSection(null)}
