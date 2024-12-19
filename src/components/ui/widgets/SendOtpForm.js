@@ -25,7 +25,7 @@ function SendOtpForm({ mobile, setMobile, setStep, onClose }) {
           setStep(2);
         },
         onError: (error) => {
-          console.log(error);
+          toast.error(error.message);
         },
       }
     );
@@ -62,7 +62,7 @@ function SendOtpForm({ mobile, setMobile, setStep, onClose }) {
             />
             <button
               type="submit"
-              className="block w-full bg-[#28A745] rounded-md mt-10 py-4 text-white"
+              className="block w-full bg-[#28A745] rounded-md mt-10 py-4 text-white "
             >
               ارسال کد تایید
             </button>

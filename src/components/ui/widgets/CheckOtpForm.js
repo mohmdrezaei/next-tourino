@@ -2,11 +2,24 @@ import OtpInput from "react18-input-otp";
 
 import { GoArrowLeft } from "react-icons/go";
 import { setCookie } from "src/core/utils/cookie";
-import { useCheckOtp } from "src/core/services/mutations";
-import { useState } from "react";
+import { useCheckOtp, useSendOtp } from "src/core/services/mutations";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 function CheckOtpForm({ mobile, setStep, closeModal, setIsLoggedIn }) {
   const [code, setCode] = useState("");
+  const [timeLeft, setTimeLeft] = useState(85); // 1 minute and 25 seconds
   const { isPending, mutate } = useCheckOtp();
+  const {  mutate: sendMutate } = useSendOtp();
+
+  useEffect(() => {
+    if (timeLeft > 0) {
+      const timer = setTimeout(() => {
+        setTimeLeft(timeLeft - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [timeLeft]);
+
   const changeHandler = (otp) => {
     setCode(otp);
   };
@@ -29,6 +42,27 @@ function CheckOtpForm({ mobile, setStep, closeModal, setIsLoggedIn }) {
         },
       }
     );
+  };
+  const resendOtp = () => {
+    sendMutate(
+      { mobile },
+      {
+        onSuccess: (data) => {
+          toast.success(data?.data?.message);
+          toast(data?.data?.code);
+        },
+        onError: (error) => {
+          toast.error(error.message);
+        },
+      }
+    );
+    setTimeLeft(85); // Reset the timer
+  };
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
   };
   return (
     <>
@@ -72,9 +106,20 @@ function CheckOtpForm({ mobile, setStep, closeModal, setIsLoggedIn }) {
                 }}
               />
             </div>
-            <p className="mt-6 text-xs font-light">
-              1:25 ثانبه تا ارسال مجدد کد
+           <div className=" flex mt-6 items-center justify-center text-xs font-light">
+           <p className="mx-2">
+            {timeLeft > 0 ? `${formatTime(timeLeft)} ثانیه تا ارسال مجدد کد` : "کد را مجددا ارسال کنید:"}
             </p>
+            {timeLeft === 0 && (
+              <button
+              
+                className="block  text-blue-500 text-sm "
+                onClick={resendOtp}
+              >
+                ارسال مجدد کد 
+              </button>
+            )}
+           </div>
             <button
               type="submit"
               className="block w-full bg-[#28A745] rounded-md mt-5 py-4 text-white"
