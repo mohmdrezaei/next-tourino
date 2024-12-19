@@ -3,9 +3,17 @@ import toast from "react-hot-toast";
 
 function SendOtpForm({ mobile, setMobile, setStep, onClose }) {
   const { isPending, mutate } = useSendOtp();
+
+  const isValidMobile = (mobile) => {
+    const mobileRegex = /^09\d{9}$/;
+    return mobileRegex.test(mobile);
+  };
   const submitHandler = async (event) => {
     event.preventDefault();
-    if (mobile.length !== 11) return;
+    if (!isValidMobile(mobile)) {
+      toast.error("شماره موبایل نامعتبر است");
+      return
+    }
     if (isPending) return;
 
     mutate(
