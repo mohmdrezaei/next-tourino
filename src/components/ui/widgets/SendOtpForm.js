@@ -48,7 +48,7 @@ function SendOtpForm({ mobile, setMobile, setStep, onClose }) {
           <div className="mt-12">
             <label
               for="large-input"
-              class="block mb-2 text-base font-light text-gray-900 dark:text-white"
+              className="block mb-2 text-base font-light text-gray-900 dark:text-white"
             >
               شماره موبایل خود را وارد کنید
             </label>
@@ -58,7 +58,7 @@ function SendOtpForm({ mobile, setMobile, setStep, onClose }) {
               onChange={(e) => setMobile(e.target.value)}
               placeholder="4253***0912"
               id="large-input"
-              class="block w-full p-4 text-gray-900 border h-[54px] border-[#00000040] rounded-md"
+              className="block w-[278px] md:w-full p-4 text-gray-900 border h-[54px] border-[#00000040] rounded-md"
             />
             <button
               type="submit"

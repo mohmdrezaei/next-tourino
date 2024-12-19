@@ -11,7 +11,7 @@ function DashboardSidebar({ children }) {
   const currentPath = usePathname();
   return (
     <AuthProvider>
-      <div className="   lg:h-[650px] p z-10 py-16">
+      <div className="lg:h-[650px]  z-10 pb-16 pt-5 px-5 ">
         <div className="md:flex gap-7 m-auto w-auto lg:w-[1200px]  ">
           <div className=" flex md:block justify-center md:justify-start md:w-[284px] md:h-[170px] border-b  md:border border-[#00000033]  md:rounded-[10px]">
             <Link

@@ -102,7 +102,7 @@ function HomePage({ data }) {
             <option value="shiraz">شیراز</option>
           </select>
           <select
-            class="appearance-none  w-full border-0 focus:outline-none "
+            className="appearance-none  w-full border-0 focus:outline-none "
             value={destination}
             onChange={(e) => setDestination(e.target.value)}
 
@@ -150,6 +150,7 @@ function HomePage({ data }) {
               src="/images/professional-cartoon-man.svg"
               width="308"
               height="225"
+              alt="cartoon-man"
             />
           </div>
 
@@ -203,10 +204,10 @@ function HomePage({ data }) {
      
         
       >
-        <SwiperSlide><Image src="/images/slide1.svg" height="479" width="389" className="w-[479px]"/></SwiperSlide>
-        <SwiperSlide><Image src="/images/slide2.svg" height="479" width="389" className="w-[479px]" /></SwiperSlide>
-        <SwiperSlide><Image src="/images/slide3.svg" height="479" width="389" className="w-[479px]" /></SwiperSlide>
-        <SwiperSlide><Image src="/images/slide4.svg" height="479" width="389" className="w-[479px]" /></SwiperSlide>
+        <SwiperSlide><Image src="/images/slide1.svg" height="479" width="389" className="w-[479px]" alt="slide1"/></SwiperSlide>
+        <SwiperSlide><Image src="/images/slide2.svg" height="479" width="389" className="w-[479px]" alt="slide2" /></SwiperSlide>
+        <SwiperSlide><Image src="/images/slide3.svg" height="479" width="389" className="w-[479px]" alt="slide3" /></SwiperSlide>
+        <SwiperSlide><Image src="/images/slide4.svg" height="479" width="389" className="w-[479px]" alt="slide4" /></SwiperSlide>
       </Swiper>
           </div>
         </div>
@@ -215,7 +216,7 @@ function HomePage({ data }) {
       <div className="border border-gray-300 h-[2px]  mt-32  flex justify-center"></div>
       <div className="grid gap-y-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-20 justify-items-center items-center lg:w-[1200px] mx-auto mt-7  pb-5 justify-center content-center">
         <div className="flex items-center ">
-          <Image className="h-16 md:h-32" src="/images/Group16.svg" width="121" height="109" />
+          <Image className="h-16 md:h-32" src="/images/Group16.svg" width="121" height="109"  alt="Group16" />
           <div>
             <h3 className="font-medium text-sm  md:text-[26px]">بصرفه ترین قیمت</h3>
             <p className="text-[12px] md:text-base font-light w-[202px]">
@@ -224,7 +225,7 @@ function HomePage({ data }) {
           </div>
         </div>
         <div className="flex  items-center ">
-          <Image className="h-16 md:h-32" src="/images/Group17.svg" width="121" height="109" />
+          <Image className="h-16 md:h-32" src="/images/Group17.svg" width="121" height="109"  alt="Group17" />
           <div>
             <h3 className="font-medium text-sm  md:text-[26px]">پشتیبانی </h3>
             <p className="text-[12px] md:text-base font-light w-[202px]">
@@ -233,7 +234,7 @@ function HomePage({ data }) {
           </div>
         </div>
         <div className="flex items-center">
-          <Image className="h-16 md:h-32" src="/images/Group 18.svg" width="121" height="109" />
+          <Image className="h-16 md:h-32" src="/images/Group 18.svg" width="121" height="109" alt="Group 18" />
           <div>
             <h3 className="font-medium text-sm  md:text-[26px]"> رضایت کاربران</h3>
             <p className="text-[12px] md:text-base font-light w-[202px]">

@@ -101,13 +101,14 @@ function ProfilePage() {
   if (isPending) return <Loader />;
   return (
     <div className="w-full mt-7 md:mt-0">
-      <div className=" border border-[#00000033] h-[115px] rounded-[10px] p-3 ">
+      <div className=" border border-[#00000033] h-[115px] rounded-[10px] py-3 px-5 ">
         <h4 className="font-normal text-base">اطلاعات حساب کاربری</h4>
         <div className="md:flex items-center justify-between mt-4">
-          <p className="mx-4 text-sm">
-            شماره موبایل
-            <span className="font-normal mx-5">{data?.data?.mobile}</span>
-          </p>
+         
+          <div className="flex gap-5 justify-between md:justify-start">
+              <p className="text-sm">شماره موبایل</p>
+              <span className=" font-normal ">{data?.data?.mobile}</span>
+            </div>
           <form
             onSubmit={updateEmailHandler}
             className={editEmail ? "block" : "hidden"}
@@ -126,9 +127,10 @@ function ProfilePage() {
               تایید
             </button>
           </form>
-          <p className={editEmail ? "hidden" : "block"}>
+       <div className="flex justify-between">
+       <p className={editEmail ? "hidden" : "block"}>
             ایمیل
-            <span className="mx-10">
+            <span className=" mx-5 sm:mx-10">
               {data?.data?.email ? data?.data?.email : "--"}
             </span>
           </p>
@@ -153,14 +155,15 @@ function ProfilePage() {
               افزودن
             </button>
           )}
+       </div>
         </div>
       </div>
 
-      <div className=" border border-[#00000033] h-auto rounded-[10px] p-3 mt-8 ">
+      <div className=" border border-[#00000033] h-auto rounded-[10px] py-3 px-5 mt-8 ">
         <div className="flex justify-between">
           <h4 className="font-normal text-base">اطلاعات شخصی</h4>
           <button
-            className="flex gap-3 mx-8 text-[#009ECA]"
+            className="flex gap-3  text-[#009ECA]"
             onClick={() => setEditSection("personal")}
           >
             <PiPencilSimpleLine />
@@ -183,21 +186,21 @@ function ProfilePage() {
         />
         
         ) : (
-          <div className="grid grid-cols-2 gap-y-9 mt-5 text-sm">
-            <div className="flex gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-9 mt-5 text-sm">
+            <div className="flex gap-5 justify-between sm:justify-start">
               <p>نام و نام خانوادگی</p>
               <span className=" font-medium ">{data?.data?.name}</span>
             </div>
-            <div className="flex gap-5">
+            <div className="flex gap-5 justify-between sm:justify-start">
               <p> کد ملی </p>
               <span className="font-normal">{data?.data?.nationalCode}</span>
             </div>
 
-            <div className="flex gap-5">
+            <div className="flex gap-5 justify-between sm:justify-start">
               <p>جنسیت</p>
               <span className="font-medium">{conversionToPersian(data?.data?.gender) }</span>
             </div>
-            <div className="flex gap-5">
+            <div className="flex gap-5 justify-between sm:justify-start">
               <p>تاریخ تولد</p>
               <span className="font-normal">{data?.data?.birthDate} </span>
             </div>
@@ -205,11 +208,11 @@ function ProfilePage() {
         )}
       </div>
 
-      <div className=" border border-[#00000033]  h-auto rounded-[10px] p-3 mt-8 ">
+      <div className=" border border-[#00000033]  h-auto rounded-[10px] py-3 px-5 mt-8 ">
         
         <div className="flex justify-between">
           <h4 className="font-normal text-base">اطلاعات حساب بانکی</h4>
-          <button className="flex gap-3 mx-8 text-[#009ECA]" onClick={()=>setEditSection("account")}>
+          <button className="flex gap-3  text-[#009ECA]" onClick={()=>setEditSection("account")}>
             <PiPencilSimpleLine />
             ویرایش اطلاعات
           </button>
@@ -232,21 +235,21 @@ function ProfilePage() {
          
         ) : (
 
-          <div className="grid grid-cols-2 gap-y-9 mt-5 text-sm">
-          <div className="flex gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-9 mt-5 text-sm">
+          <div className="flex gap-5 justify-between sm:justify-start">
             <p>شماره شبا</p>
             <span className=" font-medium ">
               {data?.data?.peyment?.shaba_code}
             </span>
           </div>
-          <div className="flex gap-5">
+          <div className="flex gap-5 justify-between sm:justify-start">
             <p> شماره کارت </p>
             <span className="font-normal">
               {data?.data?.peyment?.debitCard_code}
             </span>
           </div>
 
-          <div className="flex gap-5">
+          <div className="flex gap-5  justify-between sm:justify-start">
             <p>شماره حساب</p>
             <span className="font-medium">
               {data?.data?.peyment?.accountIdentifier}

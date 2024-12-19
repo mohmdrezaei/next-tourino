@@ -45,8 +45,8 @@ function Card({ tour }) {
           </h5>
         </Link>
         <p class="mb-3  w-63 whitespace-nowrap text-ellipsis overflow-hidden">
-         {tour.options.map(option =>(
-          <span className=" text-[#282828B2]">{option}،</span>
+         {tour.options.map((option , index) =>(
+          <span key={index} className=" text-[#282828B2]">{option}،</span>
          ))}
         </p>
       </div>
