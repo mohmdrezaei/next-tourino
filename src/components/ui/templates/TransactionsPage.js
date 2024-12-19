@@ -20,7 +20,7 @@ function TransactionsPage() {
       </thead>
       <tbody className="text-center h-auto">
         {data?.data?.map(item=>(
-            <tr className="h-14">
+            <tr className="h-14" key={item.id}>
           <td>{item.createdAt}</td>
           <td>{item.amount}</td>
           <td>{item.type} </td>

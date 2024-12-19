@@ -19,6 +19,7 @@ function Card({ tour }) {
       toast.error("مشکلی پیش آمده است!")
     } });
   };
+ 
 
   const viewDetails = (e, tourId) => {
     e.stopPropagation();
@@ -43,8 +44,10 @@ function Card({ tour }) {
             {tour.title}
           </h5>
         </Link>
-        <p class="mb-3 font-normal text-[#282828B2] dark:text-gray-400">
-          {tour.options}.
+        <p class="mb-3  w-63 whitespace-nowrap text-ellipsis overflow-hidden">
+         {tour.options.map(option =>(
+          <span className=" text-[#282828B2]">{option}،</span>
+         ))}
         </p>
       </div>
       <div className="flex justify-between px-3 py-2 text-base ">
