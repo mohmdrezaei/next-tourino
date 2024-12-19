@@ -88,11 +88,11 @@ function HomePage({ data }) {
           برگزار کننده بهترین تور های داخلی و خارجی
         </h4>
 
-        <form onSubmit={submitHandler} className="w-[874px]  grid grid-cols-4 p-3 gap-5 border h-[71px] mx-auto mt-7 rounded-[20px]">
+        <form onSubmit={submitHandler} className="w-auto  h-auto lg:h-[71px] lg:w-[874px] grid  grid-cols-12  lg:grid-cols-4 p-3  gap-5 lg:border  mx-auto mt-7 rounded-[20px]">
           <select
             value={origin}
             onChange={(e) => setOrigin(e.target.value)}
-            class="appearance-none  w-full border-0 bg-0 focus:outline-none "
+            class="appearance-none  col-span-6 lg:col-auto border p-4 text-center lg:text-start rounded-xl w-full lg:border-0 bg-0 focus:outline-none "
           >
             <option value="">مبدا</option>
             <option value="sanandaj">سنندج </option>
@@ -102,7 +102,7 @@ function HomePage({ data }) {
             <option value="shiraz">شیراز</option>
           </select>
           <select
-            className="appearance-none  w-full border-0 focus:outline-none "
+            className="appearance-none col-span-6 lg:col-auto border p-4 text-center lg:text-start rounded-xl  w-full lg:border-0 focus:outline-none "
             value={destination}
             onChange={(e) => setDestination(e.target.value)}
 
@@ -116,8 +116,8 @@ function HomePage({ data }) {
           </select>
          
            <DatePicker   value={date}
-            onChange={(e) => setDate(e.value)} inputClass="focus:outline-none  placeholder-[#2C2C2C]" inputAttributes={{ placeholder: "تاریخ" }}  />
-          <button type="submit" className=" bg-[#28A745] font-normal text-2xl rounded-2xl text-white w-[190px]">
+            onChange={(e) => setDate(e.value)} inputClass="focus:outline-none border lg:border-0 p-4 rounded-xl text-center lg:text-start col-span-12 lg:col-auto placeholder-[#2C2C2C]" inputAttributes={{ placeholder: "تاریخ" }}  />
+          <button type="submit" className=" bg-[#28A745] w-full lg:w-[190px] h-[47px] col-span-12 lg:col-auto font-normal text-2xl rounded-2xl text-white ">
             جستجو
           </button>
         </form>

@@ -17,7 +17,7 @@ function DashboardSidebar({ children }) {
             <Link
               href="/profile"
               className={`flex  gap-2 items-center border-b p-4 ${
-                currentPath === "/profile" ? "text-[#28A745]" : ""
+                currentPath === "/profile" ? "text-[#28A745] border-b-2 md:border-b-0 border-[#28A745] md:bg-[#28A74540]" : ""
               }`}
             >
               <TbUserFilled />
@@ -26,7 +26,7 @@ function DashboardSidebar({ children }) {
             <Link
               href="/profile/tours"
               className={`flex  gap-2 items-center border-b p-4 ${
-                currentPath === "/profile/tours" ? "text-[#28A745]" : ""
+                currentPath === "/profile/tours" ? "text-[#28A745] border-b-2 md:border-b-0 border-[#28A745] md:bg-[#28A74540]" : ""
               }`}
             >
               <PiSunHorizonFill />
@@ -35,7 +35,7 @@ function DashboardSidebar({ children }) {
             <Link
               href="/profile/transactions"
               className={`flex  gap-2 items-center  p-4 ${
-                currentPath === "/profile/transactions" ? "text-[#28A745]" : ""
+                currentPath === "/profile/transactions" ? "text-[#28A745] border-b-2 md:border-b-0 border-[#28A745] md:bg-[#28A74540]" : ""
               }`}
             >
               <AiOutlineTransaction />

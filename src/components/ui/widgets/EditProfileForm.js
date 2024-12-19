@@ -2,7 +2,7 @@ import { FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/mater
 
 const EditProfileForm = ({ fields, onSubmit, onCancel, state, onChange }) => (
   <form onSubmit={onSubmit}>
-    <div className="grid grid-cols-3 gap-7 gap-y-5 mt-4 border-b pb-5" dir="rtl">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 gap-y-5 mt-10 md:mt-4 md:border-b pb-5" dir="rtl">
       {fields.map(({ label, name, type }) => {
         if (name === "gender") {
           return (
@@ -36,16 +36,16 @@ const EditProfileForm = ({ fields, onSubmit, onCancel, state, onChange }) => (
         );
       })}
     </div>
-    <div className="flex justify-end mt-2">
+    <div className="flex justify-end mt-2 ">
       <button
-        className="mx-2 bg-[#28A745] rounded-[5px] w-36 h-10 text-white text-base font-normal"
+        className="mx-2  bg-[#28A745] rounded-[5px] w-full md:w-36 h-10 text-white text-base font-normal"
         type="submit"
       >
         تایید
       </button>
       <button
         onClick={onCancel}
-        className="mx-2 border-2 border-[#28A745] text-[#28A745] rounded-[5px] w-36 h-10 text-base font-normal"
+        className="mx-2 border-2 border-[#28A745] text-[#28A745] rounded-[5px] w-full md:w-36 h-10 text-base font-normal"
         type="button"
       >
         انصراف

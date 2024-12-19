@@ -101,11 +101,11 @@ function ProfilePage() {
   if (isPending) return <Loader />;
   return (
     <div className="w-full mt-7 md:mt-0">
-      <div className=" border border-[#00000033] h-[115px] rounded-[10px] py-3 px-5 ">
+      <div className=" border border-[#00000033] h-auto rounded-[10px] py-3 px-5 ">
         <h4 className="font-normal text-base">اطلاعات حساب کاربری</h4>
-        <div className="md:flex items-center justify-between mt-4">
+        <div className="lg:flex items-center justify-between mt-4">
          
-          <div className="flex gap-5 justify-between md:justify-start">
+          <div className="flex gap-5 justify-between lg:justify-start mb-8 lg:mb-0">
               <p className="text-sm">شماره موبایل</p>
               <span className=" font-normal ">{data?.data?.mobile}</span>
             </div>
@@ -114,14 +114,14 @@ function ProfilePage() {
             className={editEmail ? "block" : "hidden"}
           >
             <input
-              className="border border-[#00000080] h-12 w-64 mx-3 rounded-[5px] px-2 focus:outline-none"
+              className="border border-[#00000080] h-12 w-auto sm:w-64 me-3 rounded-[5px] px-2 focus:outline-none"
               type="text"
               placeholder="آدرس ایمیل"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <button
-              className="mx-5 bg-[#28A745] rounded-[5px] w-[122px] h-12 text-white text-base font-normal"
+              className="lg:mx-5 bg-[#28A745] rounded-[5px] w-[122px] h-12 text-white text-base font-normal"
               type="submit"
             >
               تایید

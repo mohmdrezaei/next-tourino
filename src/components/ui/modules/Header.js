@@ -14,23 +14,23 @@ import { TbUserFilled } from "react-icons/tb";
 import { FaRegUser } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import { RxExit } from "react-icons/rx";
+import { AiOutlineLogin } from "react-icons/ai";
 import { LuMenu } from "react-icons/lu";
 import { useGetUser } from "@/services/queries";
 import Loader from "@/elements/Loader";
 import { deleteCookie, getCookie } from "@/utils/cookie";
 import { useRouter } from "next/navigation";
 
-
 function Header() {
-  const router = useRouter()
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [mobile, setMobile] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const token = getCookie("accessToken");
-  const{data ,  isPending} = useGetUser()
-console.log(data)
+  const { data, isPending } = useGetUser();
+  console.log(data);
   useEffect(() => {
     if (token) {
       setIsLoggedIn(true);
@@ -38,8 +38,6 @@ console.log(data)
       setIsLoggedIn(false);
     }
   }, [token]);
-
- 
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -52,22 +50,27 @@ console.log(data)
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
-  
-  const logout =()=>{
-    deleteCookie("accessToken")
-    deleteCookie("refreshToken")
-    router.replace("/")
-  }
-  
+
+  const logout = () => {
+    deleteCookie("accessToken");
+    deleteCookie("refreshToken");
+    router.replace("/");
+  };
 
   return (
     <div className=" pt-5 md:py-5 md:shadow-md z-20  ">
       <header className="flex  items-center justify-between px-5 md:w-auto m-auto  xl:w-[1200px] ">
         <div className="flex items-center gap-20 ">
-          <Image width="146" height="44" src="/images/Torino.svg" className="hidden md:block" alt="logo" />
-       <button className=" md:hidden text-[30px]">
-       <LuMenu   />
-       </button>
+          <Image
+            width="146"
+            height="44"
+            src="/images/Torino.svg"
+            className="hidden md:block"
+            alt="logo"
+          />
+          <button className=" md:hidden text-[30px]">
+            <LuMenu />
+          </button>
 
           <ul className=" gap-16 font-normal hidden md:flex">
             <li>
@@ -91,14 +94,11 @@ console.log(data)
               <div className=" md:mx-16">
                 <button
                   onClick={toggleDropdown}
-                  className="gap-2 text-[#28A745] hidden md:flex"
+                  className="gap-2 text-[#28A745] flex"
                 >
                   <TbUserFilled />
                   {e2p(data?.data?.mobile)}
                   <IoIosArrowDown />
-                </button>
-                <button className="text-[#28A745] text-[30px] block md:hidden">
-                <RxExit />
                 </button>
               </div>
 
@@ -123,7 +123,7 @@ console.log(data)
                     </Link>
                     <div className="border border-gray-100 block h-[1px] mx-4"></div>
                     <button
-                    onClick={logout}
+                      onClick={logout}
                       className="flex gap-2 px-4 py-3 text-sm font-light text-[#D40000] hover:bg-gray-100"
                     >
                       <RxExit />
@@ -135,13 +135,21 @@ console.log(data)
             </div>
           </>
         ) : (
-          <button
-            onClick={openModal}
-            className=" border-2 border-[#28A745] text-[#28A745] py-1 px-4  rounded-lg text-center flex items-center gap-2"
-          >
-            <TbUserFilled />
-            ورود | ثبت نام
-          </button>
+          <>
+            <button
+              onClick={openModal}
+              className=" border-2 border-[#28A745] text-[#28A745] py-1 px-4  rounded-lg text-center hidden md:flex items-center gap-2"
+            >
+              <TbUserFilled />
+              ورود | ثبت نام
+            </button>
+            <button
+              onClick={openModal}
+              className="text-[#28A745] p-2 rounded-lg text-[25px] block md:hidden border border-[#28A745]"
+            >
+              <AiOutlineLogin />
+            </button>
+          </>
         )}
         <Modal isOpen={isModalOpen}>
           {step === 1 && (
