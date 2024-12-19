@@ -9,4 +9,7 @@ const setCookie = (tokens) => {
 function getCookie(name) {
   return Cookies.get(name);
 }
-export {setCookie ,getCookie} 
+function deleteCookie(name) {
+  Cookies.remove(name, { path: '/' });
+}
+export {setCookie ,getCookie ,deleteCookie} 

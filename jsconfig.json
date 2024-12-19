@@ -11,7 +11,9 @@
       "@/widgets/*": ["src/components/ui/widgets/*"],
       "@/utils/*": ["src/core/utils/*"],
       "@/services/*": ["src/core/services/*"],
-      "@/configs/*": ["src/core/configs/*"]
+      "@/configs/*": ["src/core/configs/*"],
+      "@/provider/*": ["src/components/partials/provider/*"],
+      "@/container/*": ["src/components/partials/container/*"]
     }
   }
 }

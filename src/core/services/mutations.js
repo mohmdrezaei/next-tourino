@@ -16,6 +16,9 @@ const useCheckOtp = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user"] });
     },
+    onError: (error) => {
+      console.error("Error checking OTP:", error);
+    },
   });
 };
 const useAddToBasket = () => {

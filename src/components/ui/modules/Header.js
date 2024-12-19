@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import api from "src/core/configs/api";
-import { getCookie } from "src/core/utils/cookie";
+
 import CheckOtpForm from "@/widgets/CheckOtpForm";
 import Modal from "src/components/partials/container/Modal";
 import SendOtpForm from "@/widgets/SendOtpForm";
@@ -17,9 +17,12 @@ import { RxExit } from "react-icons/rx";
 import { LuMenu } from "react-icons/lu";
 import { useGetUser } from "@/services/queries";
 import Loader from "@/elements/Loader";
+import { deleteCookie, getCookie } from "@/utils/cookie";
+import { useRouter } from "next/navigation";
 
 
 function Header() {
+  const router = useRouter()
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [mobile, setMobile] = useState("");
@@ -49,6 +52,12 @@ console.log(data)
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+  
+  const logout =()=>{
+    deleteCookie("accessToken")
+    deleteCookie("refreshToken")
+    router.replace("/")
+  }
   
 
   return (
@@ -113,13 +122,13 @@ console.log(data)
                       اطلاعات حساب کاربری
                     </Link>
                     <div className="border border-gray-100 block h-[1px] mx-4"></div>
-                    <a
-                      href="#"
+                    <button
+                    onClick={logout}
                       className="flex gap-2 px-4 py-3 text-sm font-light text-[#D40000] hover:bg-gray-100"
                     >
                       <RxExit />
                       خروج از حساب کاربری
-                    </a>
+                    </button>
                   </div>
                 </div>
               )}
