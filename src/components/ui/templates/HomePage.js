@@ -16,6 +16,7 @@ import { EffectCards, Pagination, Navigation  } from 'swiper/modules';
 
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaQuestion } from "react-icons/fa";
+import { IoIosArrowDown } from "react-icons/io";
 
 function HomePage({ data }) {
   const router = useRouter();
@@ -25,6 +26,8 @@ function HomePage({ data }) {
   const [destination, setDestination] = useState("");
   const [date, setDate] = useState("");
   const [filteredData, setFilteredData] = useState(data);
+  const [visibleItems, setVisibleItems] = useState(4);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const originParam = searchParams.get('origin');
@@ -50,6 +53,22 @@ function HomePage({ data }) {
     setFilteredData(filtered);
   }, [searchParams, data]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    handleResize(); 
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const handleShowMore = () => {
+    setVisibleItems(visibleItems + 3);
+  };
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toISOString().slice(0, 10)
@@ -69,6 +88,8 @@ function HomePage({ data }) {
 
     router.push(`?${params.toString()}`);
   };
+
+  const itemsToShow = isMobile ? filteredData.slice(0, visibleItems) : filteredData;
  
   return (
     <div className=" ">
@@ -125,11 +146,19 @@ function HomePage({ data }) {
 
       <div className="md:w-[1200px] mx-5 lg:mx-auto mt-10">
         <h3 className="font-normal text-[20px] md:text-[32px] tracking-wide">همه تور ها</h3>
-        <div className="grid justify-center sm:grid-cols-2 lg:grid-cols-4 mt-3 gap-8">
-          {filteredData.map((tour) => (
-            <Card key={tour.id} tour={tour} />
-          ))}
-        </div>
+        <>
+      <div className="grid justify-center sm:grid-cols-2 lg:grid-cols-4 mt-3 gap-8">
+        {itemsToShow.map((tour) => (
+          <Card key={tour.id} tour={tour} />
+        ))}
+      </div>
+      {isMobile && visibleItems < filteredData.length && (
+        <button onClick={handleShowMore} className=" flex justify-center items-center gap-3 w-full mt-4 font-normal text-[#00000080] text-center ">
+          مشاهده بیشتر
+         <IoIosArrowDown />
+        </button>
+      )}
+    </>
 
         <div className="lg:flex  border border-[#00000040] w-auto h-auto lg:h-[251px] mt-20 rounded-[10px] ">
           <div className="bg-[#28A745] rounded-[10px] xl:w-[870px] text-white relative  h-[120px] md:h-auto">
