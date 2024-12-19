@@ -1,36 +1,42 @@
 "use client";
-
 import { useEffect, useState } from "react";
-import api from "src/core/configs/api";
-
 import CheckOtpForm from "@/widgets/CheckOtpForm";
 import Modal from "src/components/partials/container/Modal";
 import SendOtpForm from "@/widgets/SendOtpForm";
 import Image from "next/image";
 import Link from "next/link";
 import { e2p } from "@/utils/numbers";
+import { useGetUser } from "@/services/queries";
+import Loader from "@/elements/Loader";
+import { deleteCookie, getCookie } from "@/utils/cookie";
+import { useRouter } from "next/navigation";
+import { Box, Drawer } from "@mui/material";
 
 import { TbUserFilled } from "react-icons/tb";
 import { FaRegUser } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import { RxExit } from "react-icons/rx";
 import { AiOutlineLogin } from "react-icons/ai";
+import { RiHome6Fill } from "react-icons/ri";
 import { LuMenu } from "react-icons/lu";
-import { useGetUser } from "@/services/queries";
-import Loader from "@/elements/Loader";
-import { deleteCookie, getCookie } from "@/utils/cookie";
-import { useRouter } from "next/navigation";
+import { PiAirplane  } from "react-icons/pi";
+import { CiVolumeHigh } from "react-icons/ci";
+import { HiOutlinePhone } from "react-icons/hi2";
 
 function Header() {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [drawer, setDrawer] = useState(false);
   const [step, setStep] = useState(1);
   const [mobile, setMobile] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const token = getCookie("accessToken");
   const { data, isPending } = useGetUser();
-  console.log(data);
+
+  const toggleDrawer = (newOpen) => () => {
+    setDrawer(newOpen);
+  };
   useEffect(() => {
     if (token) {
       setIsLoggedIn(true);
@@ -68,9 +74,38 @@ function Header() {
             className="hidden md:block"
             alt="logo"
           />
-          <button className=" md:hidden text-[30px]">
+          <button
+            onClick={toggleDrawer(true)}
+            className=" md:hidden text-[30px] "
+          >
             <LuMenu />
           </button>
+          <Drawer open={drawer} onClose={toggleDrawer(false)}>
+            <Box
+              sx={{ width: 209 }}
+              role="presentation"
+              onClick={toggleDrawer(false)}
+            >
+              <div className="pt-7 px-3">
+                <div className="flex gap-2 mb-7  text-base">
+                 <RiHome6Fill />
+                  <Link className="font-normal " href="/">صفحه اصلی</Link>
+                </div>
+                <div className="flex gap-2 mb-7  text-base">
+                 <PiAirplane  />
+                  <Link className="font-normal " href="/">خدمات گردشگری</Link>
+                </div>
+                <div className="flex gap-2 mb-7  text-base">
+                 <CiVolumeHigh />
+                  <Link className="font-normal " href="/">درباره ما</Link>
+                </div>
+                <div className="flex gap-2 mb-7  text-base">
+                 <HiOutlinePhone />
+                  <Link className="font-normal " href="/">تماس با ما</Link>
+                </div>
+              </div>
+            </Box>
+          </Drawer>
 
           <ul className=" gap-16 font-normal hidden md:flex">
             <li>
@@ -87,6 +122,7 @@ function Header() {
             </li>
           </ul>
         </div>
+
         {isLoggedIn ? (
           <>
             <button className="  gap-2 text-[#28A745] "></button>

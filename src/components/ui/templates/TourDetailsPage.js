@@ -1,5 +1,5 @@
+"use client"
 import Image from "next/image";
-
 
 import { TbRoute } from "react-icons/tb";
 import { BsFillCalendarDateFill } from "react-icons/bs";
@@ -7,8 +7,22 @@ import { PiBusFill } from "react-icons/pi";
 import { HiMiniUsers } from "react-icons/hi2";
 import { AiFillSafetyCertificate } from "react-icons/ai";
 import { e2p, sp } from "@/utils/numbers";
+import { useAddToBasket } from "@/services/mutations";
+import { useRouter } from "next/navigation";
 
 function TourDetailsPage({data}) {
+  const { isPending, mutate } = useAddToBasket();
+  const router = useRouter()
+  const addHandler = (e, tourId) => {
+    e.stopPropagation();
+    if(isPending) return
+    mutate({ tourId }, { onSuccess: (data) => {
+      router.push("/basket")
+      toast.success(data?.data?.message)
+    },onError:()=>{
+      toast.error("مشکلی پیش آمده است!")
+    } });
+  };
   return (
     <div className="lg:bg-[#F3F3F3] h-auto lg:h-[650px] z-10 py-16 ">
       <div className="w-auto xl:w-[1200px] lg:h-[427px] bg-white rounded-[10px] lg:border p-7  border-[#00000033]  mx-auto">
@@ -24,15 +38,15 @@ function TourDetailsPage({data}) {
             <p className="text-xl font-normal mt-5">5 روز و 4 شب</p>
              </div>
             <div className="flex gap-16 mt-10 text-lg lg:text-xl text-[#7D7D7D]">
-              <p>تورلیدر از مبدا</p>
-              <p>برنامه سقر</p>
-              <p>تضمین کیفیت</p>
+             {data.options.map((option,index) => (
+              <p key={index}>{option}</p>
+             ))}
             </div>
             <div className="hidden lg:flex items-center justify-between mt-10">
               <p className="text-[16px] px-1">
                 <span className="text-[#009eca] text-[28px] font-normal px-1">{sp(data.price)}</span> تومان
               </p>
-              <button className="bg-[#28A745] text-white text-2xl rounded-[10px] py-3 px-12">رزرو و خرید</button>
+              <button onClick={addHandler} className="bg-[#28A745] text-white text-2xl rounded-[10px] py-3 px-12">رزرو و خرید</button>
             </div>
           </div>
         </div>
