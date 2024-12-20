@@ -103,7 +103,7 @@ function ProfilePage() {
     <div className="w-full mt-7 md:mt-0">
       <div className=" border border-[#00000033] h-auto rounded-[10px] py-3 px-5 ">
         <h4 className="font-normal text-base">اطلاعات حساب کاربری</h4>
-        <div className="lg:flex items-center justify-between mt-4">
+        <div className="lg:grid grid-cols-2 items-center justify-between mt-4">
          
           <div className="flex gap-5 justify-between lg:justify-start mb-8 lg:mb-0">
               <p className="text-sm">شماره موبایل</p>

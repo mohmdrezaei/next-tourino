@@ -17,6 +17,8 @@ import { EffectCards, Pagination, Navigation  } from 'swiper/modules';
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaQuestion } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
+import { FaArrowRight } from "react-icons/fa6";
+import { FaArrowLeft } from "react-icons/fa6";
 
 function HomePage({ data }) {
   const router = useRouter();
@@ -41,10 +43,10 @@ function HomePage({ data }) {
     // Filter data based on search parameters
     let filtered = data;
     if (originParam) {
-      filtered = filtered.filter(item => item.origin.name.toLowerCase() === originParam.toLowerCase());
+      filtered = filtered.filter(item => item.origin.id === originParam);
     }
     if (destinationParam) {
-      filtered = filtered.filter(item => item.destination.name.toLowerCase() === destinationParam.toLowerCase());
+      filtered = filtered.filter(item => item.destination.id === destinationParam);
     }
     if (dateParam) {
       filtered = filtered.filter(item => item.startDate.slice(0,10)=== dateParam);
@@ -116,10 +118,10 @@ function HomePage({ data }) {
             class="appearance-none  col-span-6 lg:col-auto border p-4 text-center lg:text-start rounded-xl w-full lg:border-0 bg-0 focus:outline-none "
           >
             <option value="">مبدا</option>
-            <option value="sanandaj">سنندج </option>
+            <option value="2">سنندج </option>
             <option value="tabriz">تبریز</option>
-            <option value="isfahan">اصفهان</option>
-            <option value="tehran">تهران</option>
+            <option value="4">اصفهان</option>
+            <option value="1">تهران</option>
             <option value="shiraz">شیراز</option>
           </select>
           <select
@@ -129,11 +131,13 @@ function HomePage({ data }) {
 
           >
             <option value="">مقصد</option>
-            <option value="tehran">تهران</option>
-            <option value="sananndaj">سنندج </option>
-            <option value="tabriz">تبریز</option>
-            <option value="shiraz">شیراز</option>
-            <option value="mazandaran">مازندران</option>
+            <option value="3">مادرید</option>
+            <option value="2">سنندج </option>
+            <option value="5">سلیمانیه</option>
+            <option value="6">هولر</option>
+            <option value="7">مازندران</option>
+            <option value="8">مرکز آفرود</option>
+            <option value="9">ایتالیا</option>
           </select>
          
            <DatePicker   value={date}
@@ -228,16 +232,32 @@ function HomePage({ data }) {
         loop={true}
         pagination={{
           type: 'fraction',
+          el: '.custom-pagination', 
         }}
-        navigation={true}
+        navigation={{
+          nextEl: '.custom-next',
+          prevEl: '.custom-prev', 
+        }}
      
         
       >
+         <div className="custom-navigation flex justify-center gap-2 mt-4 w-[120px] m-auto">
+    <button className="custom-next">
+      
+      <FaArrowRight/>
+    </button>
+    <div className="custom-pagination text-center mt-2 w-[120px] m-auto text-blue-600"></div>
+
+    <button className="custom-prev">
+    <FaArrowLeft/>
+    </button>
+  </div>
         <SwiperSlide><Image src="/images/slide1.svg" height="479" width="389" className="w-[479px]" alt="slide1"/></SwiperSlide>
         <SwiperSlide><Image src="/images/slide2.svg" height="479" width="389" className="w-[479px]" alt="slide2" /></SwiperSlide>
         <SwiperSlide><Image src="/images/slide3.svg" height="479" width="389" className="w-[479px]" alt="slide3" /></SwiperSlide>
         <SwiperSlide><Image src="/images/slide4.svg" height="479" width="389" className="w-[479px]" alt="slide4" /></SwiperSlide>
       </Swiper>
+      
           </div>
         </div>
       </div>
