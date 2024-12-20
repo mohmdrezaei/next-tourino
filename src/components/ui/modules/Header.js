@@ -31,19 +31,20 @@ function Header() {
   const [mobile, setMobile] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const token = getCookie("accessToken");
   const { data, isPending } = useGetUser();
-
+const closeHandler = ()=>{
+  setIsOpen("")
+}
   const toggleDrawer = (newOpen) => () => {
     setDrawer(newOpen);
   };
   useEffect(() => {
-    if (token) {
+    if (data?.data) {
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
     }
-  }, [token]);
+  }, [data]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -61,7 +62,10 @@ function Header() {
     deleteCookie("accessToken");
     deleteCookie("refreshToken");
     router.replace("/");
+    setIsOpen(false)
   };
+
+  
 
   return (
     <div className=" pt-5 md:py-5 md:shadow-md z-20  ">
@@ -109,7 +113,7 @@ function Header() {
 
           <ul className=" gap-16 font-normal hidden md:flex">
             <li>
-              <Link href="/">صفحه اصلی</Link>
+              <Link  href="/">صفحه اصلی</Link>
             </li>
             <li>
               <Link href="/">خدمات گردشگری</Link>
@@ -123,7 +127,7 @@ function Header() {
           </ul>
         </div>
 
-        {isLoggedIn ? (
+        {data?.data ? (
           <>
             <button className="  gap-2 text-[#28A745] "></button>
             <div className="relative inline-block ">
@@ -142,7 +146,6 @@ function Header() {
                 <div className="origin-top-right absolute left-0 mt-5 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div>
                     <p
-                      href="#"
                       className="flex items-center gap-2 px-3 mt-0 py-2 text-base bg-[#F4F4F4] font-medium"
                     >
                       <span className="bg-[#D9D9D9] rounded-full w-7 h-7 flex justify-center items-center ">
@@ -153,6 +156,7 @@ function Header() {
                     <Link
                       href="/profile"
                       className="flex gap-2 px-4 py-3  text-sm hover:bg-gray-100 font-light "
+                      onClick={closeHandler}
                     >
                       <FaRegUser />
                       اطلاعات حساب کاربری
@@ -160,7 +164,7 @@ function Header() {
                     <div className="border border-gray-100 block h-[1px] mx-4"></div>
                     <button
                       onClick={logout}
-                      className="flex gap-2 px-4 py-3 text-sm font-light text-[#D40000] hover:bg-gray-100"
+                      className="flex gap-2 px-4 py-3 w-full text-sm font-light text-[#D40000] hover:bg-gray-100"
                     >
                       <RxExit />
                       خروج از حساب کاربری

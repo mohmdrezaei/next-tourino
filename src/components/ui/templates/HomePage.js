@@ -19,6 +19,9 @@ import { FaQuestion } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaArrowRight } from "react-icons/fa6";
 import { FaArrowLeft } from "react-icons/fa6";
+import { SlLocationPin } from "react-icons/sl";
+import { TbWorldSearch } from "react-icons/tb";
+import { IoCalendarOutline } from "react-icons/io5";
 
 function HomePage({ data }) {
   const router = useRouter();
@@ -112,10 +115,12 @@ function HomePage({ data }) {
         </h4>
 
         <form onSubmit={submitHandler} className="w-auto  h-auto lg:h-[71px] lg:w-[874px] grid  grid-cols-12  lg:grid-cols-4 p-3  gap-5 lg:border  mx-auto mt-7 rounded-[20px]">
+          <div className="flex items-center col-span-6 p-4 justify-center  lg:justify-start lg:p-0 lg:col-auto border lg:border-0   rounded-xl w-full  bg-0">
+          <SlLocationPin className="mb-1" />
           <select
             value={origin}
             onChange={(e) => setOrigin(e.target.value)}
-            class="appearance-none  col-span-6 lg:col-auto border p-4 text-center lg:text-start rounded-xl w-full lg:border-0 bg-0 focus:outline-none "
+            class="appearance-none px-2 w-full  focus:outline-none "
           >
             <option value="">مبدا</option>
             <option value="2">سنندج </option>
@@ -124,8 +129,11 @@ function HomePage({ data }) {
             <option value="1">تهران</option>
             <option value="shiraz">شیراز</option>
           </select>
+          </div>
+          <div className="flex items-center col-span-6 p-4 lg:p-0 lg:col-auto   border rounded-xl w-full lg:border-0 justify-center  lg:justify-start">
+            <TbWorldSearch className="mb-1" />
           <select
-            className="appearance-none col-span-6 lg:col-auto border p-4 text-center lg:text-start rounded-xl  w-full lg:border-0 focus:outline-none "
+            className="appearance-none  px-2 w-full  focus:outline-none "
             value={destination}
             onChange={(e) => setDestination(e.target.value)}
 
@@ -139,9 +147,11 @@ function HomePage({ data }) {
             <option value="8">مرکز آفرود</option>
             <option value="9">ایتالیا</option>
           </select>
-         
-           <DatePicker   value={date}
-            onChange={(e) => setDate(e.value)} inputClass="focus:outline-none border lg:border-0 p-4 rounded-xl text-center lg:text-start col-span-12 lg:col-auto placeholder-[#2C2C2C]" inputAttributes={{ placeholder: "تاریخ" }}  />
+         </div>
+           <div className="flex items-center border lg:border-0 p-4 lg:p-0  col-span-full lg:col-auto rounded-xl justify-center  lg:justify-start">
+            <IoCalendarOutline className="mb-1" />
+            <DatePicker   value={date}
+            onChange={(e) => setDate(e.value)} inputClass="focus:outline-none px-2  placeholder-[#2C2C2C]" inputAttributes={{ placeholder: "تاریخ" }}  /></div>
           <button type="submit" className=" bg-[#28A745] w-full lg:w-[190px] h-[47px] col-span-12 lg:col-auto font-normal text-2xl rounded-2xl text-white ">
             جستجو
           </button>
@@ -152,9 +162,13 @@ function HomePage({ data }) {
         <h3 className="font-normal text-[20px] md:text-[32px] tracking-wide">همه تور ها</h3>
         <>
       <div className="grid justify-center sm:grid-cols-2 lg:grid-cols-4 mt-3 gap-8">
-        {itemsToShow.map((tour) => (
-          <Card key={tour.id} tour={tour} />
-        ))}
+      {filteredData.length > 0 ? (
+            itemsToShow.map((tour) => (
+              <Card key={tour.id} tour={tour} />
+            ))
+          ) : (
+            <div className="col-span-12 "><h2 className="text-center text-xl font-normal ">هیچ توری با این مشخصات یافت نشد!</h2></div>
+          )}
       </div>
       {isMobile && visibleItems < filteredData.length && (
         <button onClick={handleShowMore} className=" flex justify-center items-center gap-3 w-full mt-4 font-normal text-[#00000080] text-center ">
@@ -173,7 +187,7 @@ function HomePage({ data }) {
                   تورینو
                 </sapn>
               </h1>
-              <p className="text-sm md:text-[32px] font-light mx-3 ">
+              <p className="text-sm md:text-[32px] font-light mx-3 lg:mt-10 ">
                 به هر کجا که میخواهید
               </p>
             </div>
@@ -268,7 +282,7 @@ function HomePage({ data }) {
           <Image className="h-16 md:h-32" src="/images/Group16.svg" width="121" height="109"  alt="Group16" />
           <div>
             <h3 className="font-medium text-sm  md:text-[26px]">بصرفه ترین قیمت</h3>
-            <p className="text-[12px] md:text-base font-light w-[202px]">
+            <p className="text-[12px] md:text-base font-light w-[202px] md:mt-5">
               بصرفه ترین و ارزان ترین قیمت تور را از ما بخواهید.
             </p>
           </div>
@@ -277,7 +291,7 @@ function HomePage({ data }) {
           <Image className="h-16 md:h-32" src="/images/Group17.svg" width="121" height="109"  alt="Group17" />
           <div>
             <h3 className="font-medium text-sm  md:text-[26px]">پشتیبانی </h3>
-            <p className="text-[12px] md:text-base font-light w-[202px]">
+            <p className="text-[12px] md:text-base font-light w-[202px] md:mt-5">
               پشتیبانی وهمراهی 24 ساعته در تمامب مراحل سفر شما
             </p>
           </div>
@@ -286,7 +300,7 @@ function HomePage({ data }) {
           <Image className="h-16 md:h-32" src="/images/Group 18.svg" width="121" height="109" alt="Group 18" />
           <div>
             <h3 className="font-medium text-sm  md:text-[26px]"> رضایت کاربران</h3>
-            <p className="text-[12px] md:text-base font-light w-[202px]">
+            <p className="text-[12px] md:text-base font-light w-[202px] md:mt-5">
               رضایت بیش از 10 هزار کاربر از تور های ما.
             </p>
           </div>

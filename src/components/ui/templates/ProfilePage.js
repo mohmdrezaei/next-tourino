@@ -8,6 +8,7 @@ import { useUpdateEmail } from "@/services/mutations";
 import toast from "react-hot-toast";
 import EditProfileForm from "@/widgets/EditProfileForm";
 import { conversionToPersian } from "@/utils/convertPersian";
+import { e2p } from "@/utils/numbers";
 
 function ProfilePage() {
   const [email, setEmail] = useState("");
@@ -42,26 +43,27 @@ function ProfilePage() {
       });
     }
   }, [data]);
-
   const personalChageHandler = (event) => {
-  const { name, value } = event.target;
+    const { name, value } = event.target;
 
-  if (name.includes(".")) {
-    const [parent, child] = name.split(".");
-    setPersonalInfo((prevState) => ({
-      ...prevState,
-      [parent]: {
-        ...prevState[parent],
-        [child]: value,
-      },
-    }));
-  } else {
-  
-    setPersonalInfo((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  }
+   
+    const convertedValue = e2p(value);
+
+    if (name.includes(".")) {
+        const [parent, child] = name.split(".");
+        setPersonalInfo((prevState) => ({
+            ...prevState,
+            [parent]: {
+                ...prevState[parent],
+                [child]: convertedValue,
+            },
+        }));
+    } else {
+        setPersonalInfo((prevState) => ({
+            ...prevState,
+            [name]: convertedValue,
+        }));
+    }
 };
   const { mutate } = useUpdateEmail();
   const updateEmailHandler = (e) => {
@@ -107,7 +109,7 @@ function ProfilePage() {
          
           <div className="flex gap-5 justify-between lg:justify-start mb-8 lg:mb-0">
               <p className="text-sm">شماره موبایل</p>
-              <span className=" font-normal ">{data?.data?.mobile}</span>
+              <span className=" font-normal ">{e2p(data?.data?.mobile)}</span>
             </div>
           <form
             onSubmit={updateEmailHandler}
@@ -193,7 +195,7 @@ function ProfilePage() {
             </div>
             <div className="flex gap-5 justify-between sm:justify-start">
               <p> کد ملی </p>
-              <span className="font-normal">{data?.data?.nationalCode}</span>
+              <span className="font-normal">{e2p(data?.data?.nationalCode)}</span>
             </div>
 
             <div className="flex gap-5 justify-between sm:justify-start">
@@ -202,7 +204,7 @@ function ProfilePage() {
             </div>
             <div className="flex gap-5 justify-between sm:justify-start">
               <p>تاریخ تولد</p>
-              <span className="font-normal">{data?.data?.birthDate} </span>
+              <span className="font-normal">{ new Date(data?.data?.birthDate).toLocaleDateString("fa-IR")} </span>
             </div>
           </div>
         )}
@@ -239,20 +241,20 @@ function ProfilePage() {
           <div className="flex gap-5 justify-between sm:justify-start">
             <p>شماره شبا</p>
             <span className=" font-medium ">
-              {data?.data?.peyment?.shaba_code}
+              {e2p(data?.data?.peyment?.shaba_code)}
             </span>
           </div>
           <div className="flex gap-5 justify-between sm:justify-start">
             <p> شماره کارت </p>
             <span className="font-normal">
-              {data?.data?.peyment?.debitCard_code}
+              {e2p(data?.data?.peyment?.debitCard_code)}
             </span>
           </div>
 
           <div className="flex gap-5  justify-between sm:justify-start">
             <p>شماره حساب</p>
             <span className="font-medium">
-              {data?.data?.peyment?.accountIdentifier}
+              {e2p(data?.data?.peyment?.accountIdentifier)}
             </span>
           </div>
         </div>

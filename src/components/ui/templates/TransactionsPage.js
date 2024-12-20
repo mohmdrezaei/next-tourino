@@ -1,6 +1,7 @@
 "use client"
 import Loader from "@/elements/Loader";
 import { useGetTransactions } from "@/services/queries";
+import { sp } from "@/utils/numbers";
 
 function TransactionsPage() {
     const {data , isPending} = useGetTransactions()
@@ -21,9 +22,9 @@ function TransactionsPage() {
       <tbody className="text-center h-auto">
         {data?.data?.map(item=>(
             <tr className="h-14" key={item.id}>
-          <td>{item.createdAt}</td>
-          <td>{item.amount}</td>
-          <td>{item.type} </td>
+          <td>{ new Date(item?.createdAt).toLocaleDateString("fa-IR")}</td>
+          <td>{sp(item?.amount)}</td>
+          <td>{item?.type} </td>
           <td>سفارش 12054902</td>
         </tr>
         ))}
