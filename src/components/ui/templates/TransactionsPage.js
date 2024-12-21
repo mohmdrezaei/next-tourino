@@ -20,14 +20,20 @@ function TransactionsPage() {
         </tr>
       </thead>
       <tbody className="text-center h-auto">
-        {data?.data?.map(item=>(
-            <tr className="h-14" key={item.id}>
-          <td>{ new Date(item?.createdAt).toLocaleDateString("fa-IR")}</td>
-          <td>{sp(item?.amount)}</td>
-          <td>{item?.type} </td>
-          <td>سفارش 12054902</td>
-        </tr>
-        ))}
+       {data?.data?.length ? (
+         data?.data?.map(item=>(
+          <tr className="h-14" key={item.id}>
+        <td>{ new Date(item?.createdAt).toLocaleDateString("fa-IR")}</td>
+        <td>{sp(item?.amount)}</td>
+        <td>{item?.type} </td>
+        <td>سفارش 12054902</td>
+      </tr>
+      ))
+       ) : (
+       <tr>
+        <td className="text-center h-28" colSpan="5"> هیچ تراکنشی وجود ندارد</td>
+       </tr>
+       )}
         
         
       </tbody>
