@@ -33,7 +33,6 @@ function CheckOtpForm({ mobile, setStep, closeModal, setIsLoggedIn }) {
       { mobile, code },
       {
         onSuccess: (data) => {
-          setCookie(data?.data);
           closeModal();
           setIsLoggedIn(true);
         },

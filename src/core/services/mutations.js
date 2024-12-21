@@ -1,5 +1,6 @@
 import api from "src/core/configs/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { setCookie } from "@/utils/cookie";
 
 const useSendOtp = () => {
   const mutationFn = (data) => api.post("auth/send-otp", data);
@@ -13,7 +14,8 @@ const useCheckOtp = () => {
 
   return useMutation({
     mutationFn,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      setCookie(data?.data);
       queryClient.invalidateQueries({ queryKey: ["user"] });
     },
     onError: (error) => {

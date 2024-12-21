@@ -2,17 +2,17 @@
 import { e2p } from "@/utils/numbers";
 import Card from "@/widgets/Card";
 import Image from "next/image";
-import {  useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { DatePicker } from "zaman";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/effect-cards';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/effect-cards";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
-import { EffectCards, Pagination, Navigation  } from 'swiper/modules';
+import { EffectCards, Pagination, Navigation } from "swiper/modules";
 
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaQuestion } from "react-icons/fa";
@@ -22,6 +22,7 @@ import { FaArrowLeft } from "react-icons/fa6";
 import { SlLocationPin } from "react-icons/sl";
 import { TbWorldSearch } from "react-icons/tb";
 import { IoCalendarOutline } from "react-icons/io5";
+
 
 function HomePage({ data }) {
   const router = useRouter();
@@ -35,9 +36,9 @@ function HomePage({ data }) {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const originParam = searchParams.get('origin');
-    const destinationParam = searchParams.get('destination');
-    const dateParam = searchParams.get('date');
+    const originParam = searchParams.get("origin");
+    const destinationParam = searchParams.get("destination");
+    const dateParam = searchParams.get("date");
 
     if (originParam) setOrigin(originParam);
     if (destinationParam) setDestination(destinationParam);
@@ -46,15 +47,19 @@ function HomePage({ data }) {
     // Filter data based on search parameters
     let filtered = data;
     if (originParam) {
-      filtered = filtered.filter(item => item.origin.id === originParam);
+      filtered = filtered.filter((item) => item.origin.id === originParam);
     }
     if (destinationParam) {
-      filtered = filtered.filter(item => item.destination.id === destinationParam);
+      filtered = filtered.filter(
+        (item) => item.destination.id === destinationParam
+      );
     }
     if (dateParam) {
-      filtered = filtered.filter(item => item.startDate.slice(0,10)=== dateParam);
+      filtered = filtered.filter(
+        (item) => item.startDate.slice(0, 10) === dateParam
+      );
     }
-   
+
     setFilteredData(filtered);
   }, [searchParams, data]);
 
@@ -63,11 +68,11 @@ function HomePage({ data }) {
       setIsMobile(window.innerWidth <= 768);
     };
 
-    handleResize(); 
-    window.addEventListener('resize', handleResize);
+    handleResize();
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -76,11 +81,8 @@ function HomePage({ data }) {
   };
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toISOString().slice(0, 10)
+    return date.toISOString().slice(0, 10);
   };
-
-  
-  
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -94,8 +96,10 @@ function HomePage({ data }) {
     router.push(`?${params.toString()}`);
   };
 
-  const itemsToShow = isMobile ? filteredData.slice(0, visibleItems) : filteredData;
- 
+  const itemsToShow = isMobile
+    ? filteredData.slice(0, visibleItems)
+    : filteredData;
+
   return (
     <div className=" ">
       <Image
@@ -114,69 +118,88 @@ function HomePage({ data }) {
           برگزار کننده بهترین تور های داخلی و خارجی
         </h4>
 
-        <form onSubmit={submitHandler} className="w-auto  h-auto lg:h-[71px] lg:w-[874px] grid  grid-cols-12  lg:grid-cols-4 p-3  gap-5 lg:border  mx-auto mt-7 rounded-[20px]">
+        <form
+          onSubmit={submitHandler}
+          className="w-auto  h-auto lg:h-[71px] lg:w-[874px] grid  grid-cols-12  lg:grid-cols-4 p-3  gap-5 lg:border  mx-auto mt-7 rounded-[20px]"
+        >
           <div className="flex items-center col-span-6 p-4 justify-center  lg:justify-start lg:p-0 lg:col-auto border lg:border-0   rounded-xl w-full  bg-0">
-          <SlLocationPin className="mb-1" />
-          <select
-            value={origin}
-            onChange={(e) => setOrigin(e.target.value)}
-            class="appearance-none px-2 w-full  focus:outline-none "
-          >
-            <option value="">مبدا</option>
-            <option value="2">سنندج </option>
-            <option value="tabriz">تبریز</option>
-            <option value="4">اصفهان</option>
-            <option value="1">تهران</option>
-            <option value="shiraz">شیراز</option>
-          </select>
+            <SlLocationPin className="mb-1" />
+
+            
+            <select
+              value={origin}
+              onChange={(e) => setOrigin(e.target.value)}
+              class="appearance-none rounded-lg px-2 w-full  focus:outline-none "
+            >
+              <option value="">مبدا</option>
+              <option value="2">سنندج </option>
+              <option value="tabriz">تبریز</option>
+              <option value="4">اصفهان</option>
+              <option value="1">تهران</option>
+              <option value="shiraz">شیراز</option>
+            </select>
           </div>
           <div className="flex items-center col-span-6 p-4 lg:p-0 lg:col-auto   border rounded-xl w-full lg:border-0 justify-center  lg:justify-start">
             <TbWorldSearch className="mb-1" />
-          <select
-            className="appearance-none  px-2 w-full  focus:outline-none "
-            value={destination}
-            onChange={(e) => setDestination(e.target.value)}
-
-          >
-            <option value="">مقصد</option>
-            <option value="3">مادرید</option>
-            <option value="2">سنندج </option>
-            <option value="5">سلیمانیه</option>
-            <option value="6">هولر</option>
-            <option value="7">مازندران</option>
-            <option value="8">مرکز آفرود</option>
-            <option value="9">ایتالیا</option>
-          </select>
-         </div>
-           <div className="flex items-center border lg:border-0 p-4 lg:p-0  col-span-full lg:col-auto rounded-xl justify-center  lg:justify-start">
+            <select
+              className="appearance-none  px-2 w-full  focus:outline-none "
+              value={destination}
+              onChange={(e) => setDestination(e.target.value)}
+            >
+              <option value="">مقصد</option>
+              <option value="3">مادرید</option>
+              <option value="2">سنندج </option>
+              <option value="5">سلیمانیه</option>
+              <option value="6">هولر</option>
+              <option value="7">مازندران</option>
+              <option value="8">مرکز آفرود</option>
+              <option value="9">ایتالیا</option>
+            </select>
+          </div>
+          <div className="flex items-center border lg:border-0 p-4 lg:p-0  col-span-full lg:col-auto rounded-xl justify-center  lg:justify-start">
             <IoCalendarOutline className="mb-1" />
-            <DatePicker   value={date}
-            onChange={(e) => setDate(e.value)} inputClass="focus:outline-none px-2  placeholder-[#2C2C2C]" inputAttributes={{ placeholder: "تاریخ" }}  /></div>
-          <button type="submit" className=" bg-[#28A745] w-full lg:w-[190px] h-[47px] col-span-12 lg:col-auto font-normal text-2xl rounded-2xl text-white ">
+            <DatePicker
+              value={date}
+              onChange={(e) => setDate(e.value)}
+              inputClass="focus:outline-none px-2  placeholder-[#2C2C2C]"
+              inputAttributes={{ placeholder: "تاریخ" }}
+            />
+          </div>
+          <button
+            type="submit"
+            className=" bg-[#28A745] w-full lg:w-[190px] h-[47px] col-span-12 lg:col-auto font-normal text-2xl rounded-2xl text-white "
+          >
             جستجو
           </button>
         </form>
       </div>
 
       <div className="md:w-[1200px] mx-5 lg:mx-auto mt-10">
-        <h3 className="font-normal text-[20px] md:text-[32px] tracking-wide">همه تور ها</h3>
+        <h3 className="font-normal text-[20px] md:text-[32px] tracking-wide">
+          همه تور ها
+        </h3>
         <>
-      <div className="grid justify-center sm:grid-cols-2 lg:grid-cols-4 mt-3 gap-8">
-      {filteredData.length > 0 ? (
-            itemsToShow.map((tour) => (
-              <Card key={tour.id} tour={tour} />
-            ))
-          ) : (
-            <div className="col-span-12 "><h2 className="text-center text-xl font-normal ">هیچ توری با این مشخصات یافت نشد!</h2></div>
+          <div className="grid justify-center sm:grid-cols-2 lg:grid-cols-4 mt-3 gap-8">
+            {filteredData.length > 0 ? (
+              itemsToShow.map((tour) => <Card key={tour.id} tour={tour} />)
+            ) : (
+              <div className="col-span-12 ">
+                <h2 className="text-center text-xl font-normal ">
+                  هیچ توری با این مشخصات یافت نشد!
+                </h2>
+              </div>
+            )}
+          </div>
+          {isMobile && visibleItems < filteredData.length && (
+            <button
+              onClick={handleShowMore}
+              className=" flex justify-center items-center gap-3 w-full mt-4 font-normal text-[#00000080] text-center "
+            >
+              مشاهده بیشتر
+              <IoIosArrowDown />
+            </button>
           )}
-      </div>
-      {isMobile && visibleItems < filteredData.length && (
-        <button onClick={handleShowMore} className=" flex justify-center items-center gap-3 w-full mt-4 font-normal text-[#00000080] text-center ">
-          مشاهده بیشتر
-         <IoIosArrowDown />
-        </button>
-      )}
-    </>
+        </>
 
         <div className="lg:flex  border border-[#00000040] w-auto h-auto lg:h-[251px] mt-20 rounded-[10px] ">
           <div className="bg-[#28A745] rounded-[10px] xl:w-[870px] text-white relative  h-[120px] md:h-auto">
@@ -227,7 +250,9 @@ function HomePage({ data }) {
               </h3>
             </div>
 
-            <p className="font-normal mt-5 text-2xl hidden md:block">تور طبیعت گردی و تاریخی</p>
+            <p className="font-normal mt-5 text-2xl hidden md:block">
+              تور طبیعت گردی و تاریخی
+            </p>
             <p className="w-[517px] mt-5 text-xl text-[#282828] leading-10 hidden md:block ">
               اگر دوست داشته باشید که یک جاذبه طبیعی را از نزدیک ببینید و در دل
               طبیعت چادر بزنید یا در یک اقامتگاه بوم گردی اتاق بگیرید، باید
@@ -238,40 +263,68 @@ function HomePage({ data }) {
           </div>
 
           <div className="mt-5">
-          <Swiper
-        effect={'cards'}
-        grabCursor={true}
-        modules={[EffectCards , Pagination, Navigation]}
-        className="mySwiper"
-        loop={true}
-        pagination={{
-          type: 'fraction',
-          el: '.custom-pagination', 
-        }}
-        navigation={{
-          nextEl: '.custom-next',
-          prevEl: '.custom-prev', 
-        }}
-     
-        
-      >
-         <div className="custom-navigation flex justify-center gap-2 mt-4 w-[120px] m-auto">
-    <button className="custom-next">
-      
-      <FaArrowRight/>
-    </button>
-    <div className="custom-pagination text-center mt-2 w-[120px] m-auto text-blue-600"></div>
+            <Swiper
+              effect={"cards"}
+              grabCursor={true}
+              modules={[EffectCards, Pagination, Navigation]}
+              className="mySwiper"
+              loop={true}
+              pagination={{
+                type: "fraction",
+                el: ".custom-pagination",
+              }}
+              navigation={{
+                nextEl: ".custom-next",
+                prevEl: ".custom-prev",
+              }}
+            >
+              <div className="custom-navigation flex justify-center gap-2 mt-4 w-[120px] m-auto">
+                <button className="custom-next text-[#10411B]">
+                  <FaArrowRight />
+                </button>
+                <div className="custom-pagination text-center mt-2 w-[120px] m-auto text-blue-600"></div>
 
-    <button className="custom-prev">
-    <FaArrowLeft/>
-    </button>
-  </div>
-        <SwiperSlide><Image src="/images/slide1.svg" height="479" width="389" className="w-[479px]" alt="slide1"/></SwiperSlide>
-        <SwiperSlide><Image src="/images/slide2.svg" height="479" width="389" className="w-[479px]" alt="slide2" /></SwiperSlide>
-        <SwiperSlide><Image src="/images/slide3.svg" height="479" width="389" className="w-[479px]" alt="slide3" /></SwiperSlide>
-        <SwiperSlide><Image src="/images/slide4.svg" height="479" width="389" className="w-[479px]" alt="slide4" /></SwiperSlide>
-      </Swiper>
-      
+                <button className="custom-prev text-[#10411B]">
+                  <FaArrowLeft />
+                </button>
+              </div>
+              <SwiperSlide>
+                <Image
+                  src="/images/slide1.svg"
+                  height="479"
+                  width="389"
+                  className="w-[479px]"
+                  alt="slide1"
+                />
+              </SwiperSlide>
+              <SwiperSlide>
+                <Image
+                  src="/images/slide2.svg"
+                  height="479"
+                  width="389"
+                  className="w-[479px]"
+                  alt="slide2"
+                />
+              </SwiperSlide>
+              <SwiperSlide>
+                <Image
+                  src="/images/slide3.svg"
+                  height="479"
+                  width="389"
+                  className="w-[479px]"
+                  alt="slide3"
+                />
+              </SwiperSlide>
+              <SwiperSlide>
+                <Image
+                  src="/images/slide4.svg"
+                  height="479"
+                  width="389"
+                  className="w-[479px]"
+                  alt="slide4"
+                />
+              </SwiperSlide>
+            </Swiper>
           </div>
         </div>
       </div>
@@ -279,16 +332,30 @@ function HomePage({ data }) {
       <div className="border border-gray-300 h-[2px]  mt-32  flex justify-center"></div>
       <div className="grid gap-y-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-20 justify-items-center items-center lg:w-[1200px] mx-auto mt-7  pb-5 justify-center content-center">
         <div className="flex items-center ">
-          <Image className="h-16 md:h-32" src="/images/Group16.svg" width="121" height="109"  alt="Group16" />
+          <Image
+            className="h-16 md:h-32"
+            src="/images/Group16.svg"
+            width="121"
+            height="109"
+            alt="Group16"
+          />
           <div>
-            <h3 className="font-medium text-sm  md:text-[26px]">بصرفه ترین قیمت</h3>
+            <h3 className="font-medium text-sm  md:text-[26px]">
+              بصرفه ترین قیمت
+            </h3>
             <p className="text-[12px] md:text-base font-light w-[202px] md:mt-5">
               بصرفه ترین و ارزان ترین قیمت تور را از ما بخواهید.
             </p>
           </div>
         </div>
         <div className="flex  items-center ">
-          <Image className="h-16 md:h-32" src="/images/Group17.svg" width="121" height="109"  alt="Group17" />
+          <Image
+            className="h-16 md:h-32"
+            src="/images/Group17.svg"
+            width="121"
+            height="109"
+            alt="Group17"
+          />
           <div>
             <h3 className="font-medium text-sm  md:text-[26px]">پشتیبانی </h3>
             <p className="text-[12px] md:text-base font-light w-[202px] md:mt-5">
@@ -297,9 +364,18 @@ function HomePage({ data }) {
           </div>
         </div>
         <div className="flex items-center">
-          <Image className="h-16 md:h-32" src="/images/Group 18.svg" width="121" height="109" alt="Group 18" />
+          <Image
+            className="h-16 md:h-32"
+            src="/images/Group 18.svg"
+            width="121"
+            height="109"
+            alt="Group 18"
+          />
           <div>
-            <h3 className="font-medium text-sm  md:text-[26px]"> رضایت کاربران</h3>
+            <h3 className="font-medium text-sm  md:text-[26px]">
+              {" "}
+              رضایت کاربران
+            </h3>
             <p className="text-[12px] md:text-base font-light w-[202px] md:mt-5">
               رضایت بیش از 10 هزار کاربر از تور های ما.
             </p>
