@@ -7,25 +7,25 @@ async function Home({searchParams}) {
   })
     .then((res) => res.json())
     .then((data) => data);
-    let filteredData = data;
+    // let filteredData = data;
 
-    if (searchParams.origin) {
-      filteredData = filteredData.filter((item) =>
-        item.origin.name.toLowerCase() === searchParams.origin
-      );
-    }
+    // if (searchParams.origin) {
+    //   filteredData = filteredData.filter((item) =>
+    //     item.origin.name.toLowerCase() === searchParams.origin
+    //   );
+    // }
   
-    if (searchParams.destination) {
-      filteredData = filteredData.filter((item) =>
-        item.destination.name.toLowerCase() === searchParams.destination
-      );
-    }
+    // if (searchParams.destination) {
+    //   filteredData = filteredData.filter((item) =>
+    //     item.destination.name.toLowerCase() === searchParams.destination
+    //   );
+    // }
   
-    if (searchParams.date) {
-      filteredData = filteredData.filter((item) =>
-        item.startDate === searchParams.date
-      );
-    }
+    // if (searchParams.date) {
+    //   filteredData = filteredData.filter((item) =>
+    //     item.startDate === searchParams.date
+    //   );
+    // }
   return <HomePage data={data} />;
 }
 

@@ -22,6 +22,7 @@ import { FaArrowLeft } from "react-icons/fa6";
 import { SlLocationPin } from "react-icons/sl";
 import { TbWorldSearch } from "react-icons/tb";
 import { IoCalendarOutline } from "react-icons/io5";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 
 function HomePage({ data }) {
@@ -124,7 +125,21 @@ function HomePage({ data }) {
         >
           <div className="flex items-center col-span-6 p-4 justify-center  lg:justify-start lg:p-0 lg:col-auto border lg:border-0   rounded-xl w-full  bg-0">
             <SlLocationPin className="mb-1" />
+            <FormControl fullWidth>
+  <InputLabel id="demo-simple-select-label">Age</InputLabel>
+  <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+ 
+    label="Age"
+    sx={{paddingRight:0}}
 
+  >
+    <MenuItem value={10}>Ten</MenuItem>
+    <MenuItem value={20}>Twenty</MenuItem>
+    <MenuItem value={30}>Thirty</MenuItem>
+  </Select>
+</FormControl>
             
             <select
               value={origin}

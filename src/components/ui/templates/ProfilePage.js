@@ -19,11 +19,9 @@ function ProfilePage() {
     gender: "",
     birthDate: "",
     nationalCode: "",
-    peyment: {
-      shaba_code: "",
-      debitCard_code: "",
-      accountIdentifier: "",
-    },
+    shaba_code: "",
+    debitCard_code: "",
+    accountIdentifier: "",
   });
   const { isPending, data, error } = useGetUser();
 
@@ -35,36 +33,19 @@ function ProfilePage() {
         gender: data.data.gender || "",
         birthDate: data.data.birthDate || "",
         nationalCode: data.data.nationalCode || "",
-        peyment: {
-          shaba_code: data.data.peyment?.shaba_code || "",
-          debitCard_code: data.data.peyment?.debitCard_code || "",
-          accountIdentifier: data.data.peyment?.accountIdentifier || "",
-        },
+        shaba_code: data.data.peyment?.shaba_code || "",
+        debitCard_code: data.data.peyment?.debitCard_code || "",
+        accountIdentifier: data.data.peyment?.accountIdentifier || "",
       });
     }
   }, [data]);
   const personalChageHandler = (event) => {
     const { name, value } = event.target;
-
-   
-    const convertedValue = e2p(value);
-
-    if (name.includes(".")) {
-        const [parent, child] = name.split(".");
-        setPersonalInfo((prevState) => ({
-            ...prevState,
-            [parent]: {
-                ...prevState[parent],
-                [child]: convertedValue,
-            },
-        }));
-    } else {
-        setPersonalInfo((prevState) => ({
-            ...prevState,
-            [name]: convertedValue,
-        }));
-    }
-};
+    setPersonalInfo((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
   const { mutate } = useUpdateEmail();
   const updateEmailHandler = (e) => {
     e.preventDefault();
@@ -82,12 +63,28 @@ function ProfilePage() {
       }
     );
   };
-  const updatePersonalHandler =(e)=>{
-    e.preventDefault();
-    const {name , nationalCode , birthDate , gender , peyment} = personalInfo
+  const updatePersonalHandler = (e) => {
   
+    if (isPending) return;
+
+    const {
+      name,
+      nationalCode,
+      birthDate,
+      gender,
+      debitCard_code,
+      shaba_code,
+      accountIdentifier,
+    } = personalInfo;
+
     mutate(
-      { name , nationalCode , birthDate , gender ,peyment},
+      {
+        name,
+        nationalCode,
+        birthDate,
+        gender,
+        peyment: { debitCard_code, shaba_code, accountIdentifier },
+      },
       {
         onSuccess: (data) => {
           setEditSection(null);
@@ -98,7 +95,7 @@ function ProfilePage() {
         },
       }
     );
-  }
+  };
 
   if (isPending) return <Loader />;
   return (
@@ -106,11 +103,10 @@ function ProfilePage() {
       <div className=" border border-[#00000033] h-auto rounded-[10px] py-3 px-5 ">
         <h4 className="font-normal text-base">اطلاعات حساب کاربری</h4>
         <div className="lg:grid grid-cols-2 items-center justify-between mt-4">
-         
           <div className="flex gap-5 justify-between lg:justify-start mb-8 lg:mb-0">
-              <p className="text-sm">شماره موبایل</p>
-              <span className=" font-normal ">{e2p(data?.data?.mobile)}</span>
-            </div>
+            <p className="text-sm">شماره موبایل</p>
+            <span className=" font-normal ">{e2p(data?.data?.mobile)}</span>
+          </div>
           <form
             onSubmit={updateEmailHandler}
             className={editEmail ? "block" : "hidden"}
@@ -129,35 +125,35 @@ function ProfilePage() {
               تایید
             </button>
           </form>
-       <div className="flex justify-between">
-       <p className={editEmail ? "hidden" : "block"}>
-            ایمیل
-            <span className=" mx-5 sm:mx-10">
-              {data?.data?.email ? data?.data?.email : "--"}
-            </span>
-          </p>
-          {data?.data?.email ? (
-            <button
-              className={`flex gap-3 mx-8 text-[#009ECA] ${
-                editEmail ? "hidden" : "block"
-              }`}
-              onClick={() => setEditEmail(true)}
-            >
-              <PiPencilSimpleLine />
-              ویرایش
-            </button>
-          ) : (
-            <button
-              className={`flex gap-3 mx-8 text-[#009ECA] ${
-                editEmail ? "hidden" : "block"
-              }`}
-              onClick={() => setEditEmail(true)}
-            >
-              <PiPencilSimpleLine />
-              افزودن
-            </button>
-          )}
-       </div>
+          <div className="flex justify-between">
+            <p className={editEmail ? "hidden" : "block"}>
+              ایمیل
+              <span className=" mx-5 sm:mx-10">
+                {data?.data?.email || "--"}
+              </span>
+            </p>
+            {data?.data?.email ? (
+              <button
+                className={`flex gap-3 mx-8 text-[#009ECA] ${
+                  editEmail ? "hidden" : "block"
+                }`}
+                onClick={() => setEditEmail(true)}
+              >
+                <PiPencilSimpleLine />
+                ویرایش
+              </button>
+            ) : (
+              <button
+                className={`flex gap-3 mx-8 text-[#009ECA] ${
+                  editEmail ? "hidden" : "block"
+                }`}
+                onClick={() => setEditEmail(true)}
+              >
+                <PiPencilSimpleLine />
+                افزودن
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
@@ -175,92 +171,95 @@ function ProfilePage() {
 
         {editSection === "personal" ? (
           <EditProfileForm
-          fields={[
-            { label: "نام و نام خانوادگی", name: "name" },
-            { label: "کد ملی", name: "nationalCode" },
-            { label: "تاریخ تولد", name: "birthDate", type: "date" },
-            { label: "جنسیت", name: "gender" },
-          ]}
-          onSubmit={updatePersonalHandler}
-          onCancel={() => setEditSection(null)}
-          state={personalInfo}
-          onChange={personalChageHandler}
-        />
-        
+            fields={[
+              { label: "نام و نام خانوادگی", name: "name" },
+              { label: "کد ملی", name: "nationalCode" },
+              { label: "تاریخ تولد", name: "birthDate", type: "date" },
+              { label: "جنسیت", name: "gender" },
+            ]}
+            onSubmit={updatePersonalHandler}
+            onCancel={() => setEditSection(null)}
+            state={personalInfo}
+            onChange={personalChageHandler}
+             section="personal"
+          />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-9 mt-5 text-sm">
             <div className="flex gap-5 justify-between sm:justify-start">
               <p>نام و نام خانوادگی</p>
-              <span className=" font-medium ">{data?.data?.name}</span>
+              <span className=" font-medium ">{data?.data?.name || "--"}</span>
             </div>
             <div className="flex gap-5 justify-between sm:justify-start">
               <p> کد ملی </p>
-              <span className="font-normal">{e2p(data?.data?.nationalCode)}</span>
+              <span className="font-normal">
+                {e2p(data?.data?.nationalCode) || "--"}
+              </span>
             </div>
 
             <div className="flex gap-5 justify-between sm:justify-start">
               <p>جنسیت</p>
-              <span className="font-medium">{conversionToPersian(data?.data?.gender) }</span>
+              <span className="font-medium">
+                {conversionToPersian(data?.data?.gender)}
+              </span>
             </div>
             <div className="flex gap-5 justify-between sm:justify-start">
               <p>تاریخ تولد</p>
-              <span className="font-normal">{ new Date(data?.data?.birthDate).toLocaleDateString("fa-IR")} </span>
+              <span className="font-normal">
+                {data?.data?.birthDate ? new Date(data?.data?.birthDate).toLocaleDateString("fa-IR") : "--"}
+              </span>
             </div>
           </div>
         )}
       </div>
 
       <div className=" border border-[#00000033]  h-auto rounded-[10px] py-3 px-5 mt-8 ">
-        
         <div className="flex justify-between">
           <h4 className="font-normal text-base">اطلاعات حساب بانکی</h4>
-          <button className="flex gap-3  text-[#009ECA]" onClick={()=>setEditSection("account")}>
+          <button
+            className="flex gap-3  text-[#009ECA]"
+            onClick={() => setEditSection("account")}
+          >
             <PiPencilSimpleLine />
             ویرایش اطلاعات
           </button>
         </div>
 
-
-        
         {editSection === "account" ? (
           <EditProfileForm
-          fields={[
-            { label: "شماره شبا", name: "peyment.shaba_code" },
-            { label: "شماره کارت", name: "peyment.debitCard_code" },
-            { label: "شماره حساب ", name: "peyment.accountIdentifier" }, 
-          ]}
-          onSubmit={updatePersonalHandler}
-          onCancel={() => setEditSection(null)}
-          state={personalInfo}
-          onChange={personalChageHandler}
-        />
-         
+            fields={[
+              { label: "شماره شبا", name: "shaba_code" },
+              { label: "شماره کارت", name: "debitCard_code" },
+              { label: "شماره حساب ", name: "accountIdentifier" },
+            ]}
+            onSubmit={updatePersonalHandler}
+            onCancel={() => setEditSection(null)}
+            state={personalInfo}
+            onChange={personalChageHandler}
+             section="account"
+          />
         ) : (
-
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-9 mt-5 text-sm">
-          <div className="flex gap-5 justify-between sm:justify-start">
-            <p>شماره شبا</p>
-            <span className=" font-medium ">
-              {e2p(data?.data?.peyment?.shaba_code)}
-            </span>
-          </div>
-          <div className="flex gap-5 justify-between sm:justify-start">
-            <p> شماره کارت </p>
-            <span className="font-normal">
-              {e2p(data?.data?.peyment?.debitCard_code)}
-            </span>
-          </div>
+            <div className="flex gap-5 justify-between sm:justify-start">
+              <p>شماره شبا</p>
+              <span className=" font-medium ">
+                {e2p(data?.data?.peyment?.shaba_code) || "--"} 
+              </span>
+            </div>
+            <div className="flex gap-5 justify-between sm:justify-start">
+              <p> شماره کارت </p>
+              <span className="font-normal">
+                {e2p(data?.data?.peyment?.debitCard_code) || "--"}
+              </span>
+            </div>
 
-          <div className="flex gap-5  justify-between sm:justify-start">
-            <p>شماره حساب</p>
-            <span className="font-medium">
-              {e2p(data?.data?.peyment?.accountIdentifier)}
-            </span>
+            <div className="flex gap-5  justify-between sm:justify-start">
+              <p>شماره حساب</p>
+              <span className="font-medium">
+                {e2p(data?.data?.peyment?.accountIdentifier) || "--"}
+              </span>
+            </div>
           </div>
-        </div>
         )}
-
-        
       </div>
     </div>
   );
