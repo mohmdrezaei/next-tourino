@@ -1,5 +1,6 @@
 import api from "@/configs/api";
 import { useQuery } from "@tanstack/react-query";
+import QueryString from "qs";
 
 
 const useGetUser = () => {
@@ -34,4 +35,13 @@ const useGetUser = () => {
   
     return { data, error, isPending };
   };
-  export {useGetUser , useGetUserTours , useGetTransactions}
+
+  const useGetTours = (query) => {
+    const url = "tour?" + QueryString.stringify(query);
+  
+    const queryFn = () => api.get(url);
+    const queryKey = ["tour", query];
+  
+    return useQuery({ queryFn, queryKey, enabled: false });
+  };
+  export {useGetUser , useGetUserTours , useGetTransactions , useGetTours}

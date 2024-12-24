@@ -23,46 +23,18 @@ import { SlLocationPin } from "react-icons/sl";
 import { TbWorldSearch } from "react-icons/tb";
 import { IoCalendarOutline } from "react-icons/io5";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import SearchFrom from "@/widgets/SearchForm";
 
 
 function HomePage({ data }) {
   const router = useRouter();
-  const searchParams = useSearchParams();
 
-  const [origin, setOrigin] = useState("");
-  const [destination, setDestination] = useState("");
-  const [date, setDate] = useState("");
-  const [filteredData, setFilteredData] = useState(data);
+
+
   const [visibleItems, setVisibleItems] = useState(4);
   const [isMobile, setIsMobile] = useState(false);
 
-  useEffect(() => {
-    const originParam = searchParams.get("origin");
-    const destinationParam = searchParams.get("destination");
-    const dateParam = searchParams.get("date");
-
-    if (originParam) setOrigin(originParam);
-    if (destinationParam) setDestination(destinationParam);
-    if (dateParam) setDate(dateParam);
-
-    // Filter data based on search parameters
-    let filtered = data;
-    if (originParam) {
-      filtered = filtered.filter((item) => item.origin.id === originParam);
-    }
-    if (destinationParam) {
-      filtered = filtered.filter(
-        (item) => item.destination.id === destinationParam
-      );
-    }
-    if (dateParam) {
-      filtered = filtered.filter(
-        (item) => item.startDate.slice(0, 10) === dateParam
-      );
-    }
-
-    setFilteredData(filtered);
-  }, [searchParams, data]);
+  
 
   useEffect(() => {
     const handleResize = () => {
@@ -80,26 +52,10 @@ function HomePage({ data }) {
   const handleShowMore = () => {
     setVisibleItems(visibleItems + 3);
   };
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toISOString().slice(0, 10);
-  };
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-
-    const params = new URLSearchParams();
-
-    if (origin) params.append("origin", origin);
-    if (destination) params.append("destination", destination);
-    if (date) params.append("date", formatDate(date));
-
-    router.push(`?${params.toString()}`);
-  };
 
   const itemsToShow = isMobile
-    ? filteredData.slice(0, visibleItems)
-    : filteredData;
+    ? data.slice(0, visibleItems)
+    : data;
 
   return (
     <div className=" ">
@@ -119,74 +75,7 @@ function HomePage({ data }) {
           برگزار کننده بهترین تور های داخلی و خارجی
         </h4>
 
-        <form
-          onSubmit={submitHandler}
-          className="w-auto  h-auto lg:h-[71px] lg:w-[874px] grid  grid-cols-12  lg:grid-cols-4 p-3  gap-5 lg:border  mx-auto mt-7 rounded-[20px]"
-        >
-          <div className="flex items-center col-span-6 p-4 justify-center  lg:justify-start lg:p-0 lg:col-auto border lg:border-0   rounded-xl w-full  bg-0">
-            <SlLocationPin className="mb-1" />
-            <FormControl fullWidth>
-  <InputLabel id="demo-simple-select-label">Age</InputLabel>
-  <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
- 
-    label="Age"
-    sx={{paddingRight:0}}
-
-  >
-    <MenuItem value={10}>Ten</MenuItem>
-    <MenuItem value={20}>Twenty</MenuItem>
-    <MenuItem value={30}>Thirty</MenuItem>
-  </Select>
-</FormControl>
-            
-            <select
-              value={origin}
-              onChange={(e) => setOrigin(e.target.value)}
-              class="appearance-none rounded-lg px-2 w-full  focus:outline-none "
-            >
-              <option value="">مبدا</option>
-              <option value="2">سنندج </option>
-              <option value="tabriz">تبریز</option>
-              <option value="4">اصفهان</option>
-              <option value="1">تهران</option>
-              <option value="shiraz">شیراز</option>
-            </select>
-          </div>
-          <div className="flex items-center col-span-6 p-4 lg:p-0 lg:col-auto   border rounded-xl w-full lg:border-0 justify-center  lg:justify-start">
-            <TbWorldSearch className="mb-1" />
-            <select
-              className="appearance-none  px-2 w-full  focus:outline-none "
-              value={destination}
-              onChange={(e) => setDestination(e.target.value)}
-            >
-              <option value="">مقصد</option>
-              <option value="3">مادرید</option>
-              <option value="2">سنندج </option>
-              <option value="5">سلیمانیه</option>
-              <option value="6">هولر</option>
-              <option value="7">مازندران</option>
-              <option value="8">مرکز آفرود</option>
-              <option value="9">ایتالیا</option>
-            </select>
-          </div>
-          <div className="flex items-center border lg:border-0 p-4 lg:p-0  col-span-full lg:col-auto rounded-xl justify-center  lg:justify-start">
-            <IoCalendarOutline className="mb-1" />
-            <DatePicker
-              value={date}
-              onChange={(e) => setDate(e.value)}
-              inputClass="focus:outline-none px-2  placeholder-[#2C2C2C]"
-              inputAttributes={{ placeholder: "تاریخ" }}
-            />
-          </div>
-          <button
-            type="submit"
-            className=" bg-[#28A745] w-full lg:w-[190px] h-[47px] col-span-12 lg:col-auto font-normal text-2xl rounded-2xl text-white "
-          >
-            جستجو
-          </button>
-        </form>
+        <SearchFrom />
       </div>
 
       <div className="md:w-[1200px] mx-5 lg:mx-auto mt-10">
@@ -195,7 +84,7 @@ function HomePage({ data }) {
         </h3>
         <>
           <div className="grid justify-center sm:grid-cols-2 lg:grid-cols-4 mt-3 gap-8">
-            {filteredData.length > 0 ? (
+            {data?.length > 0 ? (
               itemsToShow.map((tour) => <Card key={tour.id} tour={tour} />)
             ) : (
               <div className="col-span-12 ">
@@ -205,7 +94,7 @@ function HomePage({ data }) {
               </div>
             )}
           </div>
-          {isMobile && visibleItems < filteredData.length && (
+          {isMobile && visibleItems < data?.length && (
             <button
               onClick={handleShowMore}
               className=" flex justify-center items-center gap-3 w-full mt-4 font-normal text-[#00000080] text-center "
