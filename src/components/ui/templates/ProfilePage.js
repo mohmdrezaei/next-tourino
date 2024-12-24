@@ -9,6 +9,10 @@ import toast from "react-hot-toast";
 import EditProfileForm from "@/widgets/EditProfileForm";
 import { conversionToPersian } from "@/utils/convertPersian";
 import { e2p } from "@/utils/numbers";
+import { useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
+import { emailSchema } from "@/schema/index";
 
 function ProfilePage() {
   const [email, setEmail] = useState("");
@@ -24,6 +28,15 @@ function ProfilePage() {
     accountIdentifier: "",
   });
   const { isPending, data, error } = useGetUser();
+
+ 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(emailSchema),
+  })
 
   useEffect(() => {
     if (data?.data) {
@@ -47,11 +60,10 @@ function ProfilePage() {
     }));
   };
   const { mutate } = useUpdateEmail();
-  const updateEmailHandler = (e) => {
-    e.preventDefault();
-
+  const updateEmailHandler = (email) => {
+  
     mutate(
-      { email },
+      email,
       {
         onSuccess: (data) => {
           setEditEmail(false);
@@ -108,22 +120,25 @@ function ProfilePage() {
             <span className=" font-normal ">{e2p(data?.data?.mobile)}</span>
           </div>
           <form
-            onSubmit={updateEmailHandler}
+            onSubmit={handleSubmit(updateEmailHandler)}
             className={editEmail ? "block" : "hidden"}
           >
             <input
-              className="border border-[#00000080] h-12 w-auto sm:w-64 me-3 rounded-[5px] px-2 focus:outline-none"
+              className={`border border-[#00000080] h-12 w-auto sm:w-64 me-3 rounded-[5px] px-2 focus:outline-none ${errors?.email && "border border-[#d32f2f]"}` }
               type="text"
               placeholder="آدرس ایمیل"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+               name="email"
+               defaultValue={email}
+               
+              {...register("email")}
             />
             <button
               className="lg:mx-5 bg-[#28A745] rounded-[5px] w-[122px] h-12 text-white text-base font-normal"
               type="submit"
-            >
+              >
               تایید
             </button>
+              <p className="text-[#d32f2f] font-normal m-1 mx-2">{errors.email?.message}</p>
           </form>
           <div className="flex justify-between">
             <p className={editEmail ? "hidden" : "block"}>

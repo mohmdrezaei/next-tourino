@@ -41,14 +41,13 @@ const EditProfileForm = ({
                   label={label}
                   name={name}
                   value={state[name]}
-                  hyper
                   {...register(name)}
                 >
                   <MenuItem value="male">مرد</MenuItem>
                   <MenuItem value="female">زن</MenuItem>
                 </Select>
                 {errors[name] && (
-                  <p className="text-red-400">{errors[name]?.message}</p>
+                  <p className="text-[#d32f2f] font-normal m-2">{errors[name]?.message}</p>
                 )}
               </FormControl>
             );

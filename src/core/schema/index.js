@@ -15,4 +15,9 @@ import { object, string , date  } from 'yup';
       .max(16, "شماره حساب نباید بیشتر از 16 رقم باشد")
       .required("شماره حساب را وارد کنید"),
   });
-  export {PersonalInfoSchema, BankInfoSchema}
+
+  const emailSchema = object({
+    email: string().required("ایمیل را وارد کنید").email()
+  });
+
+  export {PersonalInfoSchema, BankInfoSchema , emailSchema}
