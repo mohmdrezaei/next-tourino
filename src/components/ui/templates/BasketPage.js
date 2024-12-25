@@ -5,21 +5,27 @@ import { DateToIso } from "@/utils/helper";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { IoCalendarOutline } from "react-icons/io5";
+import { PiCodaLogoFill } from "react-icons/pi";
 import { TbUserFilled } from "react-icons/tb";
 import { DatePicker } from "zaman";
 
 function BasketPage({ data }) {
   const [formData, setFormData] = useState({
     nationalCode: "",
-    name: "",
+    fullName: "",
     gender: "",
     birthDate: "",
   });
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(PersonalInfoSchema),
   });
   const changeHandler = (e) => {
@@ -29,23 +35,18 @@ function BasketPage({ data }) {
       [name]: value,
     });
   };
-const router = useRouter()
+  const router = useRouter();
   const { isPending, mutate } = useFinalizeOrder();
-  const submitHandler = (event) => {
-    event.preventDefault()
-    const { nationalCode, fullName, gender, birthDate } = formData;
-    mutate(
-      { nationalCode, fullName, gender, birthDate },
-      {
-        onSuccess: (data) => {
-          router.push("/");
-          toast.success(data?.data?.message);
-        },
-        onError: () => {
-          toast.error("مشکلی پیش آمده است!");
-        },
-      }
-    );
+  const submitHandler = (form) => {
+    mutate(form, {
+      onSuccess: (data) => {
+        router.push("/");
+        toast.success(data?.data?.message);
+      },
+      onError: () => {
+        toast.error("مشکلی پیش آمده است!");
+      },
+    });
   };
   return (
     <div className="   lg:bg-[#F3F3F3] h-[750px] md:h-[650px] z-10 py-16 px-7 ">
@@ -61,51 +62,58 @@ const router = useRouter()
           </h1>
           <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-7 mt-5 justify-center">
             <div>
-            <input
-              className="border border-[#00000080] w-[262px] h-[50px] rounded-[5px] px-2"
-              type="text"
-              name="name"
-              placeholder="نام و نام خانوادگی"
-              {...register("name")}
-            />
-             <p className="text-[#d32f2f] font-normal m-1 mx-2">{errors.name?.message}</p>
+              <input
+                className="border border-[#00000080] w-[262px] h-[50px] rounded-[5px] px-2"
+                type="text"
+                name="fullName"
+                placeholder="نام و نام خانوادگی"
+                {...register("fullName")}
+              />
+              <p className="text-[#d32f2f] font-normal m-1 mx-2">
+                {errors.name?.message}
+              </p>
             </div>
             <div>
-            <input
-              className="border border-[#00000080] w-[262px] h-[50px] rounded-[5px] px-2"
-              type="text"
-              name="nationalCode"
-              placeholder="کد ملی"
-              {...register("nationalCode")}
-            />
-             <p className="text-[#d32f2f] font-normal m-1 mx-2">{errors.nationalCode?.message}</p>
+              <input
+                className="border border-[#00000080] w-[262px] h-[50px] rounded-[5px] px-2"
+                type="text"
+                name="nationalCode"
+                placeholder="کد ملی"
+                {...register("nationalCode")}
+              />
+              <p className="text-[#d32f2f] font-normal m-1 mx-2">
+                {errors.nationalCode?.message}
+              </p>
             </div>
             <div className="flex items-center border rounded px-3 h-[50px] ">
-            <IoCalendarOutline className="mb-1" />
-            <DatePicker
-            round="x2"
-            accentColor="#28A745"
-            inputClass="focus:outline-none px-2   placeholder-[#2C2C2C]"
-            inputAttributes={{ placeholder: "تاریخ تولد" }}
-            value={formData.birthDate}
-            name="birthDate"
-            onChange={(e)=>setFormData((prevState) => ({
-              ...prevState,
-              birthDate: DateToIso(e.value),
-            }))}
-            
-          />
-          </div>
-           
+              <IoCalendarOutline className="mb-1" />
+
+              <Controller
+                control={control}
+                name="birthDate"
+                render={({ field: { onChange } }) => (
+                  <DatePicker
+                    inputAttributes={{ placeholder: "تاریخ تولد" }}
+                    round="x2"
+                    accentColor="#28A745"
+                    inputClass="focus:outline-none px-2   placeholder-[#2C2C2C]"
+                    onChange={(e) => onChange(new Date(e.value))}
+                  />
+                )}
+              />
+            </div>
+
             <div>
-            <input
-              className="border border-[#00000080] w-[262px] h-[50px] rounded-[5px] px-2"
-              type="text"
-              placeholder="جنسیت"
-              name="gender"
-              {...register("gender")}
-            />
-            <p className="text-[#d32f2f] font-normal m-1 mx-2">{errors.gender?.message}</p>
+              <input
+                className="border border-[#00000080] w-[262px] h-[50px] rounded-[5px] px-2"
+                type="text"
+                placeholder="جنسیت"
+                name="gender"
+                {...register("gender")}
+              />
+              <p className="text-[#d32f2f] font-normal m-1 mx-2">
+                {errors.gender?.message}
+              </p>
             </div>
           </div>
         </div>

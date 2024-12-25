@@ -13,6 +13,7 @@
       "@/services/*": ["src/core/services/*"],
       "@/configs/*": ["src/core/configs/*"],
       "@/schema/*": ["src/core/schema/*"],
+      "@/hooks/*": ["src/core/hooks/*"],
       "@/provider/*": ["src/components/partials/provider/*"],
       "@/container/*": ["src/components/partials/container/*"]
     }

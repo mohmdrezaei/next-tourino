@@ -1,4 +1,4 @@
-"use client"
+
 import { useAddToBasket } from "@/services/mutations";
 import { sp } from "@/utils/numbers";
 import Link from "next/link";
@@ -7,29 +7,10 @@ import React from "react";
 import toast from "react-hot-toast";
 
 function Card({ tour }) {
-  const { isPending, mutate } = useAddToBasket();
-  const router = useRouter()
-  const addHandler = (e, tourId) => {
-    e.stopPropagation();
-    if(isPending) return
-    mutate({ tourId }, { onSuccess: (data) => {
-      router.push("/basket")
-      toast.success(data?.data?.message)
-    },onError:()=>{
-      toast.error("مشکلی پیش آمده است!")
-    } });
-  };
  
-
-  const viewDetails = (e, tourId) => {
-    e.stopPropagation();
-    router.push(`/tour/${tourId}`);
-  };
   return (
     <div
-      key={tour.id}
       class="w-auto md:w-[278px] bg-white border border-[#0000001F] drop-shadow-sm rounded-[10px] "
-      onClick={(e) => viewDetails(e, tour.id)}
     >
       <img
         class="rounded-t-lg w-full h-auto"

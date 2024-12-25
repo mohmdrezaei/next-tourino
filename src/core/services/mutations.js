@@ -24,11 +24,11 @@ const useCheckOtp = () => {
   });
 };
 const useAddToBasket = () => {
-  const mutationFn = ({ tourId, ...data }) =>
-    api.put(`/basket/${tourId}`, data);
+  const mutationFn = (id) => api.put(`basket/${id}`);
 
   return useMutation({ mutationFn });
 };
+
 const useFinalizeOrder = () => {
   const mutationFn = (data) => api.post("/order", data);
 

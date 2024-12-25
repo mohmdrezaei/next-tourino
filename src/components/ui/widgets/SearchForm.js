@@ -12,10 +12,13 @@ import { TbWorldSearch } from "react-icons/tb";
 import { IoCalendarOutline } from "react-icons/io5";
 import { SlLocationPin } from "react-icons/sl";
 import { useRouter } from "next/navigation";
+import useQuery from "@/hooks/query";
+import QueryString from "qs";
 
 function SearchFrom() {
   const [query, setQuery] = useState("");
-  const router = useRouter()
+  const router = useRouter();
+  const { getQuery } = useQuery();
 
   const { data, isPending, refetch } = useGetTours(query);
   const { register, handleSubmit, control } = useForm();
@@ -25,13 +28,9 @@ function SearchFrom() {
   }, [query]);
 
   const submitHandler = (form) => {
-    const queryParams = flattenObject(form);
-    setQuery(queryParams);
-   
-    
-    const queryString = new URLSearchParams(queryParams).toString();
+    const query = QueryString.stringify(flattenObject(form));
 
-    router.push(`?${queryString}`)
+    router.push(`/?${query}`)
   };
 
   return (
