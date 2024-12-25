@@ -39,11 +39,9 @@ function Card({ tour }) {
         height="159"
       />
       <div class="px-5 pt-3 border border-b-[#D9D9D9]">
-        <Link href={`/tour/${tour.id}`}>
           <h5 class="mb-2 text-[27px] font-normal tracking-tight text-gray-900 dark:text-white">
             {tour.title}
           </h5>
-        </Link>
         <p class="mb-3  w-63 whitespace-nowrap text-ellipsis overflow-hidden">
          {tour.options.map((option , index) =>(
           <span key={index} className=" text-[#282828B2]">{option}،</span>
@@ -51,12 +49,12 @@ function Card({ tour }) {
         </p>
       </div>
       <div className="flex justify-between px-3 py-2 text-base ">
-        <button
-          onClick={(e) => addHandler(e, tour.id)}
+        <Link
+        href={`/tour/${tour.id}`}
           className="bg-[#28A745] text-white rounded px-5"
         >
           رزرو
-        </button>
+        </Link>
         <p className="text-[16px] px-1">
           <span className="text-[#009eca] px-1">{sp(tour.price)}</span> تومان
         </p>

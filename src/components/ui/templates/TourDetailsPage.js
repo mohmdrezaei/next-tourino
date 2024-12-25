@@ -46,7 +46,7 @@ function TourDetailsPage({data}) {
               <p className="text-[16px] px-1">
                 <span className="text-[#009eca] text-[28px] font-normal px-1">{sp(data?.price)}</span> تومان
               </p>
-              <button onClick={addHandler} className="bg-[#28A745] text-white text-2xl rounded-[10px] py-3 px-12">رزرو و خرید</button>
+              <button onClick={(e) => addHandler(e, data.id)} className="bg-[#28A745] text-white text-2xl rounded-[10px] py-3 px-12">رزرو و خرید</button>
             </div>
           </div>
         </div>
@@ -100,7 +100,7 @@ function TourDetailsPage({data}) {
               <p className="text-[16px] px-1">
                 <span className="text-[#009eca] text-[28px] font-normal px-1">{sp(data.price)}</span> تومان
               </p>
-              <button className="bg-[#28A745] text-white text-2xl rounded-[10px] py-3 px-12">رزرو و خرید</button>
+              <button onClick={(e) => addHandler(e, data.id)} className="bg-[#28A745] text-white text-2xl rounded-[10px] py-3 px-12">رزرو و خرید</button>
             </div>
       </div>
     </div>

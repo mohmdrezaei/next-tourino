@@ -76,7 +76,7 @@ const router = useRouter()
               type="text"
               name="nationalCode"
               placeholder="کد ملی"
-              {...register("natinalCode")}
+              {...register("nationalCode")}
             />
              <p className="text-[#d32f2f] font-normal m-1 mx-2">{errors.nationalCode?.message}</p>
             </div>
@@ -110,7 +110,7 @@ const router = useRouter()
           </div>
         </div>
 
-        <div className=" bg-white py-5 px-3  border rounded-[10px] border-[#00000033] lg:border-none">
+        <div className=" bg-white py-5 px-3 h-[228px]  border rounded-[10px] border-[#00000033] lg:border-none">
           <div className="flex justify-between border-dashed border-b-2 boreder-[#00000080] pb-4">
             <h3 className="text-2xl font-medium">{data?.title}</h3>
             <p className="text-[#282828] text-base">5 روز و 4 شب</p>
