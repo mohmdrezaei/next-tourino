@@ -6,7 +6,7 @@ import { useGetUser } from "@/services/queries";
 import Loader from "@/elements/Loader";
 import { useUpdateEmail } from "@/services/mutations";
 import toast from "react-hot-toast";
-import EditProfileForm from "@/widgets/EditProfileForm";
+import EditForm from "@/widgets/EditForm";
 import { conversionToPersian } from "@/utils/convertPersian";
 import { e2p } from "@/utils/numbers";
 import { useForm } from "react-hook-form"
@@ -27,6 +27,7 @@ function ProfilePage() {
     debitCard_code: "",
     accountIdentifier: "",
   });
+ 
   const { isPending, data, error } = useGetUser();
 
  
@@ -78,7 +79,7 @@ function ProfilePage() {
   const updatePersonalHandler = (e) => {
   
     if (isPending) return;
-
+    
     const {
       name,
       nationalCode,
@@ -88,7 +89,7 @@ function ProfilePage() {
       shaba_code,
       accountIdentifier,
     } = personalInfo;
-
+    console.log('Personal Info:', personalInfo);
     mutate(
       {
         name,
@@ -185,7 +186,7 @@ function ProfilePage() {
         </div>
 
         {editSection === "personal" ? (
-          <EditProfileForm
+          <EditForm
             fields={[
               { label: "نام و نام خانوادگی", name: "name" },
               { label: "کد ملی", name: "nationalCode" },
@@ -196,6 +197,7 @@ function ProfilePage() {
             onCancel={() => setEditSection(null)}
             state={personalInfo}
             onChange={personalChageHandler}
+            setPersonalInfo = {setPersonalInfo}
              section="personal"
           />
         ) : (
@@ -240,7 +242,7 @@ function ProfilePage() {
         </div>
 
         {editSection === "account" ? (
-          <EditProfileForm
+          <EditForm
             fields={[
               { label: "شماره شبا", name: "shaba_code" },
               { label: "شماره کارت", name: "debitCard_code" },

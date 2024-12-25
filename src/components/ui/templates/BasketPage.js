@@ -1,16 +1,26 @@
 "use client";
+import { PersonalInfoSchema } from "@/schema/index";
 import { useFinalizeOrder } from "@/services/mutations";
+import { DateToIso } from "@/utils/helper";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { IoCalendarOutline } from "react-icons/io5";
 import { TbUserFilled } from "react-icons/tb";
+import { DatePicker } from "zaman";
 
 function BasketPage({ data }) {
   const [formData, setFormData] = useState({
     nationalCode: "",
-    fullName: "",
+    name: "",
     gender: "",
     birthDate: "",
+  });
+
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(PersonalInfoSchema),
   });
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -40,8 +50,8 @@ const router = useRouter()
   return (
     <div className="   lg:bg-[#F3F3F3] h-[750px] md:h-[650px] z-10 py-16 px-7 ">
       <form
-        className="lg:flex gap-3  h-[228px] justify-center"
-        onSubmit={submitHandler}
+        className="lg:flex gap-3  h-auto justify-center"
+        onSubmit={handleSubmit(submitHandler)}
         onChange={changeHandler}
       >
         <div className=" bg-white  py-7 px-5 border rounded-[10px] border-[#00000033] lg:border-none  mb-10 lg:mb-0">
@@ -50,30 +60,53 @@ const router = useRouter()
             مشخصات مسافر
           </h1>
           <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-7 mt-5 justify-center">
+            <div>
             <input
               className="border border-[#00000080] w-[262px] h-[50px] rounded-[5px] px-2"
               type="text"
-              name="fullName"
+              name="name"
               placeholder="نام و نام خانوادگی"
+              {...register("name")}
             />
+             <p className="text-[#d32f2f] font-normal m-1 mx-2">{errors.name?.message}</p>
+            </div>
+            <div>
             <input
               className="border border-[#00000080] w-[262px] h-[50px] rounded-[5px] px-2"
               type="text"
               name="nationalCode"
               placeholder="کد ملی"
+              {...register("natinalCode")}
             />
-            <input
-              className="border border-[#00000080] w-[262px] h-[50px] rounded-[5px] px-2"
-              type="date"
-              name="birthDate"
-              placeholder="تاریخ تولد"
-            />
+             <p className="text-[#d32f2f] font-normal m-1 mx-2">{errors.nationalCode?.message}</p>
+            </div>
+            <div className="flex items-center border rounded px-3 h-[50px] ">
+            <IoCalendarOutline className="mb-1" />
+            <DatePicker
+            round="x2"
+            accentColor="#28A745"
+            inputClass="focus:outline-none px-2   placeholder-[#2C2C2C]"
+            inputAttributes={{ placeholder: "تاریخ تولد" }}
+            value={formData.birthDate}
+            name="birthDate"
+            onChange={(e)=>setFormData((prevState) => ({
+              ...prevState,
+              birthDate: DateToIso(e.value),
+            }))}
+            
+          />
+          </div>
+           
+            <div>
             <input
               className="border border-[#00000080] w-[262px] h-[50px] rounded-[5px] px-2"
               type="text"
               placeholder="جنسیت"
               name="gender"
+              {...register("gender")}
             />
+            <p className="text-[#d32f2f] font-normal m-1 mx-2">{errors.gender?.message}</p>
+            </div>
           </div>
         </div>
 

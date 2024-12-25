@@ -10,14 +10,18 @@ import { useForm } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { BankInfoSchema, PersonalInfoSchema } from "@/schema/index";
+import { DatePicker } from "zaman";
+import { IoCalendarOutline } from "react-icons/io5";
+import { DateToIso } from "@/utils/helper";
 
-const EditProfileForm = ({
+const EditForm = ({
   fields,
   onSubmit,
   onCancel,
   state,
   onChange,
   section,
+  setPersonalInfo
 }) => {
   const schema = section === "personal" ? PersonalInfoSchema : BankInfoSchema;
   const { register, handleSubmit , formState : {errors} } = useForm({
@@ -28,7 +32,6 @@ const EditProfileForm = ({
     <form onSubmit={handleSubmit(onSubmit)} onChange={onChange}>
       <div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 gap-y-5 mt-10 md:mt-4 md:border-b pb-5"
-        dir="rtl"
       >
         {fields.map(({ label, name, type }) => {
           if (name === "gender") {
@@ -51,6 +54,27 @@ const EditProfileForm = ({
                 )}
               </FormControl>
             );
+          }
+          if(type === "date"){
+           return (
+            <div className="flex items-center border   col-span-full lg:col-auto rounded px-3 justify-center  lg:justify-start">
+            <IoCalendarOutline className="mb-1" />
+            <DatePicker
+            round="x2"
+            accentColor="#28A745"
+            inputClass="focus:outline-none px-2   placeholder-[#2C2C2C]"
+            inputAttributes={{ placeholder: label }}
+            value={state[name]}
+            name={name}
+            onChange={(e)=>setPersonalInfo((prevState) => ({
+              ...prevState,
+              birthDate: DateToIso(e.value),
+            }))}
+            
+          />
+          </div>
+           
+           )
           }
           return (
             <TextField
@@ -87,4 +111,4 @@ const EditProfileForm = ({
   );
 };
 
-export default EditProfileForm;
+export default EditForm;

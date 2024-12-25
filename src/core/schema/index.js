@@ -3,7 +3,6 @@ import { object, string , date  } from 'yup';
  const PersonalInfoSchema = object({
     name: string().required("نام و نام خانوادگی الزامی است"),
     nationalCode: string().required("کد ملی الزامی است"),
-    birthDate: date().required("تاریخ تولد الزامی است"),
     gender: string().required("جنسیت الزامی است"),
   });
   
@@ -17,7 +16,7 @@ import { object, string , date  } from 'yup';
   });
 
   const emailSchema = object({
-    email: string().required("ایمیل را وارد کنید").email()
+    email: string().required("ایمیل را وارد کنید").email("یک ایمیل معتبر وارد کنید")
   });
 
   export {PersonalInfoSchema, BankInfoSchema , emailSchema}
