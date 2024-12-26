@@ -1,7 +1,7 @@
 
 import { object, string , date  } from 'yup';
  const PersonalInfoSchema = object({
-  fullName: string().required("نام و نام خانوادگی الزامی است"),
+    fullName: string().required("نام و نام خانوادگی الزامی است"),
     nationalCode: string().required("کد ملی الزامی است"),
     gender: string().required("جنسیت الزامی است"),
   });

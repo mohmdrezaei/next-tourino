@@ -21,11 +21,14 @@ function SearchFrom() {
   const { getQuery } = useQuery();
 
   const { data, isPending, refetch } = useGetTours(query);
-  const { register, handleSubmit, control } = useForm();
+  const { register, handleSubmit, control , reset } = useForm();
 
   useEffect(() => {
-    refetch();
-  }, [query]);
+    const originId = getQuery("originId");
+    const destinationId = getQuery("destinationId");
+    if (originId && destinationId) reset({originId, destinationId})
+    console.log({ originId, destinationId });
+  }, []);
 
   const submitHandler = (form) => {
     const query = QueryString.stringify(flattenObject(form));

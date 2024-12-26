@@ -1,5 +1,6 @@
 import { useSendOtp } from "src/core/services/mutations";
 import toast from "react-hot-toast";
+import { ThreeDots } from "react-loader-spinner";
 
 function SendOtpForm({ mobile, setMobile, setStep, onClose }) {
   const { isPending, mutate } = useSendOtp();
@@ -60,12 +61,22 @@ function SendOtpForm({ mobile, setMobile, setStep, onClose }) {
               id="large-input"
               className="block w-[278px] md:w-full p-4 text-gray-900 border h-[54px] border-[#00000040] rounded-md"
             />
-            <button
-              type="submit"
-              className="block w-full bg-[#28A745] rounded-md mt-10 py-4 text-white "
-            >
-              ارسال کد تایید
-            </button>
+            {isPending ? (
+              <ThreeDots
+                color="#28A745"
+                ariaLabel="three"
+                height={45}
+                visible={isPending}
+                wrapperClass="block w-full m-auto mt-10 py-4 text-center flex justify-center"
+              />
+            ) : (
+              <button
+                type="submit"
+                className="block w-full bg-[#28A745] rounded-md mt-10 py-4 text-white "
+              >
+                ارسال کد تایید
+              </button>
+            )}
           </div>
         </form>
       </div>

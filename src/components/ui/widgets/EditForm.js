@@ -6,7 +6,7 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { BankInfoSchema, PersonalInfoSchema } from "@/schema/index";
@@ -21,17 +21,16 @@ const EditForm = ({
   state,
   onChange,
   section,
-  setPersonalInfo
 }) => {
   const schema = section === "personal" ? PersonalInfoSchema : BankInfoSchema;
-  const { register, handleSubmit , formState : {errors} } = useForm({
+  const {control , register, handleSubmit , formState : {errors} } = useForm({
     resolver: yupResolver(schema),
   });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} onChange={onChange}>
       <div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 gap-y-5 mt-10 md:mt-4 md:border-b pb-5"
+        className="grid grid-cols-1 md:grid-cols-2 px-5 lg:grid-cols-3 gap-7 gap-y-5 mt-10 md:mt-4 md:border-b pb-5"
       >
         {fields.map(({ label, name, type }) => {
           if (name === "gender") {
@@ -59,19 +58,19 @@ const EditForm = ({
            return (
             <div className="flex items-center border   col-span-full lg:col-auto rounded px-3 justify-center  lg:justify-start">
             <IoCalendarOutline className="mb-1" />
-            <DatePicker
-            round="x2"
-            accentColor="#28A745"
-            inputClass="focus:outline-none px-2   placeholder-[#2C2C2C]"
-            inputAttributes={{ placeholder: label }}
-            value={state[name]}
-            name={name}
-            onChange={(e)=>setPersonalInfo((prevState) => ({
-              ...prevState,
-              birthDate: DateToIso(e.value),
-            }))}
-            
-          />
+           <Controller
+                control={control}
+                name="birthDate"
+                render={({ field: { onChange } }) => (
+                  <DatePicker
+                    inputAttributes={{ placeholder: "تاریخ تولد" }}
+                    round="x2"
+                    accentColor="#28A745"
+                    inputClass="focus:outline-none px-2   placeholder-[#2C2C2C]"
+                    onChange={(e) => onChange(new Date(e.value))}
+                  />
+                )}
+              />
           </div>
            
            )
@@ -92,7 +91,7 @@ const EditForm = ({
           );
         })}
       </div>
-      <div className="flex justify-end mt-2 ">
+      <div className="flex justify-end mt-2 px-5">
         <button
           className="mx-2  bg-[#28A745] rounded-[5px] w-full md:w-36 h-10 text-white text-base font-normal"
           type="submit"

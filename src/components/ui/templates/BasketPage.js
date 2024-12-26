@@ -1,14 +1,12 @@
 "use client";
 import { PersonalInfoSchema } from "@/schema/index";
 import { useFinalizeOrder } from "@/services/mutations";
-import { DateToIso } from "@/utils/helper";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { IoCalendarOutline } from "react-icons/io5";
-import { PiCodaLogoFill } from "react-icons/pi";
 import { TbUserFilled } from "react-icons/tb";
 import { DatePicker } from "zaman";
 
@@ -63,19 +61,19 @@ function BasketPage({ data }) {
           <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-7 mt-5 justify-center">
             <div>
               <input
-                className="border border-[#00000080] w-[262px] h-[50px] rounded-[5px] px-2"
+                className={`border border-[#00000080] w-[262px] h-[50px] rounded-[5px] px-2 ${errors?.fullName && "border border-[#d32f2f]"}`}
                 type="text"
                 name="fullName"
                 placeholder="نام و نام خانوادگی"
                 {...register("fullName")}
               />
               <p className="text-[#d32f2f] font-normal m-1 mx-2">
-                {errors.name?.message}
+                {errors.fullName?.message}
               </p>
             </div>
             <div>
               <input
-                className="border border-[#00000080] w-[262px] h-[50px] rounded-[5px] px-2"
+                className={`border border-[#00000080] w-[262px] h-[50px] rounded-[5px] px-2 ${errors?.nationalCode && "border border-[#d32f2f]"}`}
                 type="text"
                 name="nationalCode"
                 placeholder="کد ملی"
@@ -97,7 +95,7 @@ function BasketPage({ data }) {
                     round="x2"
                     accentColor="#28A745"
                     inputClass="focus:outline-none px-2   placeholder-[#2C2C2C]"
-                    onChange={(e) => onChange(new Date(e.value))}
+                    onChange={(e) => onChange({birthDate : e.value})}
                   />
                 )}
               />
@@ -105,7 +103,7 @@ function BasketPage({ data }) {
 
             <div>
               <input
-                className="border border-[#00000080] w-[262px] h-[50px] rounded-[5px] px-2"
+                className={`border border-[#00000080] w-[262px] h-[50px] rounded-[5px] px-2${errors?.gender && "border border-[#d32f2f]"}`}
                 type="text"
                 placeholder="جنسیت"
                 name="gender"
