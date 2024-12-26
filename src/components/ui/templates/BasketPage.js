@@ -1,4 +1,6 @@
 "use client";
+import SelectInput from "@/elements/SelectInput";
+import TextInput from "@/elements/TextInput";
 import { PersonalInfoSchema } from "@/schema/index";
 import { useFinalizeOrder } from "@/services/mutations";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -53,36 +55,15 @@ function BasketPage({ data }) {
         onSubmit={handleSubmit(submitHandler)}
         onChange={changeHandler}
       >
-        <div className=" bg-white  py-7 px-5 border rounded-[10px] border-[#00000033] lg:border-none  mb-10 lg:mb-0">
+        <div className=" bg-white  py-7 px-5 border md:w-[865px] rounded-[10px] border-[#00000033] lg:border-none  mb-10 lg:mb-0">
           <h1 className="flex gap-3">
             <TbUserFilled />
             مشخصات مسافر
           </h1>
-          <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-7 mt-5 justify-center">
-            <div>
-              <input
-                className={`border border-[#00000080] w-[262px] h-[50px] rounded-[5px] px-2 ${errors?.fullName && "border border-[#d32f2f]"}`}
-                type="text"
-                name="fullName"
-                placeholder="نام و نام خانوادگی"
-                {...register("fullName")}
-              />
-              <p className="text-[#d32f2f] font-normal m-1 mx-2">
-                {errors.fullName?.message}
-              </p>
-            </div>
-            <div>
-              <input
-                className={`border border-[#00000080] w-[262px] h-[50px] rounded-[5px] px-2 ${errors?.nationalCode && "border border-[#d32f2f]"}`}
-                type="text"
-                name="nationalCode"
-                placeholder="کد ملی"
-                {...register("nationalCode")}
-              />
-              <p className="text-[#d32f2f] font-normal m-1 mx-2">
-                {errors.nationalCode?.message}
-              </p>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 mt-5 justify-center">
+          <TextInput name="fullName" label = "نام و نام خانوادگی" value = {formData.fullName} errors = {errors} register= {register} />
+          <TextInput name="nationalCode" label = "کد ملی" value = {formData.nationalCode} errors = {errors} register= {register} />
+            
             <div className="flex items-center border rounded px-3 h-[50px] ">
               <IoCalendarOutline className="mb-1" />
 
@@ -100,19 +81,13 @@ function BasketPage({ data }) {
                 )}
               />
             </div>
-
-            <div>
-              <input
-                className={`border border-[#00000080] w-[262px] h-[50px] rounded-[5px] px-2${errors?.gender && "border border-[#d32f2f]"}`}
-                type="text"
-                placeholder="جنسیت"
+            <SelectInput
                 name="gender"
-                {...register("gender")}
+                value={formData.gender}
+                label="جنسیت"
+                control={control}
+                errors={errors}
               />
-              <p className="text-[#d32f2f] font-normal m-1 mx-2">
-                {errors.gender?.message}
-              </p>
-            </div>
           </div>
         </div>
 

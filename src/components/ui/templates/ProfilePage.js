@@ -33,6 +33,7 @@ function ProfilePage() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(emailSchema),
@@ -50,8 +51,11 @@ function ProfilePage() {
         debitCard_code: data.data.payment?.debitCard_code || "",
         accountIdentifier: data.data.payment?.accountIdentifier || "",
       });
+      setValue('gender', data.data.gender);
+      setValue('birthDate', data.data.birthDate);
     }
-  }, [data]);
+  }, [data , setValue]);
+
   const personalChageHandler = (event) => {
     const { name, value } = event.target;
     setPersonalInfo((prevState) => ({
@@ -59,6 +63,7 @@ function ProfilePage() {
       [name]: value,
     }));
   };
+  
   const { mutate } = useUpdateEmail();
   const updateEmailHandler = (email) => {
     mutate(email, {
