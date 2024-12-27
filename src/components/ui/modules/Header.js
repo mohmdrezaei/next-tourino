@@ -8,7 +8,7 @@ import Link from "next/link";
 import { e2p } from "@/utils/numbers";
 import { useGetUser } from "@/services/queries";
 import { deleteCookie } from "@/utils/cookie";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Box, Drawer } from "@mui/material";
 
 import { TbUserFilled } from "react-icons/tb";
@@ -24,6 +24,7 @@ import { HiOutlinePhone } from "react-icons/hi2";
 
 
 function Header() {
+  const currentPath = usePathname();
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [drawer, setDrawer] = useState(false);
@@ -57,7 +58,7 @@ const closeHandler = ()=>{
     deleteCookie("refreshToken");
     router.replace("/");
     setIsOpen(false)
-     
+     refetch()
   };
 
   
@@ -86,21 +87,21 @@ const closeHandler = ()=>{
               onClick={toggleDrawer(false)}
             >
               <div className="pt-7 px-3">
-                <div className="flex gap-2 mb-7  text-base">
+                <div className={`flex gap-2 mb-7  text-base ${currentPath === "/" ? "text-[#28A745]" : ""}`}>
                  <RiHome6Fill />
-                  <Link className="font-normal " href="/">صفحه اصلی</Link>
+                  <Link className="font-normal  " href="/">صفحه اصلی</Link>
                 </div>
                 <div className="flex gap-2 mb-7  text-base">
                  <PiAirplane  />
-                  <Link className="font-normal " href="/">خدمات گردشگری</Link>
+                  <Link className="font-normal " href="#">خدمات گردشگری</Link>
                 </div>
                 <div className="flex gap-2 mb-7  text-base">
                  <CiVolumeHigh />
-                  <Link className="font-normal " href="/">درباره ما</Link>
+                  <Link className="font-normal " href="#">درباره ما</Link>
                 </div>
                 <div className="flex gap-2 mb-7  text-base">
                  <HiOutlinePhone />
-                  <Link className="font-normal " href="/">تماس با ما</Link>
+                  <Link className="font-normal " href="#">تماس با ما</Link>
                 </div>
               </div>
             </Box>
@@ -108,7 +109,7 @@ const closeHandler = ()=>{
 
           <ul className=" gap-16 font-normal hidden md:flex">
             <li>
-              <Link  href="/">صفحه اصلی</Link>
+              <Link className={`font-normal ${currentPath === "/" ? "text-[#28A745]" : ""}`}  href="/">صفحه اصلی</Link>
             </li>
             <li>
               <Link href="/">خدمات گردشگری</Link>
