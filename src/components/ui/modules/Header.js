@@ -21,9 +21,11 @@ import { LuMenu } from "react-icons/lu";
 import { PiAirplane  } from "react-icons/pi";
 import { CiVolumeHigh } from "react-icons/ci";
 import { HiOutlinePhone } from "react-icons/hi2";
+import { QueryClient } from "@tanstack/react-query";
 
 
 function Header() {
+  
   const currentPath = usePathname();
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,7 +34,7 @@ function Header() {
   const [mobile, setMobile] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const { data, isPending ,refetch} = useGetUser();
+  const { data, isPending } = useGetUser();
 const closeHandler = ()=>{
   setIsOpen("")
 }
@@ -58,7 +60,8 @@ const closeHandler = ()=>{
     deleteCookie("refreshToken");
     router.replace("/");
     setIsOpen(false)
-     refetch()
+    setIsLoggedIn(false)
+     
   };
 
   
@@ -124,7 +127,7 @@ const closeHandler = ()=>{
           </ul>
         </div>
 
-        {data?.data ? (
+        {isLoggedIn ? (
           <>
             <button className="  gap-2 text-[#28A745] "></button>
             <div className="relative inline-block ">

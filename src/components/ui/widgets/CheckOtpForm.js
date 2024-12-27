@@ -35,6 +35,7 @@ function CheckOtpForm({ mobile, setStep, closeModal, setIsLoggedIn }) {
         onSuccess: (data) => {
           closeModal();
           setIsLoggedIn(true);
+          setStep(1)
         },
         onError: (error) => {
           console.log(error);
