@@ -25,7 +25,7 @@ function Footer() {
         </div>
         <div className="justify-items-end flex flex-row-reverse md:block gap-10">
         <div className="content-end">
-        <Image  src="/images/Torino.svg" width="146" height="44"/>
+        <Image  src="/images/Torino.svg" width="146" height="44" alt="logo"/>
         <p className="mt-6 text-[15px] font-normal">تلفن پشتیبانی :  {e2p("8574-021")} </p>
         </div>
         <div className="grid grid-cols-3 md:grid-cols-5 justify-center items-center mt-12 gap-2 md:gap-9 ">

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CheckOtpForm from "@/widgets/CheckOtpForm";
 import Modal from "src/components/partials/container/Modal";
 import SendOtpForm from "@/widgets/SendOtpForm";
@@ -7,8 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { e2p } from "@/utils/numbers";
 import { useGetUser } from "@/services/queries";
-import Loader from "@/elements/Loader";
-import { deleteCookie, getCookie } from "@/utils/cookie";
+import { deleteCookie } from "@/utils/cookie";
 import { useRouter } from "next/navigation";
 import { Box, Drawer } from "@mui/material";
 
@@ -23,6 +22,7 @@ import { PiAirplane  } from "react-icons/pi";
 import { CiVolumeHigh } from "react-icons/ci";
 import { HiOutlinePhone } from "react-icons/hi2";
 
+
 function Header() {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,20 +31,14 @@ function Header() {
   const [mobile, setMobile] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const { data, isPending } = useGetUser();
+  const { data, isPending ,refetch} = useGetUser();
 const closeHandler = ()=>{
   setIsOpen("")
 }
   const toggleDrawer = (newOpen) => () => {
     setDrawer(newOpen);
   };
-  useEffect(() => {
-    if (data?.data) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, [data]);
+  
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -63,6 +57,7 @@ const closeHandler = ()=>{
     deleteCookie("refreshToken");
     router.replace("/");
     setIsOpen(false)
+     
   };
 
   

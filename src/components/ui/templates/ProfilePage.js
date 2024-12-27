@@ -1,5 +1,4 @@
 "use client";
-
 import { PiPencilSimpleLine } from "react-icons/pi";
 import { useEffect, useState } from "react";
 import { useGetUser } from "@/services/queries";
@@ -7,12 +6,12 @@ import Loader from "@/elements/Loader";
 import { useUpdateEmail } from "@/services/mutations";
 import toast from "react-hot-toast";
 import EditForm from "@/widgets/EditForm";
-import { conversionToPersian } from "@/utils/convertPersian";
 import { e2p } from "@/utils/numbers";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { emailSchema } from "@/schema/index";
+import PersonalInfo from "@/widgets/PersonalInfo";
+import BankAccountInfo from "@/widgets/BankAccountInfo";
 
 function ProfilePage() {
   const [email, setEmail] = useState("");
@@ -201,35 +200,7 @@ function ProfilePage() {
             section="personal"
           />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-9 mt-5 text-sm px-5">
-            <div className="flex gap-5 justify-between sm:justify-start">
-              <p>نام و نام خانوادگی</p>
-              <span className=" font-medium ">
-                {data?.data?.fullName || "--"}
-              </span>
-            </div>
-            <div className="flex gap-5 justify-between sm:justify-start">
-              <p> کد ملی </p>
-              <span className="font-normal">
-                {e2p(data?.data?.nationalCode) || "--"}
-              </span>
-            </div>
-
-            <div className="flex gap-5 justify-between sm:justify-start">
-              <p>جنسیت</p>
-              <span className="font-medium">
-                {conversionToPersian(data?.data?.gender)}
-              </span>
-            </div>
-            <div className="flex gap-5 justify-between sm:justify-start">
-              <p>تاریخ تولد</p>
-              <span className="font-normal">
-                {data?.data?.birthDate
-                  ? new Date(data?.data?.birthDate).toLocaleDateString("fa-IR")
-                  : "--"}
-              </span>
-            </div>
-          </div>
+          <PersonalInfo data={data} />
         )}
       </div>
 
@@ -259,27 +230,7 @@ function ProfilePage() {
             section="account"
           />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-9 mt-5 text-sm px-5">
-            <div className="flex gap-5 justify-between sm:justify-start">
-              <p>شماره شبا</p>
-              <span className=" font-medium ">
-                {e2p(data.data.payment?.shaba_code) || "--"}
-              </span>
-            </div>
-            <div className="flex gap-5 justify-between sm:justify-start">
-              <p> شماره کارت </p>
-              <span className="font-normal">
-                {e2p(data?.data?.payment?.debitCard_code) || "--"}
-              </span>
-            </div>
-
-            <div className="flex gap-5  justify-between sm:justify-start">
-              <p>شماره حساب</p>
-              <span className="font-medium">
-                {e2p(data?.data?.payment?.accountIdentifier) || "--"}
-              </span>
-            </div>
-          </div>
+         <BankAccountInfo data={data} />
         )}
       </div>
     </div>

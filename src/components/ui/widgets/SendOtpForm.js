@@ -48,7 +48,7 @@ function SendOtpForm({ mobile, setMobile, setStep, onClose }) {
         <form onSubmit={submitHandler}>
           <div className="mt-12">
             <label
-              for="large-input"
+              htmlFor="large-input"
               className="block mb-2 text-base font-light text-gray-900 dark:text-white"
             >
               شماره موبایل خود را وارد کنید

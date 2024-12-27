@@ -7,7 +7,9 @@ import { useFinalizeOrder } from "@/services/mutations";
 import { useGetBasket, useGetUser } from "@/services/queries";
 import { conversionToPersian } from "@/utils/convertPersian";
 import { e2p } from "@/utils/numbers";
+import PersonalInfo from "@/widgets/PersonalInfo";
 import { yupResolver } from "@hookform/resolvers/yup";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -25,7 +27,7 @@ function BasketPage() {
   });
   const { data, isPending } = useGetBasket();
   const { data : userData } = useGetUser();
-  console.log(data)
+  
   const {
     control,
     register,
@@ -59,7 +61,15 @@ function BasketPage() {
   if(isPending) return <Loader/>
   return (
     <div className="   lg:bg-[#F3F3F3] h-[750px] md:h-[650px] z-10 py-16 px-7 ">
-      <form
+      {!data ?  (
+<div className="bg-white w-full m-auto h-[200px] flex flex-col justify-center items-center  py-7 px-5 border md:w-[865px] rounded-[10px] border-[#00000033] lg:border-none  mb-10 lg:mb-0">
+ <h3 className="text-2xl font-normal">سبد خرید شما خالی است!</h3>
+ <button className="text-[#28A745] text-lg bg-[#D8FFE1] px-10 py-3 rounded-2xl  mt-7">
+          <Link href="/" className="font-normal">بازگشت به صفحه اصلی</Link>
+        </button>
+</div>
+      ): (
+        <form
         className="lg:flex gap-3  h-auto justify-center"
         onSubmit={handleSubmit(submitHandler)}
         onChange={changeHandler}
@@ -70,36 +80,7 @@ function BasketPage() {
             مشخصات مسافر
           </h1>
         {userData?.data?.fullName && userData?.data?.gender  ? (
-         
-         <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-9 mt-5 text-sm px-5">
-         <div className="flex gap-5 justify-between sm:justify-start">
-           <p>نام و نام خانوادگی</p>
-           <span className=" font-medium ">
-             {userData?.data?.fullName || "--"}
-           </span>
-         </div>
-         <div className="flex gap-5 justify-between sm:justify-start">
-           <p> کد ملی </p>
-           <span className="font-normal">
-             {e2p(userData?.data?.nationalCode) || "--"}
-           </span>
-         </div>
-
-         <div className="flex gap-5 justify-between sm:justify-start">
-           <p>جنسیت</p>
-           <span className="font-medium">
-             {conversionToPersian(userData?.data?.gender)}
-           </span>
-         </div>
-         <div className="flex gap-5 justify-between sm:justify-start">
-           <p>تاریخ تولد</p>
-           <span className="font-normal">
-             {userData?.data?.birthDate
-               ? new Date(userData?.data?.birthDate).toLocaleDateString("fa-IR")
-               : "--"}
-           </span>
-         </div>
-       </div>
+         <PersonalInfo data={userData} />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 mt-5 justify-center">
           <TextInput name="fullName" label = "نام و نام خانوادگی" value = {formData.fullName} errors = {errors} register= {register} />
@@ -156,6 +137,8 @@ function BasketPage() {
           </button>
         </div>
       </form>
+      )}
+      
     </div>
   );
 }

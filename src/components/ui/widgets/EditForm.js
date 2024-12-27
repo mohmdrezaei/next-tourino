@@ -23,7 +23,7 @@ const EditForm = ({ fields, onSubmit, onCancel, state, onChange, section }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} onChange={onChange}>
       <div className="grid grid-cols-1 md:grid-cols-2 px-5 lg:grid-cols-3 gap-7 gap-y-5 mt-10 md:mt-4 md:border-b pb-5">
-        {fields.map(({ label, name, type }) => {
+        {fields.map(({ label, name, type  }) => {
           if (name === "gender") {
             return (
               <SelectInput
@@ -38,23 +38,30 @@ const EditForm = ({ fields, onSubmit, onCancel, state, onChange, section }) => {
           }
           if (type === "date") {
             return (
-              <div className="flex items-center border   col-span-full lg:col-auto rounded px-3 justify-center  lg:justify-start">
+              <div key={name} className={`flex items-center border border-gray-300 h-[57px]   col-span-full lg:col-auto rounded px-3 justify-center  lg:justify-start ${errors.birthDate && "border-red-700"}`}>
                 <IoCalendarOutline className="mb-1" />
                 <Controller
                   control={control}
                   name="birthDate"
-                  value={state[name]}
-                  render={({ field: { onChange } }) => (
+                  defaultValue=""
+                  render={({ field }) => (
                     <DatePicker
                       inputAttributes={{ placeholder: "تاریخ تولد" }}
                       round="x2"
+                      value={field.value}
                       accentColor="#28A745"
+                      {...field}
                       inputClass="focus:outline-none px-2   placeholder-[#2C2C2C]"
-                      onChange={(e) => onChange(new Date(e.value))}
+                      onChange={(e) => field.onChange(new Date(e.value))}
                     />
                   )}
                 />
+                 {errors.birthDate && (
+                  <p className="text-[#d32f2f] text-sm mt-2">{errors.birthDate.message}</p>
+                )}
+             
               </div>
+              
             );
           }
           return (

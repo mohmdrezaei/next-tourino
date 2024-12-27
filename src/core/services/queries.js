@@ -5,12 +5,12 @@ import QueryString from "qs";
 const useGetUser = () => {
   const queryFn = () => api.get("/user/profile");
   const queryKey = ["user"];
-  const { data, error, isPending } = useQuery({
+  const { data, error, isPending , refetch } = useQuery({
     queryKey,
     queryFn,
   });
 
-  return { data, error, isPending };
+  return { data, error, isPending ,refetch};
 };
 
 const useGetBasket = () => {

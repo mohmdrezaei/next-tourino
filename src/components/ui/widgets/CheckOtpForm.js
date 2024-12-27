@@ -55,7 +55,7 @@ function CheckOtpForm({ mobile, setStep, closeModal, setIsLoggedIn }) {
         },
       }
     );
-    setTimeLeft(85); // Reset the timer
+    setTimeLeft(85); 
   };
 
   const formatTime = (seconds) => {
@@ -80,8 +80,8 @@ function CheckOtpForm({ mobile, setStep, closeModal, setIsLoggedIn }) {
         <form onSubmit={submitHandler}>
           <div className="mt-3 ">
             <label
-              for="large-input"
-              class="block mb-2 text-base font-light text-gray-900 dark:text-white"
+              htmlFor="large-input"
+              className="block mb-2 text-base font-light text-gray-900 dark:text-white"
             >
               کد تایید به شماره {mobile} ارسال شد
             </label>

@@ -13,9 +13,9 @@ if (isPending) return <Loader />;
    
   return (
     <div className="h-auto  border border-[#00000033] rounded-[10px] py-3 px-4">
-      {data.data.length ? (
-        data.data.map(tour=> (
-          <div className="h-auto lg:h-[168px] w-full mb-5 border border-[#00000033] rounded-[10px] text-sm">
+      {data?.data?.length ? (
+        data?.data?.map(tour=> (
+          <div key={tour.id} className="h-auto lg:h-[168px] w-full mb-5 border border-[#00000033] rounded-[10px] text-sm">
           <div className="grid grid-cols-2 lg:grid-cols-3 p-4 gap-y-7  pb-5">
             <p className="flex gap-3 items-center text-sm font-normal">
               <PiSunHorizonLight className="text-[22px] " />

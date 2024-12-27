@@ -6,7 +6,7 @@ async function TourDetails({ params }) {
     { cache: "no-store" }
   );
   const data = await tour.json();
-  return <TourDetailsPage tour={data} />;
+  return <TourDetailsPage tour={data} id = {tour.id} />;
 }
 
 export default TourDetails;

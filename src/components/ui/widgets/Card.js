@@ -10,20 +10,20 @@ function Card({ tour }) {
  
   return (
     <div
-      class="w-auto md:w-[278px] bg-white border border-[#0000001F] drop-shadow-sm rounded-[10px] "
+      className="w-auto md:w-[278px] bg-white border border-[#0000001F] drop-shadow-sm rounded-[10px] "
     >
       <img
-        class="rounded-t-lg w-full h-auto"
+        className="rounded-t-lg w-full h-auto"
         src={tour.image}
         alt={tour.title}
         
         height="159"
       />
-      <div class="px-5 pt-3 border border-b-[#D9D9D9]">
-          <h5 class="mb-2 text-[27px] font-normal tracking-tight text-gray-900 dark:text-white">
+      <div className="px-5 pt-3 border border-b-[#D9D9D9]">
+          <h5 className="mb-2 text-[27px] font-normal tracking-tight text-gray-900 dark:text-white">
             {tour.title}
           </h5>
-        <p class="mb-3  w-63 whitespace-nowrap text-ellipsis overflow-hidden">
+        <p className="mb-3  w-63 whitespace-nowrap text-ellipsis overflow-hidden">
          {tour.options.map((option , index) =>(
           <span key={index} className=" text-[#282828B2]">{option}،</span>
          ))}
