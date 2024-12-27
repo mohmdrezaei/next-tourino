@@ -64,8 +64,9 @@ const closeHandler = ()=>{
   
 
   return (
-    <div className=" pt-5 md:py-5 md:shadow-md z-20  ">
-      <header className="flex  items-center justify-between px-5 md:w-auto m-auto  xl:w-[1200px] ">
+    <div className="relative h-[70px]">
+    <div className=" pt-5 md:py-5 shadow-sm z-20  bg-white fixed  w-full xl:w-[1440px] overflow-x-hidden">
+      <header className="flex  items-center justify-between px-5 md:w-auto m-auto pb-2  xl:w-[1200px] ">
         <div className="flex items-center gap-20 ">
           <Image
             width="146"
@@ -112,13 +113,13 @@ const closeHandler = ()=>{
               <Link className={`font-normal ${currentPath === "/" ? "text-[#28A745]" : ""}`}  href="/">صفحه اصلی</Link>
             </li>
             <li>
-              <Link href="/">خدمات گردشگری</Link>
+              <Link className="font-normal" href="/">خدمات گردشگری</Link>
             </li>
             <li>
-              <Link href="/"> درباره ما</Link>
+              <Link className="font-normal" href="/"> درباره ما</Link>
             </li>
             <li>
-              <Link href="/"> تماس با ما</Link>
+              <Link className="font-normal" href="/"> تماس با ما</Link>
             </li>
           </ul>
         </div>
@@ -206,6 +207,7 @@ const closeHandler = ()=>{
           )}
         </Modal>
       </header>
+    </div>
     </div>
   );
 }

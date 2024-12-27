@@ -60,7 +60,7 @@ function HomePage({ data }) {
   return (
     <div className=" ">
       <Image
-        className="w-full mt-3"
+        className="w-full "
         src="/images/landing.svg"
         width="1440"
         height="350"
