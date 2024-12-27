@@ -47,7 +47,7 @@ function BasketPage() {
   const {mutate } = useFinalizeOrder();
   const submitHandler = (form) => {
     const { fullName, nationalCode , birthDate , gender } = userData.data;
-    const data = fullName && gender ? { fullName, nationalCode , birthDate , gender }: form
+    const data = fullName && gender  ? { fullName, nationalCode , birthDate , gender }: form
     mutate(data, {
       onSuccess: (data) => {
         router.push("/");
@@ -57,6 +57,7 @@ function BasketPage() {
         toast.error("مشکلی پیش آمده است!");
       },
     });
+    
   };
   if(isPending) return <Loader/>
   return (
@@ -86,23 +87,25 @@ function BasketPage() {
           <TextInput name="fullName" label = "نام و نام خانوادگی" value = {formData.fullName} errors = {errors} register= {register} />
           <TextInput name="nationalCode" label = "کد ملی" value = {formData.nationalCode} errors = {errors} register= {register} />
             
-            <div className="flex items-center border rounded px-3 h-[50px] ">
-              <IoCalendarOutline className="mb-1" />
-
-              <Controller
-                control={control}
-                name="birthDate"
-                render={({ field: { onChange } }) => (
-                  <DatePicker
-                    inputAttributes={{ placeholder: "تاریخ تولد" }}
-                    round="x2"
-                    accentColor="#28A745"
-                    inputClass="focus:outline-none px-2   placeholder-[#2C2C2C]"
-                    onChange={(e) => onChange({birthDate : e.value})}
-                  />
-                )}
-              />
-            </div>
+          <div  className={`flex items-center border border-gray-300 h-[57px]   col-span-full lg:col-auto rounded px-3 justify-center  lg:justify-start ${errors.birthDate && "border-red-700"}`}>
+                <IoCalendarOutline className="mb-1" />
+                <Controller
+                  control={control}
+                  name="birthDate"
+                  defaultValue=""
+                  render={({ field }) => (
+                    <DatePicker
+                      inputAttributes={{ placeholder: "تاریخ تولد" }}
+                      round="x2"
+                      value={field.value}
+                      accentColor="#28A745"
+                      {...field}
+                      inputClass="focus:outline-none px-2   placeholder-[#2C2C2C]"
+                      onChange={(e) => field.onChange(new Date(e.value))}
+                    />
+                  )}
+                />
+              </div>
             <SelectInput
                 name="gender"
                 value={formData.gender}
@@ -129,7 +132,7 @@ function BasketPage() {
             </p>
           </div>
           <button
-          onClick={submitHandler}
+          onClick={userData?.data?.fullName && userData?.data?.gender ? submitHandler : null}
             type="submit"
             className="bg-[#28A745] text-white text-2xl rounded-[10px] py-3 px-12 w-full mt-6"
           >

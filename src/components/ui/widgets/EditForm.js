@@ -56,10 +56,6 @@ const EditForm = ({ fields, onSubmit, onCancel, state, onChange, section }) => {
                     />
                   )}
                 />
-                 {errors.birthDate && (
-                  <p className="text-[#d32f2f] text-sm mt-2">{errors.birthDate.message}</p>
-                )}
-             
               </div>
               
             );

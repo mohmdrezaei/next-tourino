@@ -1,10 +1,10 @@
 
-import { object, string , date  } from 'yup';
+import { object, string   } from 'yup';
  const PersonalInfoSchema = object({
     fullName: string().required("نام و نام خانوادگی الزامی است"),
     nationalCode: string().required("کد ملی الزامی است"),
     gender: string().required("جنسیت الزامی است"),
-    birthDate: date().required("تاریخ تولد را وارد کنید"),
+    birthDate: string().required("تاریخ تولد را وارد کنید"),
   });
   
   const BankInfoSchema = object({
