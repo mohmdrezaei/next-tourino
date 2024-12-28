@@ -1,40 +1,19 @@
 "use client";
+import { useRouter,  } from "next/navigation";
+import { useEffect, useState } from "react";
 import { e2p } from "@/utils/numbers";
 import Card from "@/widgets/Card";
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { DatePicker } from "zaman";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/effect-cards";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-
-import { EffectCards, Pagination, Navigation } from "swiper/modules";
 
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaQuestion } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
-import { FaArrowRight } from "react-icons/fa6";
-import { FaArrowLeft } from "react-icons/fa6";
-import { SlLocationPin } from "react-icons/sl";
-import { TbWorldSearch } from "react-icons/tb";
-import { IoCalendarOutline } from "react-icons/io5";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import SearchFrom from "@/widgets/SearchForm";
-
+import Slider from "@/modules/Slider";
 
 function HomePage({ data }) {
-  const router = useRouter();
-
-
-
   const [visibleItems, setVisibleItems] = useState(4);
   const [isMobile, setIsMobile] = useState(false);
-
-  
 
   useEffect(() => {
     const handleResize = () => {
@@ -53,9 +32,7 @@ function HomePage({ data }) {
     setVisibleItems(visibleItems + 3);
   };
 
-  const itemsToShow = isMobile
-    ? data.slice(0, visibleItems)
-    : data;
+  const itemsToShow = isMobile ? data.slice(0, visibleItems) : data;
 
   return (
     <div className=" ">
@@ -167,68 +144,7 @@ function HomePage({ data }) {
           </div>
 
           <div className="mt-5">
-            <Swiper
-              effect={"cards"}
-              grabCursor={true}
-              modules={[EffectCards, Pagination, Navigation]}
-              className="mySwiper"
-              loop={true}
-              pagination={{
-                type: "fraction",
-                el: ".custom-pagination",
-              }}
-              navigation={{
-                nextEl: ".custom-next",
-                prevEl: ".custom-prev",
-              }}
-            >
-              <div className="custom-navigation flex justify-center gap-2 mt-4 w-[120px] m-auto">
-                <button className="custom-next text-[#10411B]">
-                  <FaArrowRight />
-                </button>
-                <div className="custom-pagination text-center mt-2 w-[120px] m-auto text-blue-600"></div>
-
-                <button className="custom-prev text-[#10411B]">
-                  <FaArrowLeft />
-                </button>
-              </div>
-              <SwiperSlide>
-                <Image
-                  src="/images/slide1.svg"
-                  height="479"
-                  width="389"
-                  className="w-[479px]"
-                  alt="slide1"
-                />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Image
-                  src="/images/slide2.svg"
-                  height="479"
-                  width="389"
-                  className="w-[479px]"
-                  alt="slide2"
-                />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Image
-                  src="/images/slide3.svg"
-                  height="479"
-                  width="389"
-                  className="w-[479px]"
-                  alt="slide3"
-                />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Image
-                  src="/images/slide4.svg"
-                  height="479"
-                  width="389"
-                  className="w-[479px]"
-                  alt="slide4"
-                />
-              </SwiperSlide>
-            </Swiper>
+           <Slider />
           </div>
         </div>
       </div>
