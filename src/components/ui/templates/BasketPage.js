@@ -49,7 +49,7 @@ function BasketPage() {
     const data = fullName && gender  ? { fullName, nationalCode , birthDate , gender }: form
     mutate(data, {
       onSuccess: (data) => {
-        router.push("/");
+        router.push("/profile/tours");
         toast.success(data?.data?.message);
       },
       onError: () => {
