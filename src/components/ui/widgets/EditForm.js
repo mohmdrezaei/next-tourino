@@ -1,13 +1,12 @@
 "use client";
 
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { BankInfoSchema, PersonalInfoSchema } from "@/schema/index";
-import { DatePicker } from "zaman";
-import { IoCalendarOutline } from "react-icons/io5";
 import TextInput from "@/elements/TextInput";
 import SelectInput from "@/elements/SelectInput";
+import DateInput from "@/elements/DateInput";
 
 const EditForm = ({ fields, onSubmit, onCancel, state, onChange, section }) => {
   const schema = section === "personal" ? PersonalInfoSchema : BankInfoSchema;
@@ -38,26 +37,7 @@ const EditForm = ({ fields, onSubmit, onCancel, state, onChange, section }) => {
           }
           if (type === "date") {
             return (
-              <div key={name} className={`flex items-center border border-gray-300 h-[57px]   col-span-full lg:col-auto rounded px-3 justify-center  lg:justify-start ${errors.birthDate && "border-red-700"}`}>
-                <IoCalendarOutline className="mb-1" />
-                <Controller
-                  control={control}
-                  name="birthDate"
-                  defaultValue=""
-                  render={({ field }) => (
-                    <DatePicker
-                      inputAttributes={{ placeholder: "تاریخ تولد" }}
-                      round="x2"
-                      value={field.value}
-                      accentColor="#28A745"
-                      {...field}
-                      inputClass="focus:outline-none px-2   placeholder-[#2C2C2C]"
-                      onChange={(e) => field.onChange(new Date(e.value))}
-                    />
-                  )}
-                />
-              </div>
-              
+             <DateInput key={name} control={control} errors={errors} />
             );
           }
           return (

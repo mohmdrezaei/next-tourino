@@ -1,5 +1,5 @@
 
-import { object, string   } from 'yup';
+import { object, string  } from 'yup';
  const PersonalInfoSchema = object({
     fullName: string().required("نام و نام خانوادگی الزامی است"),
     nationalCode: string().required("کد ملی الزامی است"),

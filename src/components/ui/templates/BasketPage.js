@@ -1,22 +1,21 @@
 "use client";
+import DateInput from "@/elements/DateInput";
 import Loader from "@/elements/Loader";
 import SelectInput from "@/elements/SelectInput";
 import TextInput from "@/elements/TextInput";
 import { PersonalInfoSchema } from "@/schema/index";
 import { useFinalizeOrder } from "@/services/mutations";
 import { useGetBasket, useGetUser } from "@/services/queries";
-import { conversionToPersian } from "@/utils/convertPersian";
-import { e2p } from "@/utils/numbers";
 import PersonalInfo from "@/widgets/PersonalInfo";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { IoCalendarOutline } from "react-icons/io5";
+
 import { TbUserFilled } from "react-icons/tb";
-import { DatePicker } from "zaman";
+
 
 function BasketPage() {
   const [formData, setFormData] = useState({
@@ -87,25 +86,7 @@ function BasketPage() {
           <TextInput name="fullName" label = "نام و نام خانوادگی" value = {formData.fullName} errors = {errors} register= {register} />
           <TextInput name="nationalCode" label = "کد ملی" value = {formData.nationalCode} errors = {errors} register= {register} />
             
-          <div  className={`flex items-center border border-gray-300 h-[57px]   col-span-full lg:col-auto rounded px-3 justify-center  lg:justify-start ${errors.birthDate && "border-red-700"}`}>
-                <IoCalendarOutline className="mb-1" />
-                <Controller
-                  control={control}
-                  name="birthDate"
-                  defaultValue=""
-                  render={({ field }) => (
-                    <DatePicker
-                      inputAttributes={{ placeholder: "تاریخ تولد" }}
-                      round="x2"
-                      value={field.value}
-                      accentColor="#28A745"
-                      {...field}
-                      inputClass="focus:outline-none px-2   placeholder-[#2C2C2C]"
-                      onChange={(e) => field.onChange(new Date(e.value))}
-                    />
-                  )}
-                />
-              </div>
+          <DateInput control={control} errors={errors} />
             <SelectInput
                 name="gender"
                 value={formData.gender}
