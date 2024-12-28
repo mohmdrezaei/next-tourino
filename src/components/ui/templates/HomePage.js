@@ -116,7 +116,7 @@ function HomePage({ data }) {
           </div>
         </div>
 
-        <div className="md:flex gap-28 mt-20 md:mt-40">
+        <div className="md:flex gap-44 mt-20 md:mt-40">
           <div>
             <div className="flex gap-4 items-center">
               <div className="bg-gradient-to-tr from-[#10411B]  to-[#28A745] w-8 h-9 md:h-[65px] md:w-[65px]  text-white rounded-full text-bse md:text-4xl font-bold flex justify-center items-center">
