@@ -7,6 +7,8 @@ const customStyles = {
     border: "none",
     borderRadius: "8px",
     boxShadow: state.isFocused ? "none" : provided.boxShadow,
+    fontSize :"18px",
+    fontWeight :"bold"
   }),
   menu: (provided) => ({ ...provided, borderRadius: "8px" }),
   option: (provided, state) => ({
@@ -17,7 +19,7 @@ const customStyles = {
   }),
   indicatorsContainer: (provided) => ({ ...provided, display: "none" }),
   dropdownIndicator: (provided) => ({ ...provided, display: "none" }),
-  placeholder: (provided) => ({ ...provided, color: "#000" }),
+  placeholder: (provided) => ({ ...provided, color: "#2C2C2C" }),
 };
 
 

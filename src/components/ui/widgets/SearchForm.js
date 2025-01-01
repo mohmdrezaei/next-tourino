@@ -65,12 +65,12 @@ function SearchFrom() {
         <Controller
           control={control}
           name="date"
+          defaultValue=""
           render={({ field: { onChange, value } }) => (
             <DatePicker
-              defaultValue={value}
               round="x2"
               accentColor="#28A745"
-              inputClass="focus:outline-none px-2  placeholder-[#2C2C2C]"
+              inputClass="focus:outline-none px-2  placeholder-[#2C2C2C] placeholder:text-lg"
               inputAttributes={{ placeholder: "تاریخ" }}
               onChange={(e) =>
                 onChange({
