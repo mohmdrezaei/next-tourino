@@ -12,6 +12,9 @@ import { SlLocationPin } from "react-icons/sl";
 import { useRouter } from "next/navigation";
 import useQuery from "@/hooks/query";
 import QueryString from "qs";
+import ReactSelect from "@/elements/ReactSelect";
+import { destinationOptions, originOptions } from "src/core/constants/searchOptions";
+
 
 function SearchFrom() {
   const [query, setQuery] = useState("");
@@ -30,9 +33,9 @@ function SearchFrom() {
       reset({
         originId,
         destinationId,
-       startDate: new Date(startDate), endDate: new Date(endDate) 
+        startDate: new Date(startDate),
+        endDate: new Date(endDate),
       });
-      
   }, []);
 
   const submitHandler = (form) => {
@@ -46,36 +49,16 @@ function SearchFrom() {
       onSubmit={handleSubmit(submitHandler)}
       className="w-auto  h-auto lg:h-[71px] lg:w-[874px] grid  grid-cols-12  lg:grid-cols-4 p-3  gap-5 lg:border  mx-auto mt-7 rounded-[20px]"
     >
+      
       <div className="flex items-center col-span-6 p-4 justify-center  lg:justify-start lg:p-0 lg:col-auto border lg:border-0   rounded-xl w-full  bg-0">
         <SlLocationPin className="mb-1" />
-
-        <select
-          {...register("originId")}
-          className="appearance-none rounded-lg px-2 w-full  focus:outline-none "
-        >
-          <option value="">مبدا</option>
-          <option value="2">سنندج </option>
-          <option value="tabriz">تبریز</option>
-          <option value="4">اصفهان</option>
-          <option value="1">تهران</option>
-          <option value="shiraz">شیراز</option>
-        </select>
+        <ReactSelect control={control} placeholder="مبدا" name="originId" options={originOptions}  />
+       
       </div>
       <div className="flex items-center col-span-6 p-4 lg:p-0 lg:col-auto   border rounded-xl w-full lg:border-0 justify-center  lg:justify-start">
         <TbWorldSearch className="mb-1" />
-        <select
-          className="appearance-none  px-2 w-full  focus:outline-none "
-          {...register("destinationId")}
-        >
-          <option value="">مقصد</option>
-          <option value="3">مادرید</option>
-          <option value="2">سنندج </option>
-          <option value="5">سلیمانیه</option>
-          <option value="6">هولر</option>
-          <option value="7">مازندران</option>
-          <option value="8">مرکز آفرود</option>
-          <option value="9">ایتالیا</option>
-        </select>
+        <ReactSelect control={control} placeholder="مقصد" name="destinationId" options={destinationOptions} />
+        
       </div>
       <div className="flex items-center border lg:border-0 p-4 lg:p-0  col-span-full lg:col-auto rounded-xl justify-center  lg:justify-start">
         <IoCalendarOutline className="mb-1" />
