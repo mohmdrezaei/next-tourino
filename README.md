@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 # Project Demo
-https://next-tourino.vercel.app/
+[Online Tour Reservation Demo](https://next-tourino.vercel.app/)
 First, run the development server:
 
 ```bash
