@@ -1,8 +1,19 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 
-## Project Demo
+# Project Demo
 [Online Tour Reservation Demo](https://next-tourino.vercel.app/)
+
+## Introduction 
+This is a web application for online tour reservations. Users can browse available tours, make reservations, and manage their
+## Technologies used
+- Next.js
+- React Query
+- Tailwind CSS
+- Axios
+- React Hook Form
+- Yup
+Material UI
 ## Getting Started
 First, run the development server:
 
