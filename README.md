@@ -13,7 +13,7 @@ This is a web application for online tour reservations. Users can browse availab
 - Axios
 - React Hook Form
 - Yup
-Material UI
+- Material UI
 ## Getting Started
 First, run the development server:
 
