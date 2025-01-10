@@ -15,7 +15,8 @@ const useCheckOtp = () => {
   return useMutation({
     mutationFn,
     onSuccess: (data) => {
-      setCookie(data?.data);
+     // setCookie(data?.data);
+      console.log(data)
       queryClient.invalidateQueries({ queryKey: ["user"] });
     },
     onError: (error) => {
